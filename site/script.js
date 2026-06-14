@@ -13,7 +13,6 @@ const detectPlatform = () => {
 
 const platformTabs = document.querySelectorAll('.platform-tab');
 const platformPanels = document.querySelectorAll('.platform-panel');
-const platformDetectedMessage = document.getElementById('platform-detected-message');
 
 if (platformTabs.length > 0 && platformPanels.length > 0) {
   const selectPlatform = (platform) => {
@@ -33,12 +32,6 @@ if (platformTabs.length > 0 && platformPanels.length > 0) {
 
   const detectedPlatform = detectPlatform();
   selectPlatform(detectedPlatform);
-
-  if (platformDetectedMessage) {
-    platformDetectedMessage.textContent = detectedPlatform === 'windows'
-      ? 'Detected platform: Windows. Switch tabs anytime to preview macOS install options.'
-      : 'Detected platform: macOS. Switch tabs anytime to preview upcoming Windows installation details.';
-  }
 
   platformTabs.forEach((tab) => {
     tab.addEventListener('click', () => {
