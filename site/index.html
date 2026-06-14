@@ -149,28 +149,66 @@
           </div>
 
           <div class="platform-panel is-active" id="platform-panel-macos" role="tabpanel" aria-labelledby="platform-tab-macos" data-platform="macos">
-            <div class="install-grid">
-              <article class="install-card">
-                <h3>App Store</h3>
-                <p>Recommended for most users. Automatic updates and one-click install.</p>
-                <a class="btn btn-primary" href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Download on the App Store</a>
-              </article>
-              <article class="install-card">
-                <h3>Homebrew</h3>
-                <p>Great for terminal-first workflows and automation.</p>
-                <p class="install-command"><code>brew install --cask tiny-clips</code></p>
-                <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips#readme" target="_blank" rel="noopener noreferrer">See README details</a>
-              </article>
-              <article class="install-card">
-                <h3>TestFlight</h3>
-                <p>Get pre-release builds and help test upcoming improvements.</p>
-                <a class="btn btn-secondary" href="https://testflight.apple.com/join/rDaaX9CD" target="_blank" rel="noopener noreferrer">Join TestFlight</a>
-              </article>
-              <article class="install-card">
-                <h3>Manual download</h3>
-                <p>Download the latest build directly from GitHub Releases.</p>
-                <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips/releases/latest" target="_blank" rel="noopener noreferrer">Open latest release</a>
-              </article>
+            <div class="install-method-layout">
+              <div class="install-method-tabs" role="tablist" aria-label="Choose a macOS install method" aria-orientation="vertical">
+                <button class="install-method-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="install-method-panel-app-store" id="install-method-tab-app-store" data-install-method="app-store">App Store</button>
+                <button class="install-method-tab" type="button" role="tab" aria-selected="false" aria-controls="install-method-panel-homebrew" id="install-method-tab-homebrew" data-install-method="homebrew">Homebrew</button>
+                <button class="install-method-tab" type="button" role="tab" aria-selected="false" aria-controls="install-method-panel-testflight" id="install-method-tab-testflight" data-install-method="testflight">TestFlight</button>
+                <button class="install-method-tab" type="button" role="tab" aria-selected="false" aria-controls="install-method-panel-manual" id="install-method-tab-manual" data-install-method="manual">Manual download</button>
+              </div>
+
+              <div class="install-method-content">
+                <article class="install-method-panel is-active" id="install-method-panel-app-store" role="tabpanel" aria-labelledby="install-method-tab-app-store" data-install-method="app-store">
+                  <h3>Install from the App Store</h3>
+                  <p>Recommended for most users. You get one-click install with seamless update management.</p>
+                  <a class="btn btn-primary" href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Download on the App Store</a>
+                </article>
+
+                <article class="install-method-panel" id="install-method-panel-homebrew" role="tabpanel" aria-labelledby="install-method-tab-homebrew" data-install-method="homebrew" hidden>
+                  <h3>Install with Homebrew (full directions)</h3>
+                  <p>Perfect for terminal-first workflows and reproducible setup.</p>
+                  <ol class="install-steps">
+                    <li>
+                      <strong>Install Homebrew (if you don't already have it):</strong>
+                      <code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code>
+                    </li>
+                    <li>
+                      <strong>Finish Homebrew shell setup:</strong>
+                      <code>eval "$(/opt/homebrew/bin/brew shellenv)"</code>
+                      <span class="install-step-note">On Intel Macs, use <code>eval "$(/usr/local/bin/brew shellenv)"</code>.</span>
+                    </li>
+                    <li>
+                      <strong>Install Tiny Clips:</strong>
+                      <code>brew install --cask tiny-clips</code>
+                    </li>
+                    <li>
+                      <strong>Verify installation:</strong>
+                      <code>brew list --cask tiny-clips</code>
+                    </li>
+                    <li>
+                      <strong>Update later:</strong>
+                      <code>brew update && brew upgrade --cask tiny-clips</code>
+                    </li>
+                    <li>
+                      <strong>Uninstall if needed:</strong>
+                      <code>brew uninstall --cask tiny-clips</code>
+                    </li>
+                  </ol>
+                  <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips#readme" target="_blank" rel="noopener noreferrer">See README details</a>
+                </article>
+
+                <article class="install-method-panel" id="install-method-panel-testflight" role="tabpanel" aria-labelledby="install-method-tab-testflight" data-install-method="testflight" hidden>
+                  <h3>Install via TestFlight</h3>
+                  <p>Use TestFlight to try pre-release builds and validate new features early.</p>
+                  <a class="btn btn-secondary" href="https://testflight.apple.com/join/rDaaX9CD" target="_blank" rel="noopener noreferrer">Join TestFlight</a>
+                </article>
+
+                <article class="install-method-panel" id="install-method-panel-manual" role="tabpanel" aria-labelledby="install-method-tab-manual" data-install-method="manual" hidden>
+                  <h3>Manual install from GitHub Releases</h3>
+                  <p>Download the latest signed build directly from the releases page.</p>
+                  <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips/releases/latest" target="_blank" rel="noopener noreferrer">Open latest release</a>
+                </article>
+              </div>
             </div>
           </div>
 

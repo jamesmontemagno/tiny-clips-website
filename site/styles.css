@@ -286,34 +286,40 @@ h1 {
 }
 
 .platform-tabs {
-  display: inline-flex;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 0.3rem;
-  background: rgba(255, 255, 255, 0.03);
+  display: inline-grid;
+  grid-template-columns: repeat(2, minmax(120px, 1fr));
+  border: 1px solid var(--border-hover);
+  border-radius: 14px;
+  padding: 0.35rem;
+  background: rgba(16, 24, 42, 0.75);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   margin-bottom: 1.5rem;
+  gap: 0.35rem;
 }
 
 .platform-tab {
   border: 0;
   background: transparent;
   color: var(--text-secondary);
-  border-radius: 999px;
+  border-radius: 10px;
   padding: 0.55rem 1.1rem;
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .platform-tab:hover {
   color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .platform-tab.is-active {
   color: #080b14;
   background: var(--accent);
   box-shadow: 0 4px 14px var(--accent-glow);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .platform-panel {
@@ -327,6 +333,103 @@ h1 {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
+}
+
+.install-method-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 1rem;
+}
+
+.install-method-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.install-method-tab {
+  width: 100%;
+  text-align: left;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(8, 11, 20, 0.5);
+  color: var(--text-secondary);
+  padding: 0.7rem 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.install-method-tab:hover {
+  border-color: var(--border-hover);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.install-method-tab.is-active {
+  color: #080b14;
+  border-color: rgba(255, 255, 255, 0.35);
+  background: var(--accent);
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.install-method-content {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.1rem;
+  background: rgba(8, 11, 20, 0.42);
+}
+
+.install-method-panel h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.15rem;
+}
+
+.install-method-panel p {
+  margin: 0 0 1rem;
+  color: var(--text-secondary);
+}
+
+.install-steps {
+  margin: 0 0 1rem;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.85rem;
+}
+
+.install-steps li {
+  color: var(--text-secondary);
+}
+
+.install-steps strong {
+  display: block;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.install-steps code {
+  display: block;
+  padding: 0.5rem 0.65rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-hover);
+  background: rgba(79, 180, 255, 0.1);
+  color: #dce9ff;
+  font-size: 0.86rem;
+  margin-bottom: 0.2rem;
+  overflow-x: auto;
+}
+
+.install-step-note {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.install-step-note code {
+  display: inline;
+  padding: 0.12rem 0.35rem;
+  margin: 0;
 }
 
 .install-card {
@@ -792,6 +895,19 @@ iframe.video-slot {
 
   .gallery-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .install-method-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .install-method-tabs {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .install-method-tab {
+    flex: 1 1 180px;
   }
 }
 

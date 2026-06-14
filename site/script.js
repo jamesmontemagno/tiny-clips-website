@@ -48,6 +48,35 @@ if (platformTabs.length > 0 && platformPanels.length > 0) {
   });
 }
 
+const installMethodTabs = document.querySelectorAll('.install-method-tab');
+const installMethodPanels = document.querySelectorAll('.install-method-panel');
+
+if (installMethodTabs.length > 0 && installMethodPanels.length > 0) {
+  const selectInstallMethod = (method) => {
+    installMethodTabs.forEach((tab) => {
+      const isActive = tab.dataset.installMethod === method;
+      tab.classList.toggle('is-active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+      tab.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+
+    installMethodPanels.forEach((panel) => {
+      const isActive = panel.dataset.installMethod === method;
+      panel.classList.toggle('is-active', isActive);
+      panel.hidden = !isActive;
+    });
+  };
+
+  selectInstallMethod('app-store');
+
+  installMethodTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const method = tab.dataset.installMethod || 'app-store';
+      selectInstallMethod(method);
+    });
+  });
+}
+
 
 const galleryGrid = document.querySelector('.gallery-grid');
 
