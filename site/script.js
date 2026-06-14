@@ -3,6 +3,51 @@ if (year) {
   year.textContent = String(new Date().getFullYear());
 }
 
+const detectPlatform = () => {
+  const platform = (navigator.userAgentData?.platform || navigator.platform || navigator.userAgent || '').toLowerCase();
+  if (platform.includes('win')) {
+    return 'windows';
+  }
+  return 'macos';
+};
+
+const platformTabs = document.querySelectorAll('.platform-tab');
+const platformPanels = document.querySelectorAll('.platform-panel');
+const platformDetectedMessage = document.getElementById('platform-detected-message');
+
+if (platformTabs.length > 0 && platformPanels.length > 0) {
+  const selectPlatform = (platform) => {
+    platformTabs.forEach((tab) => {
+      const isActive = tab.dataset.platform === platform;
+      tab.classList.toggle('is-active', isActive);
+      tab.setAttribute('aria-selected', String(isActive));
+      tab.setAttribute('tabindex', isActive ? '0' : '-1');
+    });
+
+    platformPanels.forEach((panel) => {
+      const isActive = panel.dataset.platform === platform;
+      panel.classList.toggle('is-active', isActive);
+      panel.hidden = !isActive;
+    });
+  };
+
+  const detectedPlatform = detectPlatform();
+  selectPlatform(detectedPlatform);
+
+  if (platformDetectedMessage) {
+    platformDetectedMessage.textContent = detectedPlatform === 'windows'
+      ? 'Detected platform: Windows. Switch tabs anytime to preview macOS install options.'
+      : 'Detected platform: macOS. Switch tabs anytime to preview upcoming Windows installation details.';
+  }
+
+  platformTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const platform = tab.dataset.platform || 'macos';
+      selectPlatform(platform);
+    });
+  });
+}
+
 
 const galleryGrid = document.querySelector('.gallery-grid');
 

@@ -270,6 +270,106 @@ h1 {
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
+/* Install Section */
+.section-install {
+  padding-top: 1rem;
+}
+
+.install-header .section-copy {
+  margin-bottom: 1rem;
+}
+
+.platform-detected {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0 0 1.5rem;
+}
+
+.platform-tabs {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.3rem;
+  background: rgba(255, 255, 255, 0.03);
+  margin-bottom: 1.5rem;
+}
+
+.platform-tab {
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 999px;
+  padding: 0.55rem 1.1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.platform-tab:hover {
+  color: var(--text);
+}
+
+.platform-tab.is-active {
+  color: #080b14;
+  background: var(--accent);
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.platform-panel {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  background: var(--bg-elevated);
+}
+
+.install-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.install-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.15rem;
+  background: rgba(8, 11, 20, 0.35);
+}
+
+.install-card h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.1rem;
+}
+
+.install-card p {
+  margin: 0 0 1rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.install-command {
+  margin-bottom: 1rem;
+}
+
+.install-command code {
+  display: inline-block;
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid var(--border-hover);
+  background: rgba(79, 180, 255, 0.1);
+  color: #dce9ff;
+  font-size: 0.9rem;
+}
+
+.install-card-highlight {
+  border-color: var(--border-hover);
+  background: linear-gradient(180deg, rgba(79, 180, 255, 0.12), rgba(8, 11, 20, 0.35));
+}
+
+.install-note {
+  margin-bottom: 0;
+}
+
 /* Features Section */
 .section {
   padding: 5rem 0;
@@ -498,6 +598,12 @@ iframe.video-slot {
 
 .pro-content h2 {
   margin-bottom: 1rem;
+}
+
+.pro-platform-note {
+  margin: 0 0 1.4rem;
+  color: #dce9ff;
+  font-weight: 600;
 }
 
 .pro-features {
