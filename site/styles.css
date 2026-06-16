@@ -292,6 +292,13 @@ h1 {
   width: fit-content;
 }
 
+.windows-seo-note {
+  margin: -0.6rem 0 1.25rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
 .platform-tab {
   border: 0;
   background: transparent;
@@ -443,6 +450,15 @@ h1 {
   margin: 0 0 1rem;
   color: var(--text-secondary);
   font-size: 0.95rem;
+}
+
+.install-card p code {
+  display: inline;
+  padding: 0.12rem 0.35rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-hover);
+  background: rgba(79, 180, 255, 0.1);
+  color: #dce9ff;
 }
 
 .install-command {

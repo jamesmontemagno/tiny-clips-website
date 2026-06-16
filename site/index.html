@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tiny Clips for Mac & Windows (Coming Soon) — Screenshot, GIF, and Video Capture</title>
+    <title>Tiny Clips for Mac & Windows — Screenshot, GIF, and Video Capture</title>
     <meta
       name="description"
-      content="Tiny Clips is a lightweight screenshot, GIF, and video capture app for Mac, with Tiny Clips for Windows coming soon."
+      content="Tiny Clips is a lightweight screenshot, GIF, and video capture app for macOS and Windows."
     />
     <meta
       name="keywords"
@@ -20,10 +20,10 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://tinyclips.dev/" />
-    <meta property="og:title" content="Tiny Clips for Mac & Windows (Coming Soon) — Capture Made Simple" />
+    <meta     property="og:title" content="Tiny Clips for Mac & Windows — Capture Made Simple" />
     <meta
       property="og:description"
-      content="Capture any region of your screen as PNG, MP4, or GIF with Tiny Clips. Available on Mac today, with Tiny Clips for Windows coming soon."
+      content="Capture any region of your screen as PNG, MP4, or GIF with Tiny Clips on macOS and Windows."
     />
     <meta property="og:site_name" content="Tiny Clips" />
     <meta property="og:image" content="./assets/og-image.png" />
@@ -34,10 +34,10 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://tinyclips.dev/" />
-    <meta property="twitter:title" content="Tiny Clips for Mac & Windows (Coming Soon) — Capture Made Simple" />
+    <meta property="twitter:title" content="Tiny Clips for Mac & Windows — Capture Made Simple" />
     <meta
       property="twitter:description"
-      content="Capture any region of your screen as PNG, MP4, or GIF with Tiny Clips. Available on Mac today, with Tiny Clips for Windows coming soon."
+      content="Capture any region of your screen as PNG, MP4, or GIF with Tiny Clips on macOS and Windows."
     />
     <meta property="twitter:image" content="./assets/og-image.png" />
 
@@ -54,7 +54,7 @@
         "alternateName": "TinyClips",
         "operatingSystem": "macOS, Windows",
         "applicationCategory": "MultimediaApplication",
-        "description": "Tiny Clips is a lightweight capture app for screenshots, MP4 videos, and animated GIFs on macOS, with Windows coming soon.",
+        "description": "Tiny Clips is a lightweight capture app for screenshots, MP4 videos, and animated GIFs on macOS and Windows.",
         "url": "https://tinyclips.dev/",
         "image": "https://tinyclips.dev/assets/og-image.png",
         "downloadUrl": "https://github.com/jamesmontemagno/tiny-clips/releases/latest",
@@ -76,10 +76,10 @@
         "mainEntity": [
           {
             "@type": "Question",
-            "name": "Is Tiny Clips available for Windows?",
+            "name": "How do I install Tiny Clips on Windows?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Tiny Clips for Windows is coming soon. Today, Tiny Clips is available on macOS through the App Store, Homebrew, TestFlight, and manual download."
+              "text": "Install Tiny Clips on Windows with winget install Refractored.TinyClips. Update later with winget upgrade Refractored.TinyClips."
             }
           }
         ]
@@ -112,17 +112,17 @@
       <section class="hero">
         <div class="container hero-grid">
           <div class="hero-content">
-            <p class="eyebrow">Capture app for macOS · Windows coming soon</p>
-            <h1>Capture screenshots, videos, and GIFs on Mac — Windows coming soon.</h1>
+            <p class="eyebrow">Capture app for macOS and Windows</p>
+            <h1>Capture screenshots, videos, and GIFs on Mac and Windows.</h1>
             <p class="hero-copy">
               Tiny Clips lets you select any region and save PNG screenshots, MP4 recordings, or animated GIFs with
-              optional trimming and countdowns. Install on macOS now, with Windows support coming soon.
+              optional trimming and countdowns. Install on macOS and Windows today.
             </p>
 
             <ul class="badge-list" aria-label="System requirements and stack">
               <li>macOS 15+</li>
               <li>Swift 5.9</li>
-              <li>Windows app coming soon</li>
+              <li>Windows via winget</li>
               <li>Auto-updates with Sparkle</li>
             </ul>
 
@@ -155,8 +155,8 @@
             <p class="eyebrow">Install Tiny Clips</p>
             <h2>Choose your platform and install method</h2>
             <p class="section-copy">
-              macOS users can install from the App Store, Homebrew, TestFlight, or manually from GitHub Releases. A
-              native Windows release is in progress.
+              Install on macOS with App Store, Homebrew, TestFlight, or direct download. On Windows, install and
+              update with winget.
             </p>
           </div>
 
@@ -164,10 +164,7 @@
             <button class="platform-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="platform-panel-macos" id="platform-tab-macos" data-platform="macos">macOS</button>
             <button class="platform-tab" type="button" role="tab" aria-selected="false" aria-controls="platform-panel-windows" id="platform-tab-windows" data-platform="windows">Windows</button>
           </div>
-          <p class="windows-seo-note">
-            Looking for <strong>Tiny Clips for Windows</strong>? Use the Windows tab for release updates and watch
-            <a href="https://github.com/jamesmontemagno/tiny-clips/releases" target="_blank" rel="noopener noreferrer">GitHub Releases</a>.
-          </p>
+          <p class="windows-seo-note">Looking for <strong>Tiny Clips for Windows</strong>? Use the Windows tab for winget commands and release notes.</p>
 
           <div class="platform-panel is-active" id="platform-panel-macos" role="tabpanel" aria-labelledby="platform-tab-macos" data-platform="macos">
             <div class="install-method-layout">
@@ -220,14 +217,24 @@
           <div class="platform-panel" id="platform-panel-windows" role="tabpanel" aria-labelledby="platform-tab-windows" data-platform="windows" hidden>
             <div class="install-grid">
               <article class="install-card install-card-highlight">
-                <h3>Tiny Clips for Windows is coming soon</h3>
-                <p>We're actively preparing Tiny Clips for Windows as a native screenshot, GIF, and video capture app. We'll publish install instructions as soon as preview builds are available.</p>
-                <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips/releases" target="_blank" rel="noopener noreferrer">Watch GitHub Releases</a>
+                <h3>Install Tiny Clips on Windows with winget</h3>
+                <p>Use Windows Package Manager to install now and keep Tiny Clips up to date.</p>
+                <ol class="install-steps">
+                  <li>
+                    <strong>Install Tiny Clips:</strong>
+                    <code>winget install Refractored.TinyClips</code>
+                  </li>
+                  <li>
+                    <strong>Update later:</strong>
+                    <code>winget upgrade Refractored.TinyClips</code>
+                  </li>
+                </ol>
+                <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips/releases" target="_blank" rel="noopener noreferrer">View GitHub Releases</a>
               </article>
               <article class="install-card">
-                <h3>What to expect</h3>
-                <p>Windows will have platform-specific setup and packaging, separate from macOS distribution channels.</p>
-                <p class="install-note">Install details and requirements will appear here when the first release is live.</p>
+                <h3>Windows quick notes</h3>
+                <p>Package ID: <code>Refractored.TinyClips</code></p>
+                <p class="install-note">Prefer interactive installs? Use the GitHub Releases page for the latest notes and binaries.</p>
               </article>
             </div>
           </div>
@@ -309,7 +316,7 @@
       <section class="section" id="gallery">
         <div class="container">
           <h2>Gallery</h2>
-          <p class="section-copy">A closer look at the Tiny Clips interface. Native, lightweight, and designed for macOS.</p>
+          <p class="section-copy">A closer look at Tiny Clips on macOS and Windows.</p>
           <div class="gallery-grid">
             <figure class="gallery-item">
               <img src="./assets/app-store-artwork-1.png" alt="Tiny Clips App Store artwork showing quick menu bar access" />
@@ -319,6 +326,15 @@
             </figure>
             <figure class="gallery-item">
               <img src="./assets/app-store-artwork-3.png" alt="Tiny Clips App Store artwork showing video trimming and editing" />
+            </figure>
+            <figure class="gallery-item">
+              <img src="./assets/windows-quick-menu.png" alt="Tiny Clips on Windows quick capture menu with Screenshot, Video, and GIF actions" />
+            </figure>
+            <figure class="gallery-item">
+              <img src="./assets/windows-screenshot-editor.png" alt="Tiny Clips on Windows screenshot editing interface with shape and annotation tools" />
+            </figure>
+            <figure class="gallery-item">
+              <img src="./assets/windows-video-trimmer.png" alt="Tiny Clips on Windows video trimmer with duration controls and export options" />
             </figure>
           </div>
         </div>
