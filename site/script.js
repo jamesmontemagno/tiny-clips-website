@@ -70,6 +70,51 @@ if (installMethodTabs.length > 0 && installMethodPanels.length > 0) {
   });
 }
 
+const copyCommandButtons = document.querySelectorAll('.copy-command-btn[data-copy-command]');
+
+if (copyCommandButtons.length > 0) {
+  const setTemporaryButtonState = (button, text, className = '') => {
+    const originalText = button.dataset.originalLabel || 'Copy';
+    button.textContent = text;
+    button.classList.toggle('is-copied', className === 'is-copied');
+
+    window.setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('is-copied');
+    }, 1500);
+  };
+
+  copyCommandButtons.forEach((button) => {
+    button.dataset.originalLabel = button.textContent.trim() || 'Copy';
+
+    button.addEventListener('click', async () => {
+      const commandText = button.dataset.copyCommand || '';
+      if (!commandText) {
+        return;
+      }
+
+      try {
+        if (navigator.clipboard?.writeText) {
+          await navigator.clipboard.writeText(commandText);
+        } else {
+          const helper = document.createElement('textarea');
+          helper.value = commandText;
+          helper.setAttribute('readonly', '');
+          helper.style.position = 'absolute';
+          helper.style.left = '-9999px';
+          document.body.append(helper);
+          helper.select();
+          document.execCommand('copy');
+          helper.remove();
+        }
+        setTemporaryButtonState(button, 'Copied', 'is-copied');
+      } catch (error) {
+        setTemporaryButtonState(button, 'Failed');
+      }
+    });
+  });
+}
+
 
 const galleryGrid = document.querySelector('.gallery-grid');
 

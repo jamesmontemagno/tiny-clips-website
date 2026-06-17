@@ -422,16 +422,56 @@ h1 {
   overflow-x: auto;
 }
 
+.command-line {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.command-line code {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.copy-command-btn {
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+  border-radius: 10px;
+  padding: 0.45rem 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.copy-command-btn:hover {
+  border-color: var(--border-hover);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.copy-command-btn.is-copied {
+  border-color: rgba(79, 180, 255, 0.8);
+  background: rgba(79, 180, 255, 0.22);
+}
+
 .install-step-note {
   display: block;
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
 
-.install-step-note code {
+.install-step-note > code {
   display: inline;
   padding: 0.12rem 0.35rem;
   margin: 0;
+}
+
+.install-step-note .command-line {
+  display: inline-flex;
+  margin-left: 0.35rem;
+  vertical-align: middle;
 }
 
 .install-card {
@@ -933,5 +973,10 @@ iframe.video-slot {
   
   .gallery-grid {
     grid-template-columns: 1fr;
+  }
+
+  .install-steps .command-line {
+    flex-direction: column;
+    align-items: stretch;
   }
 }

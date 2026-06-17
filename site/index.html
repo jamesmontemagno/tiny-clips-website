@@ -126,17 +126,8 @@
               <li>Auto-updates with Sparkle</li>
             </ul>
 
-            <p class="size-highlight">⚡ Lightweight app size: &lt; 5 MB</p>
-
             <div class="cta-group">
-              <a
-                class="btn btn-primary"
-                href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Get it on the App Store</a
-              >
-              <a class="btn btn-secondary" href="#download">View install options</a>
+              <a class="btn btn-primary" href="#download">Download Now</a>
             </div>
           </div>
 
@@ -188,14 +179,26 @@
                   <ol class="install-steps">
                     <li>
                       <strong>Tap the Tiny Clips cask:</strong>
-                      <code>brew tap jamesmontemagno/tiny-clips</code>
+                      <div class="command-line">
+                        <code>brew tap jamesmontemagno/tiny-clips</code>
+                        <button class="copy-command-btn" type="button" data-copy-command="brew tap jamesmontemagno/tiny-clips">Copy</button>
+                      </div>
                     </li>
                     <li>
                       <strong>Install Tiny Clips:</strong>
-                      <code>brew install --cask tiny-clips</code>
+                      <div class="command-line">
+                        <code>brew install --cask tiny-clips</code>
+                        <button class="copy-command-btn" type="button" data-copy-command="brew install --cask tiny-clips">Copy</button>
+                      </div>
                     </li>
                   </ol>
-                  <p class="install-step-note">Optional verify step: <code>brew list --cask tiny-clips</code></p>
+                  <p class="install-step-note">
+                    Optional verify step:
+                    <span class="command-line">
+                      <code>brew list --cask tiny-clips</code>
+                      <button class="copy-command-btn" type="button" data-copy-command="brew list --cask tiny-clips">Copy</button>
+                    </span>
+                  </p>
                   <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips#readme" target="_blank" rel="noopener noreferrer">See README details</a>
                 </article>
 
@@ -222,11 +225,17 @@
                 <ol class="install-steps">
                   <li>
                     <strong>Install Tiny Clips:</strong>
-                    <code>winget install Refractored.TinyClips</code>
+                    <div class="command-line">
+                      <code>winget install Refractored.TinyClips</code>
+                      <button class="copy-command-btn" type="button" data-copy-command="winget install Refractored.TinyClips">Copy</button>
+                    </div>
                   </li>
                   <li>
                     <strong>Update later:</strong>
-                    <code>winget upgrade Refractored.TinyClips</code>
+                    <div class="command-line">
+                      <code>winget upgrade Refractored.TinyClips</code>
+                      <button class="copy-command-btn" type="button" data-copy-command="winget upgrade Refractored.TinyClips">Copy</button>
+                    </div>
                   </li>
                 </ol>
                 <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips/releases" target="_blank" rel="noopener noreferrer">View GitHub Releases</a>
