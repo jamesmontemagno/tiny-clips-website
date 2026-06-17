@@ -6,7 +6,7 @@
     <title>Tiny Clips for Mac & Windows — Screenshot, GIF, and Video Capture</title>
     <meta
       name="description"
-      content="Tiny Clips is a lightweight screenshot, GIF, and video capture app for macOS and Windows."
+      content="Tiny Clips is a lightweight (under 5 MB) screen capture app for macOS and Windows. Grab any region as a PNG screenshot, MP4 video, or animated GIF, with trimming, countdowns, and auto-updates."
     />
     <meta
       name="keywords"
@@ -15,36 +15,43 @@
     <meta name="author" content="Refractored LLC" />
     <meta name="theme-color" content="#080b14" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <link rel="canonical" href="https://tinyclips.dev/" />
+    <link rel="canonical" href="https://tinyclips.app/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://tinyclips.dev/" />
-    <meta     property="og:title" content="Tiny Clips for Mac & Windows — Capture Made Simple" />
+    <meta property="og:url" content="https://tinyclips.app/" />
+    <meta property="og:title" content="Tiny Clips for Mac & Windows — Capture Made Simple" />
     <meta
       property="og:description"
       content="Capture any region of your screen as PNG, MP4, or GIF with Tiny Clips on macOS and Windows."
     />
     <meta property="og:site_name" content="Tiny Clips" />
-    <meta property="og:image" content="./assets/og-image.png" />
+    <meta property="og:image" content="https://tinyclips.app/assets/og-image.png" />
+    <meta property="og:image:alt" content="Tiny Clips — screenshot, GIF, and video capture for macOS and Windows" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://tinyclips.dev/" />
-    <meta property="twitter:title" content="Tiny Clips for Mac & Windows — Capture Made Simple" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://tinyclips.app/" />
+    <meta name="twitter:title" content="Tiny Clips for Mac & Windows — Capture Made Simple" />
     <meta
-      property="twitter:description"
+      name="twitter:description"
       content="Capture any region of your screen as PNG, MP4, or GIF with Tiny Clips on macOS and Windows."
     />
-    <meta property="twitter:image" content="./assets/og-image.png" />
+    <meta name="twitter:image" content="https://tinyclips.app/assets/og-image.png" />
+    <meta name="twitter:image:alt" content="Tiny Clips — screenshot, GIF, and video capture for macOS and Windows" />
 
     <!-- Icons -->
     <link rel="icon" type="image/png" sizes="128x128" href="./assets/app-icon-128.png" />
     <link rel="icon" type="image/png" sizes="256x256" href="./assets/app-icon-256.png" />
     <link rel="apple-touch-icon" href="./assets/app-icon-256.png" />
+
+    <!-- Preconnect to third-party origins used below the fold -->
+    <link rel="preconnect" href="https://www.youtube.com" />
+    <link rel="preconnect" href="https://i.ytimg.com" />
+    <link rel="dns-prefetch" href="https://www.youtube-nocookie.com" />
 
     <script type="application/ld+json">
       {
@@ -55,9 +62,15 @@
         "operatingSystem": "macOS, Windows",
         "applicationCategory": "MultimediaApplication",
         "description": "Tiny Clips is a lightweight capture app for screenshots, MP4 videos, and animated GIFs on macOS and Windows.",
-        "url": "https://tinyclips.dev/",
-        "image": "https://tinyclips.dev/assets/og-image.png",
+        "url": "https://tinyclips.app/",
+        "image": "https://tinyclips.app/assets/og-image.png",
+        "screenshot": "https://tinyclips.app/assets/app-store-artwork-1.png",
         "downloadUrl": "https://github.com/jamesmontemagno/tiny-clips/releases/latest",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
         "sameAs": [
           "https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12",
           "https://github.com/jamesmontemagno/tiny-clips"
@@ -81,6 +94,22 @@
               "@type": "Answer",
               "text": "Install Tiny Clips on Windows with winget install Refractored.TinyClips. Update later with winget upgrade Refractored.TinyClips."
             }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I install Tiny Clips on macOS?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Install Tiny Clips on macOS from the Mac App Store, or with Homebrew using brew tap jamesmontemagno/tiny-clips and brew install --cask tiny-clips. You can also join TestFlight or download a signed build from GitHub Releases."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Tiny Clips free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tiny Clips is free to download and use on macOS and Windows. Tiny Clips Pro is an optional macOS subscription that adds the Clips Manager library for organizing, editing, and sharing captures."
+            }
           }
         ]
       }
@@ -89,10 +118,11 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
+    <a class="skip-link" href="#download">Skip to download</a>
     <header class="site-header">
       <div class="container header-content">
         <a class="brand" href="#top">
-          <img src="./assets/app-icon-128.png" alt="Tiny Clips icon" />
+          <img src="./assets/app-icon-128.png" alt="Tiny Clips icon" width="32" height="32" decoding="async" />
           <span>Tiny Clips</span>
         </a>
         <nav>
@@ -113,26 +143,31 @@
         <div class="container hero-grid">
           <div class="hero-content">
             <p class="eyebrow">Capture app for macOS and Windows</p>
-            <h1>Capture screenshots, videos, and GIFs on Mac and Windows.</h1>
+            <h1>Capture screenshots, videos, and GIFs.</h1>
             <p class="hero-copy">
               Tiny Clips lets you select any region and save PNG screenshots, MP4 recordings, or animated GIFs with
               optional trimming and countdowns. Install on macOS and Windows today.
             </p>
 
-            <ul class="badge-list" aria-label="System requirements and stack">
-              <li>macOS 15+</li>
-              <li>Swift 5.9</li>
-              <li>Windows via winget</li>
-              <li>Auto-updates with Sparkle</li>
-            </ul>
-
             <div class="cta-group">
-              <a class="btn btn-primary" href="#download">Download Now</a>
+              <a class="btn btn-primary btn-lg" href="#download">Download Now</a>
             </div>
+            <p class="hero-trust">Free · macOS 15+ &amp; Windows · under 5&nbsp;MB</p>
           </div>
 
           <figure class="hero-image-wrap">
-            <video class="hero-image" controls autoplay muted loop playsinline>
+            <video
+              class="hero-image"
+              controls
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              poster="./assets/tinyclips-main.png"
+              width="1158"
+              height="980"
+            >
               <source src="./assets/tiny-clips-promo.mp4" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -145,17 +180,12 @@
           <div class="install-header">
             <p class="eyebrow">Install Tiny Clips</p>
             <h2>Choose your platform and install method</h2>
-            <p class="section-copy">
-              Install on macOS with App Store, Homebrew, TestFlight, or direct download. On Windows, install and
-              update with winget.
-            </p>
           </div>
 
           <div class="platform-tabs" role="tablist" aria-label="Choose installation platform">
             <button class="platform-tab is-active" type="button" role="tab" aria-selected="true" aria-controls="platform-panel-macos" id="platform-tab-macos" data-platform="macos">macOS</button>
             <button class="platform-tab" type="button" role="tab" aria-selected="false" aria-controls="platform-panel-windows" id="platform-tab-windows" data-platform="windows">Windows</button>
           </div>
-          <p class="windows-seo-note">Looking for <strong>Tiny Clips for Windows</strong>? Use the Windows tab for winget commands and release notes.</p>
 
           <div class="platform-panel is-active" id="platform-panel-macos" role="tabpanel" aria-labelledby="platform-tab-macos" data-platform="macos">
             <div class="install-method-layout">
@@ -328,22 +358,22 @@
           <p class="section-copy">A closer look at Tiny Clips on macOS and Windows.</p>
           <div class="gallery-grid">
             <figure class="gallery-item">
-              <img src="./assets/app-store-artwork-1.png" alt="Tiny Clips App Store artwork showing quick menu bar access" />
+              <img src="./assets/app-store-artwork-1.png" alt="Tiny Clips App Store artwork showing quick menu bar access" width="1440" height="900" loading="lazy" decoding="async" />
             </figure>
             <figure class="gallery-item">
-              <img src="./assets/app-store-artwork-2.png" alt="Tiny Clips App Store artwork showing screenshot editing tools" />
+              <img src="./assets/app-store-artwork-2.png" alt="Tiny Clips App Store artwork showing screenshot editing tools" width="1440" height="900" loading="lazy" decoding="async" />
             </figure>
             <figure class="gallery-item">
-              <img src="./assets/app-store-artwork-3.png" alt="Tiny Clips App Store artwork showing video trimming and editing" />
+              <img src="./assets/app-store-artwork-3.png" alt="Tiny Clips App Store artwork showing video trimming and editing" width="1440" height="900" loading="lazy" decoding="async" />
             </figure>
             <figure class="gallery-item">
-              <img src="./assets/windows-quick-menu.png" alt="Tiny Clips on Windows quick capture menu with Screenshot, Video, and GIF actions" />
+              <img src="./assets/windows-quick-menu.png" alt="Tiny Clips on Windows quick capture menu with Screenshot, Video, and GIF actions" width="412" height="303" loading="lazy" decoding="async" />
             </figure>
             <figure class="gallery-item">
-              <img src="./assets/windows-screenshot-editor.png" alt="Tiny Clips on Windows screenshot editing interface with shape and annotation tools" />
+              <img src="./assets/windows-screenshot-editor.png" alt="Tiny Clips on Windows screenshot editing interface with shape and annotation tools" width="1708" height="993" loading="lazy" decoding="async" />
             </figure>
             <figure class="gallery-item">
-              <img src="./assets/windows-video-trimmer.png" alt="Tiny Clips on Windows video trimmer with duration controls and export options" />
+              <img src="./assets/windows-video-trimmer.png" alt="Tiny Clips on Windows video trimmer with duration controls and export options" width="883" height="752" loading="lazy" decoding="async" />
             </figure>
           </div>
         </div>
@@ -381,6 +411,10 @@
                 src="./assets/clips-manager.jpg"
                 alt="Tiny Clips Pro — Clips Manager showing organized screenshots, videos, and GIFs"
                 class="pro-image"
+                width="1960"
+                height="1080"
+                loading="lazy"
+                decoding="async"
               />
             </figure>
           </div>
