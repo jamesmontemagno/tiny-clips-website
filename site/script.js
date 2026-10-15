@@ -1,5 +1,5 @@
 /* Tiny Clips site behaviour: platform detection, install tabs, copy buttons,
-   mobile nav, active nav tracking, and the gallery lightbox. */
+   mobile nav, active nav tracking, and media previews. */
 (() => {
   'use strict';
 
@@ -168,6 +168,40 @@
       { rootMargin: '-40% 0px -55% 0px' }
     );
     sections.forEach((section) => observer.observe(section));
+  }
+
+  /* ---- Studio video preview ---- */
+  const studioVideoLink = document.querySelector('[data-studio-video]');
+  const studioDialog = document.querySelector('.studio-video-dialog');
+  const studioVideo = studioDialog?.querySelector('video');
+  if (studioVideoLink && studioVideo && typeof studioDialog.showModal === 'function') {
+    studioVideoLink.setAttribute('aria-haspopup', 'dialog');
+    studioVideoLink.addEventListener('click', (event) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      studioVideo.src = studioVideoLink.href;
+      studioDialog.showModal();
+      document.body.classList.add('is-studio-open');
+    });
+    studioDialog.addEventListener('close', () => {
+      studioVideo.pause();
+      studioVideo.removeAttribute('src');
+      studioVideo.load();
+      document.body.classList.remove('is-studio-open');
+      studioVideoLink.focus({ preventScroll: true });
+    });
+    studioDialog.addEventListener('click', (event) => {
+      if (event.target !== studioDialog) return;
+      const bounds = studioDialog.getBoundingClientRect();
+      if (
+        event.clientX < bounds.left ||
+        event.clientX > bounds.right ||
+        event.clientY < bounds.top ||
+        event.clientY > bounds.bottom
+      ) {
+        studioDialog.close();
+      }
+    });
   }
 
   /* ---- Gallery lightbox ---- */

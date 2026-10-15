@@ -559,7 +559,21 @@
               <li><strong>Trim and export an MP4</strong>, with a project you can reopen to edit again</li>
             </ul>
             <p class="section-copy">Studio is off by default, and ordinary video recording stays unchanged when it is off. <a href="#studio-preview">How to try the preview</a>.</p>
+            <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips-marketing/raw/refs/heads/main/marketing/studio-launch/tiny-clips-studio-launch.mp4" data-studio-video>Learn more — watch the video</a>
           </article>
+
+          <dialog class="studio-video-dialog" aria-labelledby="studio-video-title" aria-describedby="studio-video-description">
+            <form method="dialog" class="studio-video-header">
+              <h2 id="studio-video-title">Meet Tiny Clips Studio</h2>
+              <button class="btn btn-secondary btn-sm" type="submit" autofocus>Close video</button>
+            </form>
+            <video class="studio-video" controls playsinline preload="none" width="1920" height="1080" aria-label="Tiny Clips Studio launch video" aria-describedby="studio-video-description"></video>
+            <p id="studio-video-description">45 seconds · Music only, no narration. Studio is an opt-in preview for macOS and Windows.</p>
+            <details class="studio-video-summary">
+              <summary>Read the video summary</summary>
+              <p>A quick trimmer becomes Studio: separate screen and camera layers, scene layouts, backgrounds, padding, and rounded corners. Illustrative compositions accompany real Windows editor controls and timeline footage. The video highlights zoom, cut, speed, MP4 export, editable projects, and enabling Studio Preview, then shows a finished composition. It closes with Tiny Clips screenshots, video, GIFs, audio recording, screenshot editing, and availability on macOS and Windows. Preview capabilities and limitations vary by platform; see <a href="https://github.com/jamesmontemagno/tiny-clips/pull/384" target="_blank" rel="noopener noreferrer">Studio preview status</a>.</p>
+            </details>
+          </dialog>
 
           <div class="feature-footer">
             <div class="feature-pill-row" role="list" aria-label="More details">

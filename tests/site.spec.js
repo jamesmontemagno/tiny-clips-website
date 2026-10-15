@@ -111,6 +111,68 @@ test.describe('pages', () => {
     await expect(lightbox).toBeHidden();
   });
 
+  for (const width of [390, 1440]) {
+    test(`Studio video opens on demand and dismisses at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+      let videoRequests = 0;
+      await page.route('**/tiny-clips-studio-launch.mp4', async (route) => {
+        videoRequests++;
+        await route.fulfill({ path: 'site/assets/tiny-clips-promo.mp4', contentType: 'video/mp4' });
+      });
+      await gotoHome(page);
+      const link = page.getByRole('link', { name: 'Learn more — watch the video' });
+      const dialog = page.getByRole('dialog', { name: 'Meet Tiny Clips Studio' });
+      const video = page.locator('.studio-video');
+      expect(videoRequests).toBe(0);
+      await expect(video).not.toHaveAttribute('src');
+
+      await link.focus();
+      await page.keyboard.press('Enter');
+      await expect(dialog).toBeVisible();
+      await expect(dialog.getByRole('button', { name: 'Close video' })).toBeFocused();
+      await expect(video).toHaveAttribute('src', await link.getAttribute('href'));
+      await expect(video).toHaveJSProperty('controls', true);
+      await expect(video).toHaveJSProperty('autoplay', false);
+      await video.evaluate((element) => element.play());
+      await expect.poll(() => video.evaluate((element) => element.currentTime)).toBeGreaterThan(0);
+      expect(videoRequests).toBeGreaterThan(0);
+      await page.keyboard.press('Escape');
+      await expect(dialog).toBeHidden();
+      await expect(link).toBeFocused();
+      await expect(video).toHaveJSProperty('paused', true);
+      await expect(video).not.toHaveAttribute('src');
+      await expect(page.locator('body')).not.toHaveClass(/is-studio-open/);
+
+      await link.click();
+      await dialog.getByText('Read the video summary', { exact: true }).click();
+      await expect(dialog.getByText(/A quick trimmer becomes Studio/)).toBeVisible();
+      await expect(page.locator('body')).toHaveClass(/is-studio-open/);
+      const bounds = await dialog.boundingBox();
+      expect(bounds.x).toBeGreaterThanOrEqual(0);
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(width);
+      await dialog.getByRole('button', { name: 'Close video' }).click();
+      await expect(dialog).toBeHidden();
+      await expect(link).toBeFocused();
+
+      await link.click();
+      await page.mouse.click(1, 1);
+      await expect(dialog).toBeHidden();
+      await expect(link).toBeFocused();
+    });
+  }
+
+  test('Studio video link works without JavaScript', async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto('/index.html', { waitUntil: 'load' });
+    await expect(page.getByRole('link', { name: 'Learn more — watch the video' })).toHaveAttribute(
+      'href',
+      'https://github.com/jamesmontemagno/tiny-clips-marketing/raw/refs/heads/main/marketing/studio-launch/tiny-clips-studio-launch.mp4'
+    );
+    await expect(page.locator('.studio-video-dialog')).toBeHidden();
+    await context.close();
+  });
+
   test('mobile navigation toggles', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await gotoHome(page);
