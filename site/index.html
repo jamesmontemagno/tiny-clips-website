@@ -111,6 +111,7 @@
               "Animated GIF recording",
               "Screenshot editor with annotations, redaction, backgrounds, and export frames",
               "Video and GIF trimmers",
+              "Tiny Clips Studio (Preview): editable screen and camera layers, layouts, backgrounds, trimming, and MP4 export in preview builds",
               "Teleprompter overlay for recordings",
               "Clips library with tags, favorites, and sharing"
             ],
@@ -192,6 +193,14 @@
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "PNG (and JPEG on Windows) screenshots, hardware-accelerated H.264 MP4 video at 24, 30, or 60 fps with optional microphone and system audio, and animated GIFs with configurable frame rate and width."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I try Tiny Clips Studio?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build the Studio preview branch and check the preview status for current limitations. In that build, open Settings → Studio and turn on Tiny Clips Studio (Preview). On macOS, choose Studio Recording… from the menu bar menu. On Windows, choose the Studio tile in the tray menu. Record, then arrange your layers in Studio and export an MP4. Studio is off by default. With Studio off, ordinary video recording stays unchanged; the existing Video command still uses the regular recording workflow."
                 }
               },
               {
@@ -541,6 +550,17 @@
             </article>
           </div>
 
+          <article class="feature-step feature-footer" id="studio" aria-labelledby="studio-title">
+            <h3 id="studio-title">Tiny Clips Studio (Preview)</h3>
+            <p>Record now. Choose the look afterward. Studio is an opt-in preview for macOS and Windows that keeps your screen and optional camera as separate editable layers, rather than baking them into one video.</p>
+            <ul class="feature-list">
+              <li><strong>Arrange your layers</strong> — change the layout and the camera's position, size, and shape after recording</li>
+              <li><strong>Make it yours</strong> with backgrounds, padding, and rounded corners</li>
+              <li><strong>Trim and export an MP4</strong>, with a project you can reopen to edit again</li>
+            </ul>
+            <p class="section-copy">Studio is off by default, and ordinary video recording stays unchanged when it is off. <a href="#studio-preview">How to try the preview</a>.</p>
+          </article>
+
           <div class="feature-footer">
             <div class="feature-pill-row" role="list" aria-label="More details">
               <span class="feature-pill" role="listitem">Separate folders per capture type</span>
@@ -615,6 +635,7 @@
                 <tr><th scope="row">Copy text from screen (OCR)</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
                 <tr><th scope="row">Screenshot editor, redaction, backgrounds, export frames</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
                 <tr><th scope="row">Video &amp; GIF trimmers</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
+                <tr><th scope="row"><a href="#studio">Tiny Clips Studio</a></th><td>Preview build <small>opt-in</small></td><td>Preview build <small>opt-in</small></td></tr>
                 <tr><th scope="row">Microphone + system audio</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
                 <tr><th scope="row">Webcam overlay</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span> <small>+ Continuity Camera</small></td></tr>
                 <tr><th scope="row">Teleprompter overlay</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
@@ -767,6 +788,14 @@
               <summary>Which formats and quality settings are available?</summary>
               <div class="faq-body">
                 <p>Screenshots save as PNG (JPEG and scale options on Windows). Video is hardware-accelerated H.264 MP4 at 24, 30, or 60 fps with optional microphone and system audio. GIFs support 5–30 fps and a configurable maximum width.</p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary id="studio-preview">How do I try Tiny Clips Studio?</summary>
+              <div class="faq-body">
+                <p>Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build the <a href="https://github.com/jamesmontemagno/tiny-clips/tree/motz-video-compositing-editor" target="_blank" rel="noopener noreferrer">Studio preview branch</a> and check the <a href="https://github.com/jamesmontemagno/tiny-clips/pull/384" target="_blank" rel="noopener noreferrer">preview status</a> for current limitations.</p>
+                <p>In that build, open <strong>Settings → Studio</strong> and turn on <strong>Tiny Clips Studio (Preview)</strong>. On macOS, choose <strong>Studio Recording…</strong> from the menu bar menu. On Windows, choose the <strong>Studio</strong> tile in the tray menu. Record, then arrange your layers in Studio and export an MP4.</p>
+                <p>Studio is off by default. With Studio off, ordinary video recording stays unchanged; the existing Video command still uses the regular recording workflow.</p>
               </div>
             </details>
             <details class="faq-item">

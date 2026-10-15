@@ -64,6 +64,43 @@ test.describe('pages', () => {
     );
   });
 
+  for (const width of [390, 1440]) {
+    test(`Studio preview content and keyboard access at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await gotoHome(page);
+      const studio = page.getByRole('article', { name: 'Tiny Clips Studio (Preview)', exact: true });
+      await expect(studio.getByRole('heading', { level: 3 })).toBeVisible();
+      await expect(studio).toContainText('separate editable layers');
+      await expect(studio).toContainText("camera's position, size, and shape");
+      await expect(studio).toContainText('backgrounds, padding, and rounded corners');
+      await expect(studio).toContainText('Trim and export an MP4');
+      await expect(studio).toContainText('ordinary video recording stays unchanged');
+
+      await studio.getByRole('link', { name: 'How to try the preview' }).click();
+      const summary = page.locator('#studio-preview');
+      await expect(summary).toBeFocused();
+      await page.keyboard.press('Enter');
+      const answer = summary.locator('..').locator('.faq-body');
+      await expect(answer).toBeVisible();
+      await expect(answer).toContainText('not part of the current store releases');
+      await expect(answer).toContainText('Settings → Studio');
+      await expect(answer).toContainText('On macOS, choose Studio Recording…');
+      await expect(answer).toContainText('On Windows, choose the Studio tile');
+      await expect(answer.getByRole('link', { name: 'Studio preview branch' })).toHaveAttribute(
+        'href',
+        'https://github.com/jamesmontemagno/tiny-clips/tree/motz-video-compositing-editor'
+      );
+
+      const graph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent())['@graph'];
+      const faq = graph.find((node) => node['@type'] === 'FAQPage').mainEntity;
+      const studioFaq = faq.find((item) => item.name === 'How do I try Tiny Clips Studio?');
+      expect((await answer.textContent()).replace(/\s+/g, ' ').trim()).toBe(studioFaq.acceptedAnswer.text);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy();
+      await page.keyboard.press('Enter');
+      await expect(answer).toBeHidden();
+    });
+  }
+
   test('gallery lightbox opens and closes with Escape', async ({ page }) => {
     await gotoHome(page);
     await page.locator('.gallery-item').first().click();
