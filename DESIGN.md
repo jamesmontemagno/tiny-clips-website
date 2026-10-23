@@ -213,6 +213,7 @@ Tiny Clips uses hybrid elevation: translucent tonal panels establish depth at re
 - **Style:** Sticky glass header with a compact brand lockup, 32px icon, pill-shaped nav links, and muted default text.
 - **Hover:** Nav links shift to Capture White with a low white fill and faint blue glow.
 - **Mobile Treatment:** Existing nav wraps down under 900px. Preserve clear tap targets and avoid clipped dropdowns or overflow-hidden popovers.
+- **Skip Link:** Keep the main-content destination focusable without applying the rounded control focus ring to the whole page. Links and controls retain their visible keyboard-focus indicators.
 
 ### Platform Install Tabs
 
