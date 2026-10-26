@@ -2,20 +2,21 @@
 name: Tiny Clips Website
 description: Static marketing website for Tiny Clips, a free, lightweight Windows and Mac screen capture app available on the Microsoft Store and Mac App Store.
 colors:
-  background: '#070a14'
-  background-soft: '#0b1020'
-  background-elevated: '#121a30'
-  text: '#f6f8ff'
-  text-secondary: '#a7b1cd'
-  accent: '#4fb4ff'
-  accent-2: '#7a6cf7'
-  brand-gradient: 'linear-gradient(135deg, #3d8bff 0%, #6a4ff0 100%)'
-  accent-glow: '#4fb4ff59'
-  recording: '#ff4d5e'
-  success: '#3ddc97'
-  border: '#8ca6db26'
-  border-hover: '#8ca6db4d'
-  code-text: '#dce9ff'
+  background: '#f8fafc'
+  background-soft: '#eef3fa'
+  background-elevated: '#ffffff'
+  text: '#17243b'
+  text-secondary: '#43536a'
+  text-muted: '#52627a'
+  accent: '#175cd3'
+  accent-2: '#6340c8'
+  brand-gradient: 'linear-gradient(135deg, #175cd3 0%, #6340c8 100%)'
+  accent-glow: '#175cd32e'
+  recording: '#c92c44'
+  success: '#087849'
+  border: '#ccd7e5'
+  border-hover: '#73849c'
+  code-text: '#17243b'
 typography:
   display:
     fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif'
@@ -63,18 +64,18 @@ spacing:
 components:
   button-primary:
     backgroundColor: '{colors.accent}'
-    textColor: '{colors.background}'
+    textColor: '#ffffff'
     rounded: '{rounded.md}'
     padding: '0.85rem 1.75rem'
     typography: '{typography.body}'
   button-primary-large:
     backgroundColor: '{colors.accent}'
-    textColor: '{colors.background}'
+    textColor: '#ffffff'
     rounded: '{rounded.lg}'
     padding: '1.05rem 2.8rem'
     typography: '{typography.body}'
   button-secondary:
-    backgroundColor: '#ffffff0d'
+    backgroundColor: '{colors.background-soft}'
     textColor: '{colors.text}'
     rounded: '{rounded.md}'
     padding: '0.85rem 1.75rem'
@@ -90,7 +91,7 @@ components:
     rounded: '{rounded.pill}'
     padding: '0.5rem 1rem'
   command-chip:
-    backgroundColor: '#4fb4ff1a'
+    backgroundColor: '{colors.background-soft}'
     textColor: '{colors.code-text}'
     rounded: '{rounded.sm}'
     padding: '0.5rem 0.65rem'
@@ -102,21 +103,21 @@ components:
 
 **Creative North Star: "The Pocket Capture Studio"**
 
-Tiny Clips should feel like a compact creative tool sitting one click away: blue-lit, quiet, and immediately useful. The interface is dark because the product lives around screen capture and media work; the site should feel comfortable beside a Mac menu bar, a Windows tray, a video timeline, or a screenshot editor without turning into a theatrical developer console.
+Tiny Clips should feel like a compact creative tool sitting one click away: clear, quiet, and immediately useful. The website uses a light canvas with dark blue ink for readability in bright rooms and screen-sharing sessions. Product screenshots, video, and simulated native app surfaces retain their own appearance.
 
 The system uses a focused cool palette, product imagery, rounded native-feeling controls, and restrained glow to communicate speed and capability. It rejects bloated enterprise SaaS marketing: no vague productivity murals, no fake metrics, no endless decorative feature grids, and no design moves that make a sub-5 MB utility feel like a subscription platform.
 
 **Key Characteristics:**
 
-- Dark, blue-lit surfaces that make screenshots and video assets feel native.
+- White and soft blue surfaces that keep copy readable and let real product imagery stand out.
 - Compact controls with clear platform choices and copyable install commands.
-- Ambient elevation: borders, tonal layers, and glow rather than heavy drop shadows.
+- Quiet elevation: borders, tonal layers, and soft shadows rather than heavy glow.
 - Direct product proof through real app imagery, demo video, and exact install paths.
 - Creator-friendly clarity without developer-tool costume.
 
 ## 2. Colors
 
-The palette is a restrained dark capture-studio palette: near-black blue surfaces, high-contrast cool white text, muted periwinkle support text, and one electric blue action color.
+The palette is a restrained light capture-studio palette: a cool off-white canvas, white panels, dark blue text, readable slate support text, and one deep blue action color. The site stays light regardless of OS appearance and requires no JavaScript or saved preference.
 
 ### Primary
 
@@ -124,14 +125,13 @@ The palette is a restrained dark capture-studio palette: near-black blue surface
 
 ### Neutral
 
-- **Studio Black**: The page background and primary ink-on-accent color. It carries the product's native dark-tool atmosphere.
-- **Panel Navy**: The elevated section and control background used where a surface needs to separate from the page without becoming a card stack.
-- **Glass Navy**: The translucent elevated material for cards, tabs, manager panels, and grouped content.
-- **Capture White**: Primary text for headings, high-emphasis labels, and important list terms.
-- **Muted Periwinkle**: Secondary copy, navigation, muted legal text, and descriptive card body text.
-- **Cool Command Text**: Command-line text and technical detail copy that needs to feel trustworthy without becoming pure white.
-- **Soft Periwinkle Border**: Default borders on cards, tabs, gallery frames, and command chips.
-- **Active Periwinkle Border**: Hover, active, and selected borders.
+- **Canvas White** (`#f8fafc`): Page background.
+- **Panel Blue** (`#eef3fa`): Grouped controls, code, and table headers.
+- **Paper White** (`#ffffff`): Cards and elevated surfaces; also ink on solid action colors.
+- **Capture Ink** (`#17243b`): Headings and primary text.
+- **Slate** (`#43536a`, muted `#52627a`): Body, navigation, legal, and supporting text.
+- **Soft Blue Border** (`#ccd7e5`): Decorative surface separation.
+- **Control Border** (`#73849c`): Control boundaries that need stronger contrast.
 
 ### Named Rules
 
@@ -165,13 +165,12 @@ The palette is a restrained dark capture-studio palette: near-black blue surface
 
 ## 4. Elevation
 
-Tiny Clips uses hybrid elevation: translucent tonal panels establish depth at rest, while shadows and glows appear primarily on interactive emphasis, media frames, and hover states. Borders are part of the elevation vocabulary; most components are separated by a soft periwinkle stroke before they are lifted by shadow.
+Tiny Clips uses white and soft blue panels for depth at rest. Subtle blue-gray shadows appear on product media and prominent surfaces; borders separate cards without turning them into heavy boxes.
 
 ### Shadow Vocabulary
 
-- **Button Glow** (`0 4px 14px rgba(79, 180, 255, 0.4)`): Primary buttons and selected controls.
-- **Button Hover Glow** (`0 8px 20px rgba(79, 180, 255, 0.4)`): Hovered primary buttons.
-- **Surface Large** (`0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1)`): Media frames, cards on hover, lightbox imagery, and prominent sections.
+- **Button Glow** (`rgba(23, 92, 211, 0.18)`): Restrained emphasis on primary buttons and selected controls.
+- **Surface Large** (`0 30px 60px -20px rgba(29, 53, 88, 0.16), 0 12px 24px -12px rgba(29, 53, 88, 0.12)`): Media frames, lightbox imagery, and prominent sections.
 - **Media Halo** (`0 0 120px rgba(79, 180, 255, 0.1)`): Hero video frame only; use smaller variants for supporting product imagery.
 
 ### Named Rules
@@ -185,34 +184,34 @@ Tiny Clips uses hybrid elevation: translucent tonal panels establish depth at re
 ### Buttons
 
 - **Shape:** Rounded native rectangle (`12px`, `14px` for large hero CTA).
-- **Primary:** Capture Blue background with Studio Black text. Default padding is `0.85rem 1.75rem`; hero CTA uses `1.05rem 2.8rem`.
-- **Hover / Focus:** Slight upward motion and brighter blue glow. Add visible `:focus-visible` treatment whenever new button CSS is written.
-- **Secondary:** Translucent white fill, soft periwinkle border, Capture White text. Use for GitHub, TestFlight, manual, and support actions.
+- **Primary:** Deep Capture Blue background with white text; hover darkens the blue.
+- **Hover / Focus:** Restrained upward motion and a solid 3px focus outline with 3px offset, including in forced-colors mode.
+- **Secondary:** Soft blue fill, blue border, Capture Ink text. Use for GitHub, TestFlight, manual, and support actions.
 
 ### Chips
 
 - **Style:** Existing badge and command chips use transparent or blue-tinted fills with soft borders and compact padding.
-- **State:** Selected platform and install-method chips invert to Capture Blue with Studio Black text. Unselected states stay muted until hover.
+- **State:** Selected platform and install-method chips invert to Capture Blue with white text. Unselected states use readable slate text.
 
 ### Cards / Containers
 
 - **Corner Style:** Gently rounded panels (`14px` to `16px`), with `20px` reserved for media frames.
-- **Background:** Glass Navy or dark translucent panels, not opaque white or gray.
+- **Background:** White panels or soft blue grouped surfaces.
 - **Shadow Strategy:** Resting containers use border and tone; hover can add Surface Large shadow.
-- **Border:** Soft Periwinkle Border by default; Active Periwinkle Border on hover or selected state.
+- **Border:** Soft Blue Border by default; Control Border when stronger separation is needed.
 - **Internal Padding:** Cards use `1.15rem` to `1.75rem`; section-level panels use `1.25rem`.
 
 ### Inputs / Fields
 
-- **Style:** The site does not currently ship form fields. If adding any, match install tabs: dark translucent background, `12px` radius, soft border, Capture White input text, and Muted Periwinkle placeholders that still meet contrast.
+- **Style:** The site does not currently ship form fields. If adding any, match install tabs: light background, `12px` radius, Control Border, Capture Ink input text, and slate placeholders that meet contrast.
 - **Focus:** Capture Blue border plus subtle glow. Never rely on color alone.
 - **Error / Disabled:** Disabled controls may reduce opacity, but disabled text must remain legible and state must be conveyed structurally.
 
 ### Navigation
 
-- **Style:** Sticky glass header with a compact brand lockup, 32px icon, pill-shaped nav links, and muted default text.
-- **Hover:** Nav links shift to Capture White with a low white fill and faint blue glow.
-- **Mobile Treatment:** Existing nav wraps down under 900px. Preserve clear tap targets and avoid clipped dropdowns or overflow-hidden popovers.
+- **Style:** Sticky light header with a compact brand lockup, 32px icon, pill-shaped nav links, and slate text.
+- **Hover:** Nav links shift to Capture Ink with a soft blue fill.
+- **Mobile Treatment:** Navigation opens below 900px. Closed links must be hidden from keyboard navigation and the accessibility tree.
 
 ### Platform Install Tabs
 
@@ -228,11 +227,11 @@ Official Microsoft Store and Mac App Store badges are the primary download affor
 
 ### Interactive Demo
 
-The "Try Tiny Clips" section (`demo.js` / `demo.css`) is a simulated desktop, not a marketing illustration. It must mirror real product behavior: tray flyout on Windows, menu bar menu on Mac, Region/Screen/Window picker with R/S/W keys, countdown, editor with the real tool set, trimmer, and library. New app features that are user-visible should be reflected here. Keep it self-contained (no frameworks), keyboard-operable, and respectful of `prefers-reduced-motion`.
+The "Try Tiny Clips" section (`demo.js` / `demo.css`) is a simulated desktop, not a marketing illustration. It must mirror real product behavior: tray flyout on Windows, menu bar menu on Mac, Region/Screen/Window picker with R/S/W keys, countdown, editor with the real tool set, trimmer, and library. New app features that are user-visible should be reflected here. Keep it self-contained (no frameworks), keyboard-operable, and respectful of `prefers-reduced-motion`. The wrapper follows the light site; the native stage owns its app colors. Below 640px of available width, use a keyboard-focusable horizontal scroller at native size instead of shrinking touch targets.
 
 ### Comparison and Shortcut Tables
 
-Tables use a dark translucent wrap with hairline row borders and uppercase column headers. Checks are small blue circles. These are proof surfaces: keep them factual and aligned with the app's README and changelog.
+Tables use white surfaces with soft blue headers, hairline row borders, and keyboard-focusable scroll wrappers. Checks are small blue circles. These are proof surfaces: keep them factual and aligned with the app's README and changelog.
 
 ## 6. Do's and Don'ts
 
@@ -243,6 +242,7 @@ Tables use a dark translucent wrap with hairline row borders and uppercase colum
 - **Do** preserve real screenshots, videos, and app imagery as the main brand material.
 - **Do** lead every download moment with the Microsoft Store (Windows) or Mac App Store (macOS); keep winget, Homebrew, TestFlight, and GitHub Releases one step behind with exact commands.
 - **Do** maintain WCAG 2.2 AA contrast, keyboard-friendly tab controls, visible focus states, and reduced-motion alternatives.
+- **Do** underline inline text links and keep secondary copy at least 4.5:1 against its surface. Reduced motion disables hero autoplay, including when the preference changes while the page is open; manual video controls remain available.
 
 ### Don't:
 

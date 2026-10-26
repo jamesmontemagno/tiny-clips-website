@@ -8,6 +8,18 @@
     year.textContent = String(new Date().getFullYear());
   }
 
+  const heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    heroVideo.autoplay = !motionPreference.matches;
+    motionPreference.addEventListener('change', (event) => {
+      if (event.matches) {
+        heroVideo.autoplay = false;
+        heroVideo.pause();
+      }
+    });
+  }
+
   const STORE_URLS = {
     windows: 'https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS',
     macos: 'https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12',

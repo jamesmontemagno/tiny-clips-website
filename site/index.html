@@ -14,8 +14,8 @@
     />
     <meta name="author" content="Refractored LLC" />
     <meta name="application-name" content="Tiny Clips" />
-    <meta name="theme-color" content="#070a14" />
-    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
     <link rel="canonical" href="https://tinyclips.app/" />
     <link rel="alternate" hreflang="en" href="https://tinyclips.app/" />
@@ -296,7 +296,6 @@
             <video
               class="hero-video"
               controls
-              autoplay
               muted
               loop
               playsinline
@@ -366,11 +365,11 @@
                   <h4>winget</h4>
                   <p>For terminal-first setups and scripts. Same signed package, installed from the winget community repo.</p>
                   <div class="command-line">
-                    <code>winget install Refractored.TinyClips</code>
+                    <code tabindex="0">winget install Refractored.TinyClips</code>
                     <button class="copy-command-btn" type="button" data-copy-command="winget install Refractored.TinyClips">Copy</button>
                   </div>
                   <div class="command-line">
-                    <code>winget upgrade Refractored.TinyClips</code>
+                    <code tabindex="0">winget upgrade Refractored.TinyClips</code>
                     <button class="copy-command-btn" type="button" data-copy-command="winget upgrade Refractored.TinyClips">Copy</button>
                   </div>
                 </article>
@@ -410,15 +409,15 @@
                   <h4>Homebrew</h4>
                   <p>Reproducible installs from the Tiny Clips tap. The <code>brew trust</code> line is only needed on Homebrew versions that require it and safely no-ops elsewhere.</p>
                   <div class="command-line">
-                    <code>brew tap jamesmontemagno/tiny-clips https://github.com/jamesmontemagno/tiny-clips</code>
+                    <code tabindex="0">brew tap jamesmontemagno/tiny-clips https://github.com/jamesmontemagno/tiny-clips</code>
                     <button class="copy-command-btn" type="button" data-copy-command="brew tap jamesmontemagno/tiny-clips https://github.com/jamesmontemagno/tiny-clips">Copy</button>
                   </div>
                   <div class="command-line">
-                    <code>brew trust jamesmontemagno/tiny-clips 2&gt;/dev/null || true</code>
+                    <code tabindex="0">brew trust jamesmontemagno/tiny-clips 2&gt;/dev/null || true</code>
                     <button class="copy-command-btn" type="button" data-copy-command="brew trust jamesmontemagno/tiny-clips 2>/dev/null || true">Copy</button>
                   </div>
                   <div class="command-line">
-                    <code>brew install --cask tiny-clips</code>
+                    <code tabindex="0">brew install --cask tiny-clips</code>
                     <button class="copy-command-btn" type="button" data-copy-command="brew install --cask tiny-clips">Copy</button>
                   </div>
                 </article>
@@ -456,6 +455,7 @@
           </div>
           <p class="demo-footnote">
             Everything in the demo mirrors a real Tiny Clips feature. Nothing is uploaded and nothing leaves this page.
+            <span class="demo-mobile-hint">On small screens, scroll the desktop sideways to reach the tray and app controls.</span>
           </p>
         </div>
       </section>
@@ -564,7 +564,7 @@
               Mac uses Control+Option+Command so it never collides with the system screenshot keys.
             </p>
           </div>
-          <div class="shortcuts-table-wrap">
+          <div class="shortcuts-table-wrap" role="region" aria-label="Keyboard shortcuts" tabindex="0">
             <table class="shortcuts-table">
               <caption class="visually-hidden">Default keyboard shortcuts on Windows and macOS</caption>
               <thead>
@@ -598,7 +598,7 @@
               They share one feature roadmap and feel at home on each desktop.
             </p>
           </div>
-          <div class="compare-table-wrap">
+          <div class="compare-table-wrap" role="region" aria-label="Platform comparison" tabindex="0">
             <table class="compare-table">
               <caption class="visually-hidden">Feature comparison between Tiny Clips for Windows and Tiny Clips for macOS</caption>
               <thead>

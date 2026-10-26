@@ -49,6 +49,23 @@ CI also validates `sitemap.xml`, `robots.txt`, the web manifest, the canonical U
 
 First run of the e2e tests needs a browser: `npx playwright install chromium`.
 
+## Appearance and accessibility
+
+The site uses a light theme on every page, independent of OS appearance and without
+JavaScript. Browser chrome and the web manifest use the same light canvas. Product
+screenshots, official store badges, and the simulated app's native colors are preserved.
+
+`tests/accessibility.spec.js` runs axe WCAG A/AA checks (through WCAG 2.2) on all pages
+at desktop and mobile widths, plus alternate install content, expanded FAQ, mobile
+navigation, and the gallery lightbox. It also covers keyboard focus, skip navigation,
+320px reflow, forced-colors focus outlines, reduced-motion video behavior, and the
+no-JavaScript light theme. These checks complement, not replace, manual assistive
+technology review.
+
+On small screens the interactive desktop scrolls sideways at native size so controls
+remain readable and touch-sized. Reduced motion stops hero autoplay; the video's
+manual controls remain available. See `DESIGN.md` for palette and accessibility rules.
+
 ## Keeping the site in sync with the app
 
 When a new Tiny Clips release ships, check:

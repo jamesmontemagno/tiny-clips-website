@@ -1,37 +1,37 @@
 /* =========================================================================
    Tiny Clips — site styles
-   Design: "The Pocket Capture Studio" — dark, blue-lit, native-feeling.
+   Design: "The Pocket Capture Studio" — light, clear, native-feeling.
    Signature motif: capture-corner brackets + crosshair (from the app icon).
    ========================================================================= */
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
   /* Surfaces */
-  --bg: #070a14;
-  --bg-2: #0b1020;
-  --bg-3: #101731;
-  --surface: rgba(255, 255, 255, 0.035);
-  --surface-2: rgba(255, 255, 255, 0.06);
-  --surface-3: rgba(255, 255, 255, 0.1);
-  --surface-solid: #121a30;
-  --border: rgba(150, 172, 230, 0.16);
-  --border-strong: rgba(150, 172, 230, 0.32);
+  --bg: #f8fafc;
+  --bg-2: #eef3fa;
+  --bg-3: #e6edf7;
+  --surface: #fff;
+  --surface-2: #eef3fa;
+  --surface-3: #e1eaf6;
+  --surface-solid: #fff;
+  --border: #ccd7e5;
+  --border-strong: #73849c;
 
   /* Text */
-  --text: #f3f5ff;
-  --text-2: #a9b3d1;
-  --text-3: #7d88aa;
-  --ink-on-accent: #06101f;
+  --text: #17243b;
+  --text-2: #43536a;
+  --text-3: #52627a;
+  --ink-on-accent: #fff;
 
   /* Brand */
-  --accent: #4fb4ff;
-  --accent-2: #7a6cf7;
-  --brand-gradient: linear-gradient(135deg, #3d8bff 0%, #6a4ff0 100%);
-  --accent-soft: rgba(79, 180, 255, 0.12);
-  --accent-glow: rgba(79, 180, 255, 0.35);
-  --rec: #ff4d5e;
-  --ok: #3ddc97;
+  --accent: #175cd3;
+  --accent-2: #6340c8;
+  --brand-gradient: linear-gradient(135deg, #175cd3 0%, #6340c8 100%);
+  --accent-soft: #e8effc;
+  --accent-glow: rgba(23, 92, 211, 0.18);
+  --rec: #c92c44;
+  --ok: #087849;
 
   /* Shape & motion */
   --r-sm: 8px;
@@ -39,14 +39,15 @@
   --r-lg: 16px;
   --r-xl: 22px;
   --r-pill: 999px;
-  --shadow-lg: 0 30px 60px -20px rgba(0, 0, 0, 0.55), 0 12px 24px -12px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 14px 30px -14px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 30px 60px -20px rgba(29, 53, 88, 0.16), 0 12px 24px -12px rgba(29, 53, 88, 0.12);
+  --shadow-md: 0 14px 30px -14px rgba(29, 53, 88, 0.18);
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --dur: 180ms;
   --font:
     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI Variable', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --mono: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
-  --focus-ring: 0 0 0 3px rgba(79, 180, 255, 0.45), 0 0 0 6px rgba(7, 10, 20, 0.9);
+  --focus-color: #175cd3;
+  --focus-ring: 0 0 0 6px var(--bg);
   --z-sticky: 100;
   --z-skip: 200;
   --z-modal: 900;
@@ -172,9 +173,15 @@ button {
 }
 
 :focus-visible {
-  outline: none;
+  outline: 3px solid var(--focus-color);
+  outline-offset: 3px;
   box-shadow: var(--focus-ring);
   border-radius: var(--r-sm);
+}
+
+p a,
+.legal-list a {
+  text-decoration: underline;
 }
 
 .visually-hidden {
@@ -251,7 +258,7 @@ button {
 }
 
 .btn-primary:hover {
-  background: #6fc2ff;
+  background: #1249ac;
   box-shadow: 0 10px 24px -8px var(--accent-glow);
 }
 
@@ -315,7 +322,7 @@ button {
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  background: rgba(7, 10, 20, 0.72);
+  background: rgba(248, 250, 252, 0.94);
   backdrop-filter: saturate(160%) blur(16px);
   -webkit-backdrop-filter: saturate(160%) blur(16px);
   border-bottom: 1px solid var(--border);
@@ -382,7 +389,7 @@ button {
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--r-md);
   background: var(--surface);
   position: relative;
@@ -430,10 +437,11 @@ button {
     align-items: stretch;
     gap: 0.5rem;
     padding: 1rem 1.25rem 1.5rem;
-    background: rgba(9, 13, 26, 0.97);
+    background: var(--bg);
     border-bottom: 1px solid var(--border);
     transform: translateY(-8px);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
     transition:
       transform var(--dur) var(--ease),
@@ -443,6 +451,7 @@ button {
   .primary-nav.is-open {
     transform: none;
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
   }
 
@@ -477,8 +486,8 @@ button {
   height: 120%;
   pointer-events: none;
   background:
-    radial-gradient(60% 50% at 75% 30%, rgba(61, 139, 255, 0.22), transparent 70%),
-    radial-gradient(45% 45% at 20% 70%, rgba(106, 79, 240, 0.18), transparent 70%);
+    radial-gradient(60% 50% at 75% 30%, rgba(61, 139, 255, 0.07), transparent 70%),
+    radial-gradient(45% 45% at 20% 70%, rgba(106, 79, 240, 0.04), transparent 70%);
   mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
   -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
@@ -488,8 +497,8 @@ button {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(150, 172, 230, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(150, 172, 230, 0.07) 1px, transparent 1px);
+    linear-gradient(rgba(23, 92, 211, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(23, 92, 211, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(60% 60% at 50% 40%, black, transparent 80%);
   -webkit-mask-image: radial-gradient(60% 60% at 50% 40%, black, transparent 80%);
@@ -717,7 +726,7 @@ button {
    ------------------------------------------------------------------------- */
 
 .section-install {
-  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.015) 30%, transparent);
+  background: linear-gradient(to bottom, transparent, var(--bg-2) 30%, transparent);
 }
 
 .platform-tabs {
@@ -782,10 +791,10 @@ button {
   position: relative;
   padding: 2rem;
   border-radius: var(--r-xl);
-  border: 1px solid rgba(79, 180, 255, 0.35);
+  border: 1px solid var(--border);
   background:
-    radial-gradient(120% 100% at 0% 0%, rgba(61, 139, 255, 0.18), transparent 55%),
-    radial-gradient(100% 100% at 100% 100%, rgba(106, 79, 240, 0.16), transparent 55%), var(--surface-solid);
+    radial-gradient(120% 100% at 0% 0%, rgba(61, 139, 255, 0.05), transparent 55%),
+    radial-gradient(100% 100% at 100% 100%, rgba(106, 79, 240, 0.04), transparent 55%), var(--surface-solid);
   box-shadow: var(--shadow-md);
 }
 
@@ -899,7 +908,7 @@ button {
   margin-top: 0.5rem;
   padding: 0.25rem 0.25rem 0.25rem 0.85rem;
   border-radius: var(--r-sm);
-  background: rgba(0, 0, 0, 0.35);
+  background: var(--bg-2);
   border: 1px solid var(--border);
 }
 
@@ -907,7 +916,7 @@ button {
   flex: 1;
   min-width: 0;
   align-self: center;
-  color: #dbe8ff;
+  color: var(--text);
   font-size: 0.85rem;
   overflow-x: auto;
   white-space: nowrap;
@@ -919,7 +928,7 @@ button {
   flex: none;
   padding: 0.45rem 0.8rem;
   border-radius: 6px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   background: var(--surface-2);
   color: var(--text);
   font-size: 0.8rem;
@@ -966,6 +975,16 @@ button {
   text-align: center;
   color: var(--text-3);
   font-size: 0.88rem;
+}
+
+.demo-mobile-hint {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .demo-mobile-hint {
+    display: block;
+  }
 }
 
 .demo-noscript {
@@ -1108,7 +1127,7 @@ button {
   padding: clamp(1.5rem, 4vw, 3rem);
   border-radius: var(--r-xl);
   border: 1px solid var(--border);
-  background: radial-gradient(80% 120% at 100% 0%, rgba(106, 79, 240, 0.14), transparent 60%), var(--surface);
+  background: radial-gradient(80% 120% at 100% 0%, rgba(106, 79, 240, 0.04), transparent 60%), var(--surface);
 }
 
 .shortcuts-table-wrap,
@@ -1116,7 +1135,7 @@ button {
   overflow-x: auto;
   border-radius: var(--r-lg);
   border: 1px solid var(--border);
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--surface);
 }
 
 table {
@@ -1139,7 +1158,7 @@ thead th {
   text-transform: uppercase;
   color: var(--text-3);
   font-weight: 600;
-  background: rgba(255, 255, 255, 0.025);
+  background: var(--bg-2);
 }
 
 tbody th {
@@ -1248,7 +1267,7 @@ tbody td {
   border-radius: var(--r-pill);
   background: rgba(7, 10, 20, 0.8);
   border: 1px solid var(--border);
-  color: var(--text);
+  color: #f3f5ff;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
@@ -1321,7 +1340,7 @@ tbody td {
   border-radius: var(--r-pill);
   background: rgba(7, 10, 20, 0.85);
   border: 1px solid var(--border);
-  color: var(--text-2);
+  color: #f3f5ff;
   font-size: 0.9rem;
   text-align: center;
 }
@@ -1467,7 +1486,7 @@ tbody td {
 
 .faq-body code {
   color: var(--text);
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--bg-2);
   padding: 0.1em 0.4em;
   border-radius: 4px;
 }
@@ -1490,10 +1509,10 @@ tbody td {
   align-items: center;
   padding: clamp(2rem, 5vw, 3.5rem);
   border-radius: var(--r-xl);
-  border: 1px solid rgba(79, 180, 255, 0.3);
+  border: 1px solid var(--border);
   background:
-    radial-gradient(90% 120% at 0% 0%, rgba(61, 139, 255, 0.2), transparent 55%),
-    radial-gradient(80% 120% at 100% 100%, rgba(106, 79, 240, 0.2), transparent 55%), var(--surface-solid);
+    radial-gradient(90% 120% at 0% 0%, rgba(61, 139, 255, 0.06), transparent 55%),
+    radial-gradient(80% 120% at 100% 100%, rgba(106, 79, 240, 0.05), transparent 55%), var(--surface-solid);
   box-shadow: var(--shadow-lg);
 }
 
@@ -1516,7 +1535,7 @@ tbody td {
   padding: 1.4rem;
   border-radius: var(--r-lg);
   border: 1px solid var(--border);
-  background: rgba(7, 10, 20, 0.45);
+  background: var(--surface);
 }
 
 .download-lane h3 {
