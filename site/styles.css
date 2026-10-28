@@ -1,6 +1,6 @@
 /* =========================================================================
    Tiny Clips — site styles
-   Design: "The Pocket Capture Studio" — light, clear, native-feeling.
+   Design: "The Pocket Capture Studio" — light and dark, native-feeling.
    Signature motif: capture-corner brackets + crosshair (from the app icon).
    ========================================================================= */
 
@@ -26,6 +26,7 @@
 
   /* Brand */
   --accent: #175cd3;
+  --accent-hover: #1249ac;
   --accent-2: #6340c8;
   --brand-gradient: linear-gradient(135deg, #175cd3 0%, #6340c8 100%);
   --accent-soft: #e8effc;
@@ -48,10 +49,41 @@
   --mono: ui-monospace, 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
   --focus-color: #175cd3;
   --focus-ring: 0 0 0 6px var(--bg);
+  --header-bg: rgba(248, 250, 252, 0.94);
   --z-sticky: 100;
   --z-skip: 200;
   --z-modal: 900;
   --container: 1180px;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #070a14;
+  --bg-2: #0b1020;
+  --bg-3: #101731;
+  --surface: #0f1422;
+  --surface-2: #192236;
+  --surface-3: #222e45;
+  --surface-solid: #121a30;
+  --border: #344361;
+  --border-strong: #7e91b8;
+  --text: #f3f5ff;
+  --text-2: #b9c4df;
+  --text-3: #a1adc9;
+  --ink-on-accent: #06101f;
+  --accent: #70bdff;
+  --accent-hover: #95ceff;
+  --accent-2: #b2a1ff;
+  --brand-gradient: linear-gradient(135deg, #70bdff 0%, #b2a1ff 100%);
+  --accent-soft: #172a46;
+  --accent-glow: rgba(79, 180, 255, 0.25);
+  --rec: #ff6b7c;
+  --ok: #3ddc97;
+  --shadow-lg: 0 30px 60px -20px rgba(0, 0, 0, 0.55), 0 12px 24px -12px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 14px 30px -14px rgba(0, 0, 0, 0.5);
+  --focus-color: #70bdff;
+  --header-bg: rgba(7, 10, 20, 0.94);
 }
 
 *,
@@ -258,7 +290,7 @@ p a,
 }
 
 .btn-primary:hover {
-  background: #1249ac;
+  background: var(--accent-hover);
   box-shadow: 0 10px 24px -8px var(--accent-glow);
 }
 
@@ -322,7 +354,7 @@ p a,
   position: sticky;
   top: 0;
   z-index: var(--z-sticky);
-  background: rgba(248, 250, 252, 0.94);
+  background: var(--header-bg);
   backdrop-filter: saturate(160%) blur(16px);
   -webkit-backdrop-filter: saturate(160%) blur(16px);
   border-bottom: 1px solid var(--border);
@@ -358,6 +390,45 @@ p a,
   display: flex;
   align-items: center;
   gap: 1.25rem;
+  margin-left: auto;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-md);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.theme-toggle[hidden] {
+  display: none;
+}
+
+.theme-toggle:hover,
+.theme-toggle[aria-pressed='true'] {
+  background: var(--surface-2);
+}
+
+@media (max-width: 1100px) {
+  .theme-toggle-label {
+    display: none;
+  }
 }
 
 .nav-links {

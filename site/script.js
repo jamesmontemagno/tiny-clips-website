@@ -150,6 +150,7 @@
       navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       primaryNav.classList.toggle('is-open', open);
       document.body.classList.toggle('is-nav-open', open);
+      if (open) primaryNav.querySelector('a')?.focus();
     };
     navToggle.addEventListener('click', () => setOpen(navToggle.getAttribute('aria-expanded') !== 'true'));
     primaryNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));

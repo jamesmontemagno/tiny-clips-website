@@ -7,7 +7,8 @@
     <meta name="description" content="End User License Agreement for Tiny Clips on Windows and macOS from Refractored LLC." />
     <meta name="author" content="Refractored LLC" />
     <meta name="theme-color" content="#f8fafc" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="./theme.js"></script>
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://tinyclips.app/terms.html" />
     <meta property="og:type" content="website" />
@@ -32,10 +33,6 @@
           <img src="./assets/app-icon-128.png" alt="" width="32" height="32" decoding="async" />
           <span>Tiny Clips</span>
         </a>
-        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
-          <span class="nav-toggle-bar"></span>
-          <span class="nav-toggle-bar"></span>
-        </button>
         <nav class="primary-nav" id="primary-nav" aria-label="Primary">
           <ul class="nav-links">
             <li><a href="./index.html#try">Try it</a></li>
@@ -46,6 +43,16 @@
           </ul>
           <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
         </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z" fill="currentColor" /><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+            <span class="theme-toggle-label">Dark mode</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+        </div>
       </div>
     </header>
 

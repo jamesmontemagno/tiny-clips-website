@@ -103,7 +103,7 @@ components:
 
 **Creative North Star: "The Pocket Capture Studio"**
 
-Tiny Clips should feel like a compact creative tool sitting one click away: clear, quiet, and immediately useful. The website uses a light canvas with dark blue ink for readability in bright rooms and screen-sharing sessions. Product screenshots, video, and simulated native app surfaces retain their own appearance.
+Tiny Clips should feel like a compact creative tool sitting one click away: clear, quiet, and immediately useful. The website defaults to a light canvas with dark blue ink for readability in bright rooms and screen-sharing sessions, with an explicit dark alternative. Product screenshots, video, and simulated native app surfaces retain their own appearance.
 
 The system uses a focused cool palette, product imagery, rounded native-feeling controls, and restrained glow to communicate speed and capability. It rejects bloated enterprise SaaS marketing: no vague productivity murals, no fake metrics, no endless decorative feature grids, and no design moves that make a sub-5 MB utility feel like a subscription platform.
 
@@ -117,7 +117,13 @@ The system uses a focused cool palette, product imagery, rounded native-feeling 
 
 ## 2. Colors
 
-The palette is a restrained light capture-studio palette: a cool off-white canvas, white panels, dark blue text, readable slate support text, and one deep blue action color. The site stays light regardless of OS appearance and requires no JavaScript or saved preference.
+The default palette is a restrained light capture-studio palette: a cool off-white canvas, white panels, dark blue text, readable slate support text, and one deep blue action color. The site starts light regardless of OS appearance; JavaScript enables an explicit, remembered dark theme. The frontmatter above describes the light palette; CSS custom properties are the source of truth for both.
+
+### Dark palette
+
+The root `data-theme="dark"` palette uses a midnight canvas (`#070a14`), solid navy surfaces (`#0f1422`, `#192236`, `#222e45`), near-white text (`#f3f5ff`), readable secondary/muted text (`#b9c4df`, `#a1adc9`), and bright Capture Blue (`#70bdff`). Violet (`#b2a1ff`) remains limited to the brand gradient. Solid action colors use dark ink (`#06101f`); hover brightens the blue. Control boundaries (`#7e91b8`) and focus blue retain at least 3:1 contrast, while body and supporting text retain at least 4.5:1.
+
+Scope website themes to `:root`, never a global `[data-theme]` selector: the simulated app owns an independent appearance. Do not recolor screenshots, official badges, or gallery overlays.
 
 ### Primary
 
@@ -184,19 +190,19 @@ Tiny Clips uses white and soft blue panels for depth at rest. Subtle blue-gray s
 ### Buttons
 
 - **Shape:** Rounded native rectangle (`12px`, `14px` for large hero CTA).
-- **Primary:** Deep Capture Blue background with white text; hover darkens the blue.
+- **Primary:** Deep Capture Blue with white text in light mode; bright Capture Blue with dark ink in dark mode. Hover strengthens contrast in either theme.
 - **Hover / Focus:** Restrained upward motion and a solid 3px focus outline with 3px offset, including in forced-colors mode.
 - **Secondary:** Soft blue fill, blue border, Capture Ink text. Use for GitHub, TestFlight, manual, and support actions.
 
 ### Chips
 
 - **Style:** Existing badge and command chips use transparent or blue-tinted fills with soft borders and compact padding.
-- **State:** Selected platform and install-method chips invert to Capture Blue with white text. Unselected states use readable slate text.
+- **State:** Selected platform and install-method chips invert to Capture Blue with the theme's contrasting action ink. Unselected states use readable slate text.
 
 ### Cards / Containers
 
 - **Corner Style:** Gently rounded panels (`14px` to `16px`), with `20px` reserved for media frames.
-- **Background:** White panels or soft blue grouped surfaces.
+- **Background:** White or soft blue panels in light mode; solid navy tonal layers in dark mode.
 - **Shadow Strategy:** Resting containers use border and tone; hover can add Surface Large shadow.
 - **Border:** Soft Blue Border by default; Control Border when stronger separation is needed.
 - **Internal Padding:** Cards use `1.15rem` to `1.75rem`; section-level panels use `1.25rem`.
@@ -209,9 +215,10 @@ Tiny Clips uses white and soft blue panels for depth at rest. Subtle blue-gray s
 
 ### Navigation
 
-- **Style:** Sticky light header with a compact brand lockup, 32px icon, pill-shaped nav links, and slate text.
+- **Style:** Sticky theme-matched header with a compact brand lockup, 32px icon, pill-shaped nav links, and readable secondary text.
 - **Hover:** Nav links shift to Capture Ink with a soft blue fill.
 - **Mobile Treatment:** Navigation opens below 900px. Closed links must be hidden from keyboard navigation and the accessibility tree.
+- **Theme switch:** A native **Dark mode** toggle uses `aria-pressed` with a stable accessible name and a minimum 44px target. Keep it outside the collapsed mobile menu, including on legal and 404 pages. Hide it when JavaScript is unavailable. Restore the saved choice from `tiny-clips-theme` before stylesheet loading; blocked storage must not break switching.
 
 ### Platform Install Tabs
 
@@ -227,11 +234,11 @@ Official Microsoft Store and Mac App Store badges are the primary download affor
 
 ### Interactive Demo
 
-The "Try Tiny Clips" section (`demo.js` / `demo.css`) is a simulated desktop, not a marketing illustration. It must mirror real product behavior: tray flyout on Windows, menu bar menu on Mac, Region/Screen/Window picker with R/S/W keys, countdown, editor with the real tool set, trimmer, and library. New app features that are user-visible should be reflected here. Keep it self-contained (no frameworks), keyboard-operable, and respectful of `prefers-reduced-motion`. The wrapper follows the light site; the native stage owns its app colors. Below 640px of available width, use a keyboard-focusable horizontal scroller at native size instead of shrinking touch targets.
+The "Try Tiny Clips" section (`demo.js` / `demo.css`) is a simulated desktop, not a marketing illustration. It must mirror real product behavior: tray flyout on Windows, menu bar menu on Mac, Region/Screen/Window picker with R/S/W keys, countdown, editor with the real tool set, trimmer, and library. New app features that are user-visible should be reflected here. Keep it self-contained (no frameworks), keyboard-operable, and respectful of `prefers-reduced-motion`. The wrapper follows the selected site theme; the native stage owns its app colors. Below 640px of available width, use a keyboard-focusable horizontal scroller at native size instead of shrinking touch targets.
 
 ### Comparison and Shortcut Tables
 
-Tables use white surfaces with soft blue headers, hairline row borders, and keyboard-focusable scroll wrappers. Checks are small blue circles. These are proof surfaces: keep them factual and aligned with the app's README and changelog.
+Tables use themed surfaces with tonal headers, hairline row borders, and keyboard-focusable scroll wrappers. Checks are small blue circles. These are proof surfaces: keep them factual and aligned with the app's README and changelog.
 
 ## 6. Do's and Don'ts
 
