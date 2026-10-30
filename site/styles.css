@@ -141,6 +141,12 @@ h1 {
   text-wrap: pretty;
 }
 
+@media (max-width: 340px) {
+  .hero h1 {
+    font-size: 2.1rem;
+  }
+}
+
 .nowrap {
   white-space: nowrap;
 }
