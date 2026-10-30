@@ -111,9 +111,13 @@ test.describe('pages', () => {
       await expect(answer).toContainText('Settings → Studio');
       await expect(answer).toContainText('On macOS, choose Studio Recording…');
       await expect(answer).toContainText('On Windows, choose the Studio tile');
-      await expect(answer.getByRole('link', { name: 'Studio preview branch' })).toHaveAttribute(
+      await expect(answer.getByRole('link', { name: 'main branch' })).toHaveAttribute(
         'href',
-        'https://github.com/jamesmontemagno/tiny-clips/tree/motz-video-compositing-editor'
+        'https://github.com/jamesmontemagno/tiny-clips/tree/main'
+      );
+      await expect(answer.getByRole('link', { name: 'Studio preview notes' })).toHaveAttribute(
+        'href',
+        'https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md'
       );
 
       const graph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent())['@graph'];
@@ -171,6 +175,10 @@ test.describe('pages', () => {
       await link.click();
       await dialog.getByText('Read the video summary', { exact: true }).click();
       await expect(dialog.getByText(/A quick trimmer becomes Studio/)).toBeVisible();
+      await expect(dialog.getByRole('link', { name: 'Studio preview notes' })).toHaveAttribute(
+        'href',
+        'https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md'
+      );
       await expect(page.locator('body')).toHaveClass(/is-studio-open/);
       const bounds = await dialog.boundingBox();
       expect(bounds.x).toBeGreaterThanOrEqual(0);
