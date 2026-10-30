@@ -41,7 +41,7 @@
   gap: 0.75rem;
   padding: 0.85rem 1rem;
   border-bottom: 1px solid var(--border);
-  background: rgba(7, 10, 20, 0.4);
+  background: var(--bg-2);
 }
 
 .demo-toolbar-group {
@@ -109,6 +109,13 @@
 }
 
 .demo-stage {
+  /* Native app colors stay independent of the website's light palette. */
+  color-scheme: light;
+
+  --accent: #4fb4ff;
+  --ink-on-accent: #06101f;
+  --focus-color: #175cd3;
+
   position: absolute;
   top: 0;
   left: 0;
@@ -125,6 +132,8 @@
 }
 
 .demo-stage:focus-visible {
+  outline: 3px solid var(--focus-color);
+  outline-offset: -3px;
   box-shadow: inset 0 0 0 3px rgba(79, 180, 255, 0.6);
   border-radius: 0;
 }
@@ -157,6 +166,9 @@
 }
 
 .demo-stage[data-theme='dark'] {
+  color-scheme: dark;
+
+  --focus-color: #4fb4ff;
   --desk-text: #eef1fa;
   --desk-text-2: #a3acc4;
   --desk-surface: rgba(32, 36, 52, 0.94);
