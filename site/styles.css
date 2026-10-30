@@ -207,6 +207,9 @@ button {
 :focus-visible {
   outline: 3px solid var(--focus-color);
   outline-offset: 3px;
+}
+
+:focus-visible:not(main) {
   box-shadow: var(--focus-ring);
   border-radius: var(--r-sm);
 }

@@ -219,6 +219,7 @@ Tiny Clips uses white and soft blue panels for depth at rest. Subtle blue-gray s
 - **Hover:** Nav links shift to Capture Ink with a soft blue fill.
 - **Mobile Treatment:** Navigation opens below 900px. Closed links must be hidden from keyboard navigation and the accessibility tree.
 - **Theme switch:** A native **Dark mode** toggle uses `aria-pressed` with a stable accessible name and a minimum 44px target. Keep it outside the collapsed mobile menu, including on legal and 404 pages. Hide it when JavaScript is unavailable. Restore the saved choice from `tiny-clips-theme` before stylesheet loading; blocked storage must not break switching.
+- **Skip Link:** Keep the main-content destination focusable without applying the rounded control focus ring to the whole page. Links and controls retain their visible keyboard-focus indicators.
 
 ### Platform Install Tabs
 
