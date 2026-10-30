@@ -116,33 +116,7 @@ test('reduced motion stops automatic video playback, including preference change
 test('320px reflow keeps page content in bounds and demo targets at native size', async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/');
-  const { scrollWidth, overflow } = await page.evaluate(() => {
-    const candidates = [document.body, ...document.body.querySelectorAll('*')]
-      .filter((element) => element.getBoundingClientRect().right > innerWidth)
-      .sort((a, b) => {
-        const depth = (element) => {
-          let result = 0;
-          for (let parent = element.parentElement; parent; parent = parent.parentElement) result++;
-          return result;
-        };
-        return depth(a) - depth(b);
-      });
-    const overflow = candidates
-      .filter((element) => !candidates.some((parent) => parent !== element && parent.contains(element)))
-      .map((element) => {
-        const bounds = element.getBoundingClientRect();
-        return {
-          element: `${element.tagName.toLowerCase()}${element.id ? `#${element.id}` : ''}${typeof element.className === 'string' && element.className ? `.${element.className.trim().replace(/\s+/g, '.')}` : ''}`,
-          right: Math.round(bounds.right),
-          width: Math.round(bounds.width),
-          scrollWidth: element.scrollWidth,
-          clientWidth: element.clientWidth,
-          overflowX: getComputedStyle(element).overflowX,
-        };
-      });
-    return { scrollWidth: document.documentElement.scrollWidth, overflow };
-  });
-  expect(scrollWidth, `Unclipped elements exceed the viewport: ${JSON.stringify(overflow)}`).toBe(320);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
   const desktop = page.getByRole('region', { name: /Interactive desktop/ });
   await desktop.focus();
   await page.keyboard.press('End');
