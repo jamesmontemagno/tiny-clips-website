@@ -8,6 +8,18 @@
     year.textContent = String(new Date().getFullYear());
   }
 
+  const heroVideo = document.querySelector('.hero-video');
+  if (heroVideo) {
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    heroVideo.autoplay = !motionPreference.matches;
+    motionPreference.addEventListener('change', (event) => {
+      if (event.matches) {
+        heroVideo.autoplay = false;
+        heroVideo.pause();
+      }
+    });
+  }
+
   const STORE_URLS = {
     windows: 'https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS',
     macos: 'https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12',
@@ -138,6 +150,7 @@
       navToggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       primaryNav.classList.toggle('is-open', open);
       document.body.classList.toggle('is-nav-open', open);
+      if (open) primaryNav.querySelector('a')?.focus();
     };
     navToggle.addEventListener('click', () => setOpen(navToggle.getAttribute('aria-expanded') !== 'true'));
     primaryNav.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));

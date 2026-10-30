@@ -31,6 +31,31 @@ test.describe('pages', () => {
     });
   }
 
+  for (const width of [1440, 390]) {
+    for (const path of ['/index.html', '/privacy.html', '/terms.html']) {
+      test(`${path} skip link keeps page corners square at ${width}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 960 });
+        await page.goto(path, { waitUntil: 'load' });
+
+        const skipLink = page.locator('.skip-link');
+        await page.keyboard.press('Tab');
+        await expect(skipLink).toBeFocused();
+        await expect(skipLink).not.toHaveCSS('box-shadow', 'none');
+        await page.keyboard.press('Enter');
+
+        const main = page.locator('main');
+        await expect(main).toBeFocused();
+        await expect(main).toHaveCSS('border-radius', '0px');
+        await expect(main).toHaveCSS('box-shadow', 'none');
+
+        await page.keyboard.press('Tab');
+        const firstLink = main.locator('a[href]').first();
+        await expect(firstLink).toBeFocused();
+        await expect(firstLink).not.toHaveCSS('box-shadow', 'none');
+      });
+    }
+  }
+
   test('homepage SEO and store links are correct', async ({ page }) => {
     await gotoHome(page);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://tinyclips.app/');

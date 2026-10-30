@@ -17,6 +17,7 @@ This repository contains the static marketing website for Tiny Clips, published 
 | `site/styles.css`                                              | Site design system and page styles.                                                                                                                                                                                                                                                                                                                                                                            |
 | `site/demo.css` / `site/demo.js`                               | The interactive "Try Tiny Clips" simulator: a fake Windows/macOS desktop with the tray flyout / menu bar menu, capture picker, region/window/screen selection, scrolling capture, OCR, screenshot editor (annotations, redaction, backgrounds, export frames), recording with webcam + teleprompter overlays, video/GIF trimmer, Clips Library / Clips Manager, and Settings. Self-contained, no dependencies. |
 | `site/script.js`                                               | Platform detection (store badge ordering, install tab), copy buttons, mobile nav, active-section nav, gallery lightbox.                                                                                                                                                                                                                                                                                        |
+| `site/theme.js`                                                | Pre-paint theme restoration, accessible light/dark switch, and saved preference synchronization.                                                                                                                                                                                                                                                                                                               |
 | `site/privacy.html`, `site/terms.html`, `site/404.html`        | Legal and error pages.                                                                                                                                                                                                                                                                                                                                                                                         |
 | `site/assets/`                                                 | App icon, official store badges (`badge-microsoft-store.svg`, `badge-mac-app-store.svg`), screenshots, promo video, OG image.                                                                                                                                                                                                                                                                                  |
 | `site/robots.txt`, `site/sitemap.xml`, `site/site.webmanifest` | Discovery and manifest files.                                                                                                                                                                                                                                                                                                                                                                                  |
@@ -48,6 +49,29 @@ The same checks run in CI (`.github/workflows/ci.yml`) on every pull request and
 CI also validates `sitemap.xml`, `robots.txt`, the web manifest, the canonical URL, both store links, and that every JSON-LD block parses.
 
 First run of the e2e tests needs a browser: `npx playwright install chromium`.
+
+## Appearance and accessibility
+
+The site defaults to light, independent of OS appearance. Every page has a **Dark mode**
+toggle with a keyboard-accessible pressed state. The explicit choice is saved in
+`localStorage` (`tiny-clips-theme`), restored before styles load, and synchronized across
+open tabs. If storage is blocked, switching still works for the current page; without
+JavaScript, the site stays light and hides the inactive toggle. Browser chrome follows
+the selected theme; the install manifest retains its light launch canvas. Product
+screenshots, official store badges, and the simulated app's native colors are preserved.
+
+`tests/accessibility.spec.js` runs axe WCAG A/AA checks (through WCAG 2.2) on all pages
+in both themes at desktop and mobile widths, plus alternate install content, expanded FAQ, mobile
+navigation, and the gallery lightbox. It also covers keyboard focus, skip navigation,
+320px reflow, forced-colors focus outlines, reduced-motion video behavior, and the
+no-JavaScript light theme. `tests/theme.spec.js` covers keyboard switching, persistence
+across pages/reloads, blocked storage, cross-tab updates, and header layout. These
+checks complement, not replace, manual assistive
+technology review.
+
+On small screens the interactive desktop scrolls sideways at native size so controls
+remain readable and touch-sized. Reduced motion stops hero autoplay; the video's
+manual controls remain available. See `DESIGN.md` for palette and accessibility rules.
 
 ## Keeping the site in sync with the app
 

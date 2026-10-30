@@ -248,16 +248,28 @@
     desktop,
     overlay
   );
-  const stageOuter = el('div', { class: 'demo-stage-outer' }, stage);
+  const stageOuter = el(
+    'div',
+    {
+      class: 'demo-stage-outer',
+      role: 'region',
+      'aria-label': 'Interactive desktop. Scroll horizontally on small screens.',
+      tabindex: '0',
+    },
+    stage
+  );
 
   root.append(toolbar, stageOuter);
 
   let stageScale = 1;
   const fitStage = () => {
     const width = stageOuter.clientWidth || STAGE_W;
-    stageScale = width / STAGE_W;
+    // Keep native controls readable and touch-sized on narrow screens.
+    stageScale = width < 640 ? 1 : width / STAGE_W;
+    stageOuter.style.overflowX = width < 640 ? 'auto' : 'hidden';
     stage.style.transform = `scale(${stageScale})`;
-    stageOuter.style.height = `${STAGE_H * stageScale}px`;
+    const scrollbarHeight = stageOuter.offsetHeight - stageOuter.clientHeight;
+    stageOuter.style.height = `${STAGE_H * stageScale + scrollbarHeight}px`;
   };
   fitStage();
   if ('ResizeObserver' in window) new ResizeObserver(fitStage).observe(stageOuter);
