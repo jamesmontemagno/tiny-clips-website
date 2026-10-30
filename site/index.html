@@ -201,7 +201,7 @@
                 "name": "How do I try Tiny Clips Studio?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build Tiny Clips from the main branch and check the Studio preview notes for current limitations. In that build, open Settings → Studio and turn on Tiny Clips Studio (Preview). On macOS, choose Studio Recording… from the menu bar menu. On Windows, choose the Studio tile in the tray menu. Record, then arrange your layers in Studio and export an MP4. Studio is off by default. With Studio off, ordinary video recording stays unchanged; the existing Video command still uses the regular recording workflow."
+                  "text": "Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build Tiny Clips from the main branch and check the Studio preview notes for current limitations. In that build, Studio is on by default unless you previously turned it off in Settings → Studio. The refreshed Tiny Clips 2.0 Welcome Back screen appears once. On macOS, choose Studio Recording… from the menu bar menu. On Windows, choose the Studio tile in the tray menu. Record, then arrange your layers in Studio and export an MP4. If you do not want Studio, turn off Tiny Clips Studio (Preview) in Settings → Studio; saved opt-outs stay off. The existing Video command still uses the regular recording workflow."
                 }
               },
               {
@@ -559,13 +559,13 @@
 
           <article class="feature-step feature-footer" id="studio" aria-labelledby="studio-title">
             <h3 id="studio-title">Tiny Clips Studio (Preview)</h3>
-            <p>Record now. Choose the look afterward. Studio is an opt-in preview for macOS and Windows that keeps your screen and optional camera as separate editable layers, rather than baking them into one video.</p>
+            <p>Record now. Choose the look afterward. Studio is a preview for macOS and Windows that is on by default unless you previously turned it off. It keeps your screen and optional camera as separate editable layers, rather than baking them into one video.</p>
             <ul class="feature-list">
               <li><strong>Arrange your layers</strong> — change the layout and the camera's position, size, and shape after recording</li>
               <li><strong>Make it yours</strong> with backgrounds, padding, and rounded corners</li>
               <li><strong>Trim and export an MP4</strong>, with a project you can reopen to edit again</li>
             </ul>
-            <p class="section-copy">Studio is off by default, and ordinary video recording stays unchanged when it is off. <a href="#studio-preview">How to try the preview</a>.</p>
+            <p class="section-copy">The refreshed Tiny Clips 2.0 Welcome Back screen appears once. Your saved opt-out stays off, and the existing Video command always uses the regular recording workflow. <a href="#studio-preview">How to try the preview</a>.</p>
             <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips-marketing/raw/refs/heads/main/marketing/studio-launch/tiny-clips-studio-launch.mp4" data-studio-video>Learn more — watch the video</a>
           </article>
 
@@ -575,7 +575,7 @@
               <button class="btn btn-secondary btn-sm" type="submit" autofocus>Close video</button>
             </form>
             <video class="studio-video" controls playsinline preload="none" width="1920" height="1080" aria-label="Tiny Clips Studio launch video" aria-describedby="studio-video-description"></video>
-            <p id="studio-video-description">45 seconds · Music only, no narration. Studio is an opt-in preview for macOS and Windows.</p>
+            <p id="studio-video-description">45 seconds · Music only, no narration. Studio is on by default in preview builds unless previously disabled.</p>
             <details class="studio-video-summary">
               <summary>Read the video summary</summary>
               <p>A quick trimmer becomes Studio: separate screen and camera layers, scene layouts, backgrounds, padding, and rounded corners. Illustrative compositions accompany real Windows editor controls and timeline footage. The video highlights zoom, cut, speed, MP4 export, editable projects, and enabling Studio Preview, then shows a finished composition. It closes with Tiny Clips screenshots, video, GIFs, audio recording, screenshot editing, and availability on macOS and Windows. Preview capabilities and limitations vary by platform; see the <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md" target="_blank" rel="noopener noreferrer">Studio preview notes</a>.</p>
@@ -656,7 +656,7 @@
                 <tr><th scope="row">Copy text from screen (OCR)</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
                 <tr><th scope="row">Screenshot editor, redaction, backgrounds, export frames</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
                 <tr><th scope="row">Video &amp; GIF trimmers</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row"><a href="#studio">Tiny Clips Studio</a></th><td>Preview build <small>opt-in</small></td><td>Preview build <small>opt-in</small></td></tr>
+                <tr><th scope="row"><a href="#studio">Tiny Clips Studio</a></th><td>Preview build <small>on by default</small></td><td>Preview build <small>on by default</small></td></tr>
                 <tr><th scope="row">Microphone + system audio</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
                 <tr><th scope="row">Webcam overlay</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span> <small>+ Continuity Camera</small></td></tr>
                 <tr><th scope="row">Teleprompter overlay</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
@@ -815,8 +815,8 @@
               <summary id="studio-preview">How do I try Tiny Clips Studio?</summary>
               <div class="faq-body">
                 <p>Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build Tiny Clips from the <a href="https://github.com/jamesmontemagno/tiny-clips/tree/main" target="_blank" rel="noopener noreferrer">main branch</a> and check the <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md" target="_blank" rel="noopener noreferrer">Studio preview notes</a> for current limitations.</p>
-                <p>In that build, open <strong>Settings → Studio</strong> and turn on <strong>Tiny Clips Studio (Preview)</strong>. On macOS, choose <strong>Studio Recording…</strong> from the menu bar menu. On Windows, choose the <strong>Studio</strong> tile in the tray menu. Record, then arrange your layers in Studio and export an MP4.</p>
-                <p>Studio is off by default. With Studio off, ordinary video recording stays unchanged; the existing Video command still uses the regular recording workflow.</p>
+                <p>In that build, Studio is on by default unless you previously turned it off in <strong>Settings → Studio</strong>. The refreshed Tiny Clips 2.0 Welcome Back screen appears once. On macOS, choose <strong>Studio Recording…</strong> from the menu bar menu. On Windows, choose the <strong>Studio</strong> tile in the tray menu. Record, then arrange your layers in Studio and export an MP4.</p>
+                <p>If you do not want Studio, turn off <strong>Tiny Clips Studio (Preview)</strong> in Settings → Studio; saved opt-outs stay off. The existing Video command still uses the regular recording workflow.</p>
               </div>
             </details>
             <details class="faq-item">

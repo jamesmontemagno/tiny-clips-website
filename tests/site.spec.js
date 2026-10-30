@@ -99,7 +99,12 @@ test.describe('pages', () => {
       await expect(studio).toContainText("camera's position, size, and shape");
       await expect(studio).toContainText('backgrounds, padding, and rounded corners');
       await expect(studio).toContainText('Trim and export an MP4');
-      await expect(studio).toContainText('ordinary video recording stays unchanged');
+      await expect(studio).toContainText('on by default unless you previously turned it off');
+      await expect(studio).toContainText('Your saved opt-out stays off');
+      await expect(studio).toContainText('Welcome Back screen appears once');
+
+      const studioComparison = page.getByRole('row', { name: /Tiny Clips Studio/ });
+      await expect(studioComparison).toContainText('on by default');
 
       await studio.getByRole('link', { name: 'How to try the preview' }).click();
       const summary = page.locator('#studio-preview');
@@ -109,6 +114,10 @@ test.describe('pages', () => {
       await expect(answer).toBeVisible();
       await expect(answer).toContainText('not part of the current store releases');
       await expect(answer).toContainText('Settings → Studio');
+      await expect(answer).toContainText('on by default unless you previously turned it off');
+      await expect(answer).toContainText('Welcome Back screen appears once');
+      await expect(answer).toContainText('saved opt-outs stay off');
+      await expect(answer).toContainText('existing Video command still uses the regular recording workflow');
       await expect(answer).toContainText('On macOS, choose Studio Recording…');
       await expect(answer).toContainText('On Windows, choose the Studio tile');
       await expect(answer.getByRole('link', { name: 'main branch' })).toHaveAttribute(
