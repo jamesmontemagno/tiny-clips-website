@@ -117,23 +117,29 @@ test('320px reflow keeps page content in bounds and demo targets at native size'
   await page.setViewportSize({ width: 320, height: 800 });
   await page.goto('/');
   const { scrollWidth, overflow } = await page.evaluate(() => {
-    const hasClippedAncestor = (element) => {
-      for (let parent = element.parentElement; parent; parent = parent.parentElement) {
-        if (['auto', 'clip', 'hidden', 'scroll'].includes(getComputedStyle(parent).overflowX)) return true;
-      }
-      return false;
-    };
-    const overflow = [...document.querySelectorAll('body *')]
+    const candidates = [document.body, ...document.body.querySelectorAll('*')]
+      .filter((element) => element.getBoundingClientRect().right > innerWidth)
+      .sort((a, b) => {
+        const depth = (element) => {
+          let result = 0;
+          for (let parent = element.parentElement; parent; parent = parent.parentElement) result++;
+          return result;
+        };
+        return depth(a) - depth(b);
+      });
+    const overflow = candidates
+      .filter((element) => !candidates.some((parent) => parent !== element && parent.contains(element)))
       .map((element) => {
         const bounds = element.getBoundingClientRect();
         return {
           element: `${element.tagName.toLowerCase()}${element.id ? `#${element.id}` : ''}${typeof element.className === 'string' && element.className ? `.${element.className.trim().replace(/\s+/g, '.')}` : ''}`,
           right: Math.round(bounds.right),
-          clipped: hasClippedAncestor(element),
+          width: Math.round(bounds.width),
+          scrollWidth: element.scrollWidth,
+          clientWidth: element.clientWidth,
+          overflowX: getComputedStyle(element).overflowX,
         };
-      })
-      .filter((element) => element.right > innerWidth && !element.clipped)
-      .slice(0, 10);
+      });
     return { scrollWidth: document.documentElement.scrollWidth, overflow };
   });
   expect(scrollWidth, `Unclipped elements exceed the viewport: ${JSON.stringify(overflow)}`).toBe(320);
