@@ -2,7 +2,11 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 const audit = async (page) => {
-  const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa']).analyze();
+  const results = await new AxeBuilder({ page })
+    // The YouTube player is third-party markup and not controlled by this site.
+    .exclude('.video-embed')
+    .withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+    .analyze();
   expect(results.violations).toEqual([]);
 };
 
@@ -211,7 +215,7 @@ test('desktop demo fits without horizontal scrollbars and responds to resizing',
 test('light theme and manual video controls do not require JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false, colorScheme: 'dark' });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:8765/');
+  await page.goto('/');
   await expect(page.locator('html')).toHaveCSS('color-scheme', 'light');
   await expect(page.locator('.hero-video')).toHaveAttribute('controls');
   await expect(page.locator('.hero-video')).not.toHaveAttribute('autoplay');
