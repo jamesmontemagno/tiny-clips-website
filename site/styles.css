@@ -173,6 +173,9 @@ button {
 
 :focus-visible {
   outline: none;
+}
+
+:focus-visible:not(main) {
   box-shadow: var(--focus-ring);
   border-radius: var(--r-sm);
 }
