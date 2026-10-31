@@ -112,6 +112,7 @@
               "Animated GIF recording",
               "Screenshot editor with annotations, redaction, backgrounds, and export frames",
               "Video and GIF trimmers",
+              "Tiny Clips Studio (Preview): editable screen and camera layers, layouts, backgrounds, trimming, and MP4 export in preview builds",
               "Teleprompter overlay for recordings",
               "Clips library with tags, favorites, and sharing"
             ],
@@ -168,7 +169,7 @@
                 "name": "How do I install Tiny Clips on macOS?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "The recommended way is the Mac App Store, which includes automatic updates and Clips Manager. You can also install with Homebrew (brew tap jamesmontemagno/tiny-clips https://github.com/jamesmontemagno/tiny-clips, then brew install --cask tiny-clips), join the TestFlight beta, or download a signed build from GitHub Releases."
+                  "text": "The recommended way is the Mac App Store, which includes automatic updates and Clips Library. You can also install with Homebrew (brew tap jamesmontemagno/tiny-clips https://github.com/jamesmontemagno/tiny-clips, then brew install --cask tiny-clips), join the TestFlight beta, or download a signed build from GitHub Releases."
                 }
               },
               {
@@ -193,6 +194,14 @@
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "PNG (and JPEG on Windows) screenshots, hardware-accelerated H.264 MP4 video at 24, 30, or 60 fps with optional microphone and system audio, and animated GIFs with configurable frame rate and width."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How do I try Tiny Clips Studio?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build Tiny Clips from the main branch and check the Studio preview notes for current limitations. In that build, Studio is on by default unless you previously turned it off in Settings → Studio. The refreshed Tiny Clips 2.0 Welcome Back screen appears once. On macOS, choose Studio Recording… from the menu bar menu. On Windows, choose the Studio tile in the tray menu. Record, then arrange your layers in Studio and export an MP4. If you do not want Studio, turn off Tiny Clips Studio (Preview) in Settings → Studio; saved opt-outs stay off. The existing Video command still uses the regular recording workflow."
                 }
               },
               {
@@ -223,9 +232,9 @@
         </a>
         <nav class="primary-nav" id="primary-nav" aria-label="Primary">
           <ul class="nav-links">
+            <li><a href="#highlights">Highlights</a></li>
             <li><a href="#try">Try it</a></li>
             <li><a href="#features">Features</a></li>
-            <li><a href="#compare">Mac vs Windows</a></li>
             <li><a href="#gallery">Screens</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
@@ -246,79 +255,526 @@
 
     <main id="main-content" tabindex="-1">
       <!-- ============================== HERO ============================== -->
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-backdrop" aria-hidden="true"></div>
-        <div class="container hero-grid">
+      <section class="hero hero-studio" aria-labelledby="hero-title">
+        <div class="container hero-grid hero-studio-grid">
           <div class="hero-content">
-            <p class="hero-kicker">
-              <span class="kicker-dot" aria-hidden="true"></span>
-              Now on the Microsoft Store and the Mac App Store
+            <p class="studio-preview-pill">
+              <span class="studio-status-dot" aria-hidden="true"></span>Tiny Clips 2.0
+              <span aria-hidden="true">·</span> Studio Preview
             </p>
-            <h1 id="hero-title">
-              <span class="nowrap">Capture it. Polish it.</span> <span class="accent-text nowrap">Share it.</span><br />
-              All from a tiny icon.
-            </h1>
-            <p class="hero-copy">
-              Tiny Clips lives in your Windows system tray or Mac menu bar. Grab any region, window, or screen as a
-              PNG, MP4, or GIF — then annotate, trim, add your webcam, and send it on its way. Free, fast, and no
-              account required.
+            <ul class="hero-capture-types">
+              <li>Screenshots</li>
+              <li>Recordings</li>
+              <li>GIFs</li>
+            </ul>
+            <h1 id="hero-title">From quick capture <span class="accent-text">to clear demo.</span></h1>
+            <p class="hero-copy studio-hero-copy">
+              Mark up a screenshot that explains itself, record without the setup, and shape recordings into a clear
+              demo in Studio.
             </p>
-
-            <div class="store-ctas" data-platform-ctas>
-              <a
-                class="store-badge store-badge-windows"
-                href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-platform-cta="windows"
-              >
-                <img src="./assets/badge-microsoft-store.svg" alt="Get Tiny Clips from the Microsoft Store" width="200" height="55" />
+            <div class="hero-actions">
+              <a class="btn hero-download" href="#download" data-store-link data-hero-download>
+                <svg class="os-icon os-icon-windows" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M3 5.6 10.4 4.6v7H3zM11.4 4.4 21 3v8.6h-9.6zM3 12.4h7.4v7L3 18.4zM11.4 12.4H21V21l-9.6-1.4z" />
+                </svg>
+                <svg class="os-icon os-icon-macos" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M16.4 12.7c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4.1ZM13.9 5.1c.7-.9 1.2-2.1 1.1-3.3-1 0-2.3.7-3 1.5-.7.8-1.2 2-1.1 3.2 1.2.1 2.3-.6 3-1.4Z" />
+                </svg>
+                <span data-hero-download-label>Download Tiny Clips</span>
               </a>
-              <a
-                class="store-badge store-badge-mac"
-                href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-platform-cta="macos"
-              >
-                <img src="./assets/badge-mac-app-store.svg" alt="Download Tiny Clips on the Mac App Store" width="200" height="51" />
+              <a class="btn hero-workflow" href="#try">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" fill="currentColor" /></svg>
+                See the workflow
               </a>
             </div>
-            <p class="hero-trust">
-              <span>Free, every feature included</span>
-              <span class="dot" aria-hidden="true">·</span>
-              <span>Windows 11 &amp; macOS 15+</span>
-              <span class="dot" aria-hidden="true">·</span>
-              <span>No account, no telemetry</span>
-              <span class="dot" aria-hidden="true">·</span>
-              <a href="#download">Other install options</a>
+            <ul class="hero-trust">
+              <li>Free</li>
+              <li>Open source</li>
+              <li>No account required</li>
+              <li><a class="hero-alt-link" href="#download" data-hero-alt>Windows and Mac downloads</a></li>
+            </ul>
+          </div>
+
+          <div class="hero-showcase" data-showcase>
+            <div class="showcase-tabs" role="tablist" aria-label="Product preview" hidden>
+              <button
+                class="showcase-tab"
+                type="button"
+                role="tab"
+                id="showcase-tab-editor"
+                aria-controls="showcase-editor"
+                aria-selected="true"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="5" width="18" height="14" rx="2" />
+                  <path d="m7 15 3.5-3.5 2.5 2.5 2-2 2 2" />
+                  <circle cx="9" cy="9" r="1.2" />
+                </svg>
+                Screenshot editor
+              </button>
+              <button
+                class="showcase-tab"
+                type="button"
+                role="tab"
+                id="showcase-tab-studio"
+                aria-controls="showcase-studio"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="5" width="13" height="11" rx="2" />
+                  <path d="m16 9 5-3v9l-5-3M6 20h12" />
+                </svg>
+                Studio <span class="showcase-tab-badge">Preview</span>
+              </button>
+            </div>
+
+            <div class="showcase-panel" id="showcase-editor">
+              <figure class="editor-showcase" role="img" aria-labelledby="editor-showcase-description">
+                <div class="mock-window editor-window" aria-hidden="true">
+                  <div class="mock-titlebar">
+                    <span class="mock-traffic"><i></i><i></i><i></i></span>
+                    <img src="./assets/app-icon-128.png" alt="" width="18" height="18" decoding="async" />
+                    <strong
+                      ><span class="os-windows-only">Edit screenshot</span
+                      ><span class="os-macos-only">Edit Screenshot</span></strong
+                    >
+                    <span class="mock-caption-buttons"><i></i><i></i><i></i></span>
+                  </div>
+                  <div class="editor-body">
+                    <div class="editor-actions">
+                      <span class="editor-size">1280 × 720 px</span>
+                      <span class="editor-format os-macos-only">PNG</span>
+                      <span class="editor-action"
+                        ><svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3" /></svg
+                        ><b>Undo</b></span
+                      >
+                      <span class="editor-action"
+                        ><svg viewBox="0 0 24 24">
+                          <rect x="8" y="8" width="12" height="12" rx="2" />
+                          <path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" /></svg
+                        ><b>Copy</b></span
+                      >
+                      <span class="editor-action is-primary"
+                        ><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5zM8 4v5h7V4M8 20v-6h8v6" /></svg
+                        ><b>Save</b></span
+                      >
+                    </div>
+                    <div class="editor-tools">
+                      <span class="editor-tool"
+                        ><svg viewBox="0 0 24 24"><path d="M5 3.5 18.5 10l-6 1.8-2.6 5.7z" /></svg><b>Move</b></span
+                      >
+                      <span class="editor-tool"
+                        ><svg viewBox="0 0 24 24"><path d="M7 3v14h14M3 7h14v14" /></svg><b>Crop</b></span
+                      >
+                      <span class="editor-tool"
+                        ><svg viewBox="0 0 24 24"><rect x="4" y="6" width="16" height="12" rx="1.5" /></svg
+                        ><b>Rectangle</b></span
+                      >
+                      <span class="editor-tool"
+                        ><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="6.5" /></svg><b>Circle</b></span
+                      >
+                      <span class="editor-tool is-current"
+                        ><svg viewBox="0 0 24 24"><path d="M5 19 18 6M10 6h8v8" /></svg><b>Arrow</b></span
+                      >
+                      <span class="editor-tool editor-tool-optional"
+                        ><svg viewBox="0 0 24 24"><path d="M5 19 19 5" /></svg><b>Line</b></span
+                      >
+                      <span class="editor-tool"
+                        ><svg viewBox="0 0 24 24"><path d="m4 20 1-4L16.5 4.5a2.1 2.1 0 0 1 3 3L8 19z" /></svg
+                        ><b>Draw</b></span
+                      >
+                      <span class="editor-tool"
+                        ><svg viewBox="0 0 24 24"><path d="M5 6V4h14v2M12 4v16M9 20h6" /></svg><b>Text</b></span
+                      >
+                      <span class="editor-tool"
+                        ><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" /><path d="M10.5 9.5 12.5 8v8" /></svg
+                        ><b>Number</b></span
+                      >
+                      <span class="editor-tool editor-tool-optional"
+                        ><svg viewBox="0 0 24 24">
+                          <circle cx="12" cy="12" r="8.5" />
+                          <path d="M8.5 14.5a4.5 4.5 0 0 0 7 0M9.5 10h.01M14.5 10h.01" /></svg
+                        ><b>Emoji</b></span
+                      >
+                      <span class="editor-tool"
+                        ><svg viewBox="0 0 24 24">
+                          <path
+                            d="M3 3l18 18M10.6 6.1A9.8 9.8 0 0 1 12 6c5.5 0 9 6 9 6a15.6 15.6 0 0 1-2.7 3.4M6.6 7.6C4.3 9.2 3 12 3 12s3.5 6 9 6a8.6 8.6 0 0 0 4-.9"
+                          /></svg
+                        ><b>Redact</b></span
+                      >
+                    </div>
+                    <div class="editor-stage">
+                      <div class="editor-canvas">
+                        <div class="shot">
+                          <div class="shot-bar"><i></i><i></i><i></i><span>Billing</span></div>
+                          <div class="shot-nav"><i></i><i></i><i></i><i></i></div>
+                          <div class="shot-main">
+                            <span class="shot-heading">Billing settings</span>
+                            <span class="shot-label">Email</span>
+                            <span class="shot-field shot-redacted"><i></i><i></i><i></i></span>
+                            <span class="shot-label">Plan</span>
+                            <span class="shot-field">Pro · Monthly</span>
+                            <span class="shot-button">Save changes</span>
+                          </div>
+                          <div class="shot-card"><i></i><i></i><i></i></div>
+                        </div>
+                        <span class="anno-rect"><i></i><i></i><i></i><i></i></span>
+                        <span class="anno-badge anno-badge-1">1</span>
+                        <span class="anno-badge anno-badge-2">2</span>
+                        <svg class="anno-arrow" viewBox="0 0 100 60">
+                          <path d="M96 54C70 56 30 46 10 12" />
+                          <path d="M10 28 10 12 24 20" />
+                        </svg>
+                        <span class="anno-callout">Still disabled after edits</span>
+                      </div>
+                    </div>
+                    <div class="editor-props">
+                      <span class="props-title">Arrow</span>
+                      <span class="props-row"
+                        ><span>Color</span
+                        ><span class="props-swatches"><i class="is-current"></i><i></i><i></i><i></i><i></i></span
+                      ></span>
+                      <span class="props-row"
+                        ><span>Style</span
+                        ><span class="props-styles"
+                          ><i><svg viewBox="0 0 24 24"><path d="M4 18 19 5M12 5h7v7" /></svg></i
+                          ><i class="is-current"
+                            ><svg viewBox="0 0 24 24"><path d="M4 19C6 10 11 6 19 6M13 3l6 3-3 6" /></svg></i
+                          ><i><svg viewBox="0 0 24 24"><path d="M4 18c2-9 13-3 15-12M14 5h5v5" /></svg></i></span
+                      ></span>
+                      <span class="props-row"
+                        ><span>Stroke</span><span class="props-slider"><i></i></span><b>6 px</b></span
+                      >
+                      <span class="props-title">Background</span>
+                      <span class="props-presets"><i class="is-current"></i><i></i><i></i><i></i><i></i><i></i></span>
+                      <span class="props-row"
+                        ><span>Padding</span><span class="props-slider is-wide"><i></i></span
+                      ></span>
+                      <span class="props-row"
+                        ><span>Corners</span><span class="props-slider is-short"><i></i></span
+                      ></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-float editor-redact-card" aria-hidden="true">
+                  <strong>Redact</strong>
+                  <span class="mock-segment"><i class="is-current">Blur</i><i>Pixelate</i><i>Solid</i></span>
+                </div>
+                <div class="mock-float editor-frame-card" aria-hidden="true">
+                  <strong>Export frame</strong>
+                  <span class="mock-chips"
+                    ><i>Original</i><i>1:1</i><i>4:3</i><i class="is-current">16:9</i><i>3:4</i><i>9:16</i></span
+                  >
+                </div>
+                <figcaption class="visually-hidden" id="editor-showcase-description">
+                  Illustrative Tiny Clips screenshot editor with annotation tools for move, crop, rectangle, circle,
+                  arrow, line, draw, text, numbered badges, emoji, and redaction. A screenshot sits on a gradient
+                  background with a curved arrow, a highlighted button, numbered badges, a callout, and a blurred email
+                  address; side panels show arrow styles, stroke, background presets, padding, and corners, plus redact
+                  styles and export frames. The editor interface is a visual mockup, not an app screenshot.
+                </figcaption>
+              </figure>
+              <p class="showcase-caption">
+                Illustrative mockup of the screenshot editor ·
+                <span class="os-windows-only">Windows layout</span><span class="os-macos-only">Mac layout</span>.
+                <a href="#gallery">See real screens</a>.
+              </p>
+            </div>
+
+            <div class="showcase-panel" id="showcase-studio">
+              <figure class="studio-showcase" role="img" aria-labelledby="studio-showcase-description">
+                <div class="mock-window studio-window" aria-hidden="true">
+                  <div class="mock-titlebar studio-window-bar">
+                    <span class="mock-traffic"><i></i><i></i><i></i></span>
+                    <img src="./assets/app-icon-128.png" alt="" width="22" height="22" decoding="async" />
+                    <strong>Tiny Clips Studio</strong>
+                    <span class="studio-window-preview">Preview</span>
+                    <span class="studio-window-menu">•••</span>
+                    <span class="mock-caption-buttons"><i></i><i></i><i></i></span>
+                  </div>
+                  <div class="studio-workspace">
+                    <div class="studio-tool-rail">
+                      <div class="studio-tool is-current">
+                        <svg viewBox="0 0 24 24">
+                          <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" />
+                        </svg>
+                        <span>Background</span>
+                      </div>
+                      <div class="studio-tool">
+                        <svg viewBox="0 0 24 24">
+                          <rect x="3" y="5" width="18" height="14" rx="2" />
+                          <path d="m8 5 3 14m6-14-3 14" />
+                        </svg>
+                        <span>Screen</span>
+                      </div>
+                      <div class="studio-tool">
+                        <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 5 5M10.5 7v7m-3.5-3.5h7" /></svg>
+                        <span>Zoom</span>
+                      </div>
+                      <div class="studio-tool">
+                        <svg viewBox="0 0 24 24"><path d="M4 5v14m16-14v14M4 12h16M8 9l-3 3 3 3m8-6 3 3-3 3" /></svg>
+                        <span>Cut</span>
+                      </div>
+                      <div class="studio-tool">
+                        <svg viewBox="0 0 24 24"><path d="M12 3v18m-5-5 5 5 5-5" /><path d="M5 5h14" /></svg>
+                        <span>Speed</span>
+                      </div>
+                      <div class="studio-tool">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM8 8h8m-8 4h8m-8 4h5" /></svg>
+                        <span>Project</span>
+                      </div>
+                    </div>
+                    <div class="studio-editor">
+                      <div class="studio-preview-canvas">
+                        <div class="studio-browser">
+                          <div class="studio-browser-bar"><i></i><i></i><i></i><span>your clear demo</span></div>
+                          <div class="studio-browser-content">
+                            <div class="studio-browser-copy"><i></i><i></i><i></i><b></b><i></i></div>
+                            <div class="studio-browser-art"><span></span><i></i></div>
+                          </div>
+                        </div>
+                        <div class="studio-camera-bubble">
+                          <span class="studio-camera-head"></span><span class="studio-camera-body"></span>
+                        </div>
+                      </div>
+                      <div class="studio-playback">
+                        <span class="studio-play-icon"></span>
+                        <span>00:04 / 00:12</span>
+                        <span class="studio-playback-track"><i></i></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="studio-timeline">
+                    <div class="studio-timeline-ruler">
+                      <span></span><span>00:00</span><span>00:04</span><span>00:08</span><span>00:12</span>
+                    </div>
+                    <div class="studio-track studio-screen-track">
+                      <span class="studio-track-label">Screen</span>
+                      <span class="studio-track-clips"><i></i><i></i><i></i><i></i><i></i><b></b></span>
+                    </div>
+                    <div class="studio-track studio-camera-track">
+                      <span class="studio-track-label">Camera</span>
+                      <span class="studio-track-clips"><i></i><i></i><i></i><i></i><b></b></span>
+                    </div>
+                    <span class="studio-playhead"></span>
+                  </div>
+                </div>
+                <div class="mock-float studio-export-card" aria-hidden="true">
+                  <span class="studio-export-icon"
+                    ><svg viewBox="0 0 24 24"><path d="M12 15V3m-5 5 5-5 5 5M4 14v6h16v-6" /></svg
+                  ></span>
+                  <span><strong>Studio export</strong><small>MP4 video</small></span>
+                  <span class="studio-export-check">✓</span>
+                </div>
+                <figcaption class="visually-hidden" id="studio-showcase-description">
+                  Illustrative Tiny Clips Studio preview interface with background, screen, zoom, cut, speed, and
+                  project controls; a preview canvas; separate screen and camera timeline tracks; and an MP4 export
+                  card. The Studio interface is a visual mockup, not an app screenshot.
+                </figcaption>
+              </figure>
+              <p class="showcase-caption hero-preview-note">
+                Studio is on by default in 2.0 preview builds unless previously disabled. Saved opt-outs stay off. The
+                Welcome Back screen appears once; Video remains a standard recording.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="studio-benefits" aria-labelledby="studio-benefits-title">
+        <div class="container">
+          <div class="studio-benefits-heading">
+            <p class="studio-benefits-kicker">One flow, from capture to finished demo</p>
+            <h2 id="studio-benefits-title">
+              Fast when you capture.<br /><span class="accent-text">Flexible when you edit.</span>
+            </h2>
+          </div>
+          <div class="studio-benefits-grid">
+            <article class="studio-benefit">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <rect x="4" y="5" width="24" height="17" rx="2" />
+                <path d="M11 27h10m-5-5v5" />
+              </svg>
+              <h3>Native on both desktops</h3>
+              <p>Made for Windows and macOS, with the capture tools close at hand.</p>
+            </article>
+            <article class="studio-benefit">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M16 3 27 7v8c0 7-4.5 11.5-11 14-6.5-2.5-11-7-11-14V7l11-4Z" />
+                <path d="m11 16 3.2 3.2L21 12" />
+              </svg>
+              <h3>Your files stay yours</h3>
+              <p>Captures and Studio projects stay on your device. Share only when you choose.</p>
+            </article>
+            <article class="studio-benefit">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M5 8h22M5 16h22M5 24h22" />
+                <circle cx="12" cy="8" r="3" />
+                <circle cx="21" cy="16" r="3" />
+                <circle cx="15" cy="24" r="3" />
+              </svg>
+              <h3>Polish without switching apps</h3>
+              <p>Arrange screen and camera layers, refine the look, trim, and export an MP4 in Studio.</p>
+            </article>
+          </div>
+          <p class="studio-benefits-note">
+            Studio is a preview and is on by default in Tiny Clips 2.0 preview builds unless previously disabled.
+            Availability varies by platform.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============================== HIGHLIGHTS ============================== -->
+      <section class="section section-highlights" id="highlights" aria-labelledby="highlights-title">
+        <div class="container">
+          <div class="section-heading">
+            <h2 id="highlights-title">Small app. Big clarity.</h2>
+            <p class="section-copy">
+              Capture screenshots, recordings, and GIFs. Polish what matters. Keep your flow, on Windows and Mac.
             </p>
           </div>
 
-          <figure class="hero-media capture-frame">
-            <span class="corner corner-tl" aria-hidden="true"></span>
-            <span class="corner corner-tr" aria-hidden="true"></span>
-            <span class="corner corner-bl" aria-hidden="true"></span>
-            <span class="corner corner-br" aria-hidden="true"></span>
-            <video
-              class="hero-video"
-              controls
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              poster="./assets/tinyclips-main.png"
-              width="1158"
-              height="980"
-              aria-label="Tiny Clips capturing, trimming, and saving a screen recording"
-            >
-              <source src="./assets/tiny-clips-promo.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <figcaption class="hero-media-caption">
-              <span class="rec-dot" aria-hidden="true"></span> Real capture flow, recorded with Tiny Clips
-            </figcaption>
-          </figure>
+          <div class="highlights-grid">
+            <article class="highlight-card highlight-record">
+              <div class="hl-mock hl-mock-record" aria-hidden="true">
+                <div class="rec-screen">
+                  <span class="rec-app"><i></i><i></i><i></i><b></b></span>
+                  <span class="rec-region"></span>
+                  <span class="rec-click"></span>
+                  <span class="rec-cam"><span class="rec-cam-head"></span><span class="rec-cam-body"></span></span>
+                  <span class="rec-bar"
+                    ><span class="rec-dot"></span><b>REC 00:12</b><span class="rec-pause"></span
+                    ><span class="rec-stop"></span
+                  ></span>
+                </div>
+                <div class="rec-prompter">
+                  <strong>Teleprompter</strong>
+                  <span class="rec-prompter-note">Not in recording</span>
+                  <span class="rec-prompter-lines"><i></i><i></i><i class="is-current"></i><i></i></span>
+                </div>
+              </div>
+              <div class="highlight-copy">
+                <h3>Record without the setup</h3>
+                <p>
+                  Pick a region and go. Add your microphone and system audio, a webcam bubble, click highlights, and a
+                  teleprompter that never shows up in the recording.
+                </p>
+                <ul class="highlight-tags">
+                  <li>MP4 at 24, 30, or 60 fps</li>
+                  <li>Pause and resume</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="highlight-card highlight-keys">
+              <div class="hl-mock hl-mock-keys" aria-hidden="true">
+                <span class="hl-keycaps os-windows-only"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>5</kbd></span>
+                <span class="hl-keycaps os-macos-only"><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd><kbd>5</kbd></span>
+                <span class="hl-picker"
+                  ><span><kbd>R</kbd>Region</span><span class="is-current"><kbd>S</kbd>Screen</span
+                  ><span><kbd>W</kbd>Window</span></span
+                >
+              </div>
+              <div class="highlight-copy">
+                <h3>One shortcut, any target</h3>
+                <p>
+                  Press the shortcut, then R, S, or W for a region, screen, or window. Every shortcut is rebindable.
+                </p>
+              </div>
+            </article>
+
+            <article class="highlight-card highlight-gif">
+              <div class="hl-mock hl-mock-gif" aria-hidden="true">
+                <span class="gif-preview"><i></i><b></b></span>
+                <span class="gif-strip"
+                  ><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><span class="gif-range"></span
+                ></span>
+                <span class="gif-meta"><b>00:02 – 00:05</b><b>GIF · 15 fps</b></span>
+              </div>
+              <div class="highlight-copy">
+                <h3>GIFs, trimmed to the moment</h3>
+                <p>Record a GIF, then trim with range handles, speed presets, and frame stepping.</p>
+              </div>
+            </article>
+
+            <article class="highlight-card highlight-ocr">
+              <div class="hl-mock hl-mock-ocr" aria-hidden="true">
+                <span class="ocr-doc">
+                  <b>Launch checklist</b>
+                  <span class="ocr-select"
+                    ><span>Record the hero demo</span><span>Redact customer emails</span
+                    ><span>Export 16:9 for slides</span></span
+                  >
+                </span>
+                <span class="ocr-toast"><span class="ocr-check">✓</span>Text copied</span>
+              </div>
+              <div class="highlight-copy">
+                <h3>Copy text from the screen</h3>
+                <p>Select any region and copy its text with built-in OCR. No retyping from screenshots.</p>
+              </div>
+            </article>
+
+            <article class="highlight-card highlight-scroll">
+              <div class="hl-mock hl-mock-scroll" aria-hidden="true">
+                <span class="scroll-frames"><i></i><i></i><i></i></span>
+                <span class="scroll-arrow"></span>
+                <span class="scroll-result"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+                <b class="scroll-meta">3 frames · 1 image</b>
+              </div>
+              <div class="highlight-copy">
+                <h3>Scrolling capture</h3>
+                <p>Capture a long page or chat and Tiny Clips stitches it into one tall image.</p>
+              </div>
+            </article>
+
+            <article class="highlight-card highlight-library">
+              <div class="highlight-copy">
+                <h3>Find it later</h3>
+                <p>
+                  Search every capture, filter by type, star favorites, and organize with tags and collections. Copy
+                  or reveal a clip without digging through folders.
+                </p>
+                <ul class="highlight-tags">
+                  <li>Clips Library on Windows and Mac</li>
+                </ul>
+              </div>
+              <div class="hl-mock hl-mock-library" aria-hidden="true">
+                <div class="mock-window library-window">
+                  <div class="mock-titlebar">
+                    <span class="mock-traffic"><i></i><i></i><i></i></span>
+                    <img src="./assets/app-icon-128.png" alt="" width="18" height="18" loading="lazy" decoding="async" />
+                    <strong
+                      >Clips Library</strong
+                    >
+                    <span class="mock-caption-buttons"><i></i><i></i><i></i></span>
+                  </div>
+                  <div class="library-body">
+                    <span class="library-side"
+                      ><span class="is-current">All clips</span><span>Favorites</span><span>Screenshots</span
+                      ><span>Videos</span><span>GIFs</span><span class="library-tag"># release</span></span
+                    >
+                    <span class="library-main">
+                      <span class="library-search">Search clips</span>
+                      <span class="library-grid"
+                        ><span class="library-thumb thumb-shot"><b>PNG</b><i>★</i></span
+                        ><span class="library-thumb thumb-video"><b>MP4</b></span
+                        ><span class="library-thumb thumb-gif"><b>GIF</b><i>★</i></span
+                        ><span class="library-thumb thumb-doc"><b>PNG</b></span
+                        ><span class="library-thumb thumb-studio"><b>MP4</b></span
+                        ><span class="library-thumb thumb-wide"><b>PNG</b></span></span
+                      >
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <p class="highlights-note">
+            Mockups are simplified illustrations. <a href="#gallery">See real screens</a>.
+          </p>
         </div>
       </section>
 
@@ -396,7 +852,7 @@
                 <p class="install-label">Recommended</p>
                 <h3>Download on the Mac App Store</h3>
                 <p>
-                  Notarized, sandboxed, and updated by the App Store. Includes Clips Manager — tags, collections,
+                  Notarized, sandboxed, and updated by the App Store. Includes Clips Library — tags, collections,
                   notes, favorites, and batch actions for every capture — at no cost.
                 </p>
                 <div class="install-actions">
@@ -538,8 +994,7 @@
               </div>
               <p>Find what you captured last week without digging through folders.</p>
               <ul class="feature-list">
-                <li><strong>Clips Library</strong> on Windows: browse, open, copy, reveal, and share every capture</li>
-                <li><strong>Clips Manager</strong> on Mac: search, tags, notes, collections, favorites, and batch actions</li>
+                <li><strong>Clips Library</strong> on Windows and Mac: browse, search, organize, and share every capture</li>
                 <li>Reopen the 10 most recent clips straight from the tray or menu bar</li>
                 <li>Auto-copy to clipboard and reveal in Explorer or Finder</li>
                 <li>Optional <strong>Uploadcare</strong> uploads with shareable links, using your own account</li>
@@ -547,6 +1002,31 @@
               </ul>
             </article>
           </div>
+
+          <article class="feature-step feature-footer" id="studio" aria-labelledby="studio-title">
+            <h3 id="studio-title">Tiny Clips Studio (Preview)</h3>
+            <p>Record now. Choose the look afterward. Studio is a preview for macOS and Windows that is on by default unless you previously turned it off. It keeps your screen and optional camera as separate editable layers, rather than baking them into one video.</p>
+            <ul class="feature-list">
+              <li><strong>Arrange your layers</strong> — change the layout and the camera's position, size, and shape after recording</li>
+              <li><strong>Make it yours</strong> with backgrounds, padding, and rounded corners</li>
+              <li><strong>Trim and export an MP4</strong>, with a project you can reopen to edit again</li>
+            </ul>
+            <p class="section-copy">The refreshed Tiny Clips 2.0 Welcome Back screen appears once. Your saved opt-out stays off, and the existing Video command always uses the regular recording workflow. <a href="#studio-preview">How to try the preview</a>.</p>
+            <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips-marketing/raw/refs/heads/main/marketing/studio-launch/tiny-clips-studio-launch.mp4" data-studio-video>Learn more — watch the video</a>
+          </article>
+
+          <dialog class="studio-video-dialog" aria-labelledby="studio-video-title" aria-describedby="studio-video-description">
+            <form method="dialog" class="studio-video-header">
+              <h2 id="studio-video-title">Meet Tiny Clips Studio</h2>
+              <button class="btn btn-secondary btn-sm" type="submit" autofocus>Close video</button>
+            </form>
+            <video class="studio-video" controls playsinline preload="none" width="1920" height="1080" aria-label="Tiny Clips Studio launch video" aria-describedby="studio-video-description"></video>
+            <p id="studio-video-description">45 seconds · Music only, no narration. Studio is on by default in preview builds unless previously disabled.</p>
+            <details class="studio-video-summary">
+              <summary>Read the video summary</summary>
+              <p>A quick trimmer becomes Studio: separate screen and camera layers, scene layouts, backgrounds, padding, and rounded corners. Illustrative compositions accompany real Windows editor controls and timeline footage. The video highlights zoom, cut, speed, MP4 export, editable projects, and enabling Studio Preview, then shows a finished composition. It closes with Tiny Clips screenshots, video, GIFs, audio recording, screenshot editing, and availability on macOS and Windows. Preview capabilities and limitations vary by platform; see the <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md" target="_blank" rel="noopener noreferrer">Studio preview notes</a>.</p>
+            </details>
+          </dialog>
 
           <div class="feature-footer">
             <div class="feature-pill-row" role="list" aria-label="More details">
@@ -595,53 +1075,6 @@
         </div>
       </section>
 
-      <!-- ============================== COMPARE ============================== -->
-      <section class="section section-compare" id="compare" aria-labelledby="compare-title">
-        <div class="container">
-          <div class="section-heading">
-            <h2 id="compare-title">Native on both. Not a port of either.</h2>
-            <p class="section-copy">
-              Tiny Clips for Windows is WinUI 3 on the Windows App SDK; Tiny Clips for Mac is Swift on ScreenCaptureKit.
-              They share one feature roadmap and feel at home on each desktop.
-            </p>
-          </div>
-          <div class="compare-table-wrap" role="region" aria-label="Platform comparison" tabindex="0">
-            <table class="compare-table">
-              <caption class="visually-hidden">Feature comparison between Tiny Clips for Windows and Tiny Clips for macOS</caption>
-              <thead>
-                <tr>
-                  <th scope="col">Feature</th>
-                  <th scope="col">Windows</th>
-                  <th scope="col">macOS</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr><th scope="row">Screenshot, MP4 video, animated GIF</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Region / screen / window picker</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Scrolling capture</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Copy text from screen (OCR)</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Screenshot editor, redaction, backgrounds, export frames</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Video &amp; GIF trimmers</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Microphone + system audio</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Webcam overlay</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span> <small>+ Continuity Camera</small></td></tr>
-                <tr><th scope="row">Teleprompter overlay</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Mouse-click highlights</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Pause, resume, restart, discard</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Library for your captures</th><td>Clips Library</td><td>Clips Manager <small>tags, notes, collections, batch</small></td></tr>
-                <tr><th scope="row">Uploadcare sharing links</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Local capture analytics</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Rebindable global hotkeys</th><td><span class="check" role="img" aria-label="Yes">✓</span></td><td><span class="check" role="img" aria-label="Yes">✓</span></td></tr>
-                <tr><th scope="row">Lives in</th><td>System tray</td><td>Menu bar</td></tr>
-                <tr><th scope="row">Updates via</th><td>Microsoft Store · winget</td><td>Mac App Store · Sparkle · Homebrew</td></tr>
-                <tr><th scope="row">Requires</th><td>Windows 11 22H2+, x64 or ARM64</td><td>macOS 15 Sequoia+</td></tr>
-                <tr><th scope="row">Download size</th><td>About 21 MB</td><td>About 4 MB</td></tr>
-                <tr><th scope="row">Price</th><td>Free</td><td>Free <small>optional tip</small></td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
       <!-- ============================== GALLERY ============================== -->
       <section class="section section-gallery" id="gallery" aria-labelledby="gallery-title">
         <div class="container">
@@ -667,8 +1100,8 @@
               <figcaption>Menu bar access with global shortcuts</figcaption>
             </figure>
             <figure class="gallery-item" data-platform-badge="macOS">
-              <img src="./assets/clips-manager.jpg" alt="Clips Manager on Mac showing a grid of GIFs, screenshots, and videos with tags and favorites" width="1960" height="1080" loading="lazy" decoding="async" />
-              <figcaption>Clips Manager: tags, favorites, search, and batch actions</figcaption>
+              <img src="./assets/clips-manager.jpg" alt="Existing Mac App Store screenshot of the Clips Library; its window title still reads Clips Manager" width="1960" height="1080" loading="lazy" decoding="async" />
+              <figcaption>Clips Library on Mac · existing screenshot still shows its previous title</figcaption>
             </figure>
             <figure class="gallery-item" data-platform-badge="macOS">
               <img src="./assets/app-store-artwork-3.png" alt="Tiny Clips for Mac video trimmer preparing a short recording for export" width="1440" height="900" loading="lazy" decoding="async" />
@@ -749,7 +1182,7 @@
             <details class="faq-item">
               <summary>How do I install Tiny Clips on macOS?</summary>
               <div class="faq-body">
-                <p>Use the <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a> for automatic updates and Clips Manager. Homebrew users can tap <code>jamesmontemagno/tiny-clips</code> and <code>brew install --cask tiny-clips</code>. TestFlight and direct GitHub downloads are available too.</p>
+                <p>Use the <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a> for automatic updates and Clips Library. Homebrew users can tap <code>jamesmontemagno/tiny-clips</code> and <code>brew install --cask tiny-clips</code>. TestFlight and direct GitHub downloads are available too.</p>
               </div>
             </details>
             <details class="faq-item">
@@ -774,6 +1207,14 @@
               <summary>Which formats and quality settings are available?</summary>
               <div class="faq-body">
                 <p>Screenshots save as PNG (JPEG and scale options on Windows). Video is hardware-accelerated H.264 MP4 at 24, 30, or 60 fps with optional microphone and system audio. GIFs support 5–30 fps and a configurable maximum width.</p>
+              </div>
+            </details>
+            <details class="faq-item">
+              <summary id="studio-preview">How do I try Tiny Clips Studio?</summary>
+              <div class="faq-body">
+                <p>Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build Tiny Clips from the <a href="https://github.com/jamesmontemagno/tiny-clips/tree/main" target="_blank" rel="noopener noreferrer">main branch</a> and check the <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md" target="_blank" rel="noopener noreferrer">Studio preview notes</a> for current limitations.</p>
+                <p>In that build, Studio is on by default unless you previously turned it off in <strong>Settings → Studio</strong>. The refreshed Tiny Clips 2.0 Welcome Back screen appears once. On macOS, choose <strong>Studio Recording…</strong> from the menu bar menu. On Windows, choose the <strong>Studio</strong> tile in the tray menu. Record, then arrange your layers in Studio and export an MP4.</p>
+                <p>If you do not want Studio, turn off <strong>Tiny Clips Studio (Preview)</strong> in Settings → Studio; saved opt-outs stay off. The existing Video command still uses the regular recording workflow.</p>
               </div>
             </details>
             <details class="faq-item">

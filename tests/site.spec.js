@@ -73,6 +73,202 @@ test.describe('pages', () => {
     expect(await page.locator(`a[href^="${STORE_MAC}"]`).count()).toBeGreaterThanOrEqual(3);
   });
 
+  for (const theme of ['light', 'dark']) {
+    for (const width of [320, 390, 1440]) {
+      test(`launch hero, product previews, and benefits render in ${theme} theme at ${width}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 900 });
+        await page.addInitScript((value) => localStorage.setItem('tiny-clips-theme', value), theme);
+        await gotoHome(page);
+
+        const hero = page.locator('.hero-studio');
+        await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+        await expect(hero).toHaveCSS('background-color', theme === 'dark' ? 'rgb(8, 13, 25)' : 'rgb(243, 246, 252)');
+        await expect(page.getByRole('heading', { name: 'From quick capture to clear demo.' })).toBeVisible();
+        await expect(hero.locator('.studio-preview-pill')).toContainText('Tiny Clips 2.0');
+        await expect(hero.locator('.hero-capture-types')).toContainText('Screenshots');
+        await expect(hero.locator('.hero-capture-types')).toContainText('Recordings');
+        await expect(hero.locator('.hero-capture-types')).toContainText('GIFs');
+        await expect(hero.locator('.hero-trust')).toContainText('No account required');
+
+        const download = hero.getByRole('link', { name: /^Download (for Windows|for Mac|Tiny Clips)$/ });
+        await expect(download).toHaveAttribute('href', /#download|apps\.microsoft\.com|apps\.apple\.com/);
+        await expect(hero.getByRole('link', { name: 'See the workflow' })).toHaveAttribute('href', '#try');
+
+        const tabs = hero.getByRole('tablist', { name: 'Product preview' });
+        const editorTab = tabs.getByRole('tab', { name: 'Screenshot editor' });
+        const studioTab = tabs.getByRole('tab', { name: /^Studio/ });
+        await expect(editorTab).toHaveAttribute('aria-selected', 'true');
+
+        const editor = page.getByRole('img', { name: /Illustrative Tiny Clips screenshot editor/ });
+        await expect(editor).toBeVisible();
+        await expect(editor).toContainText('not an app screenshot');
+        await expect(editor.locator('.editor-redact-card')).toContainText('Pixelate');
+        await expect(editor.locator('.editor-frame-card')).toContainText('9:16');
+        await expect(hero).toContainText('Illustrative mockup of the screenshot editor');
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+
+        await studioTab.click();
+        await expect(studioTab).toHaveAttribute('aria-selected', 'true');
+        await expect(editor).toBeHidden();
+        await expect(hero).toContainText('on by default in 2.0 preview builds unless previously disabled');
+        await expect(hero).toContainText('Saved opt-outs stay off');
+        await expect(hero).toContainText('Welcome Back screen appears once');
+        await expect(hero).toContainText('Video remains a standard recording');
+
+        const showcase = page.getByRole('img', { name: /Illustrative Tiny Clips Studio preview interface/ });
+        await expect(showcase).toBeVisible();
+        await expect(showcase).toContainText('not an app screenshot');
+        await expect(showcase).toContainText('Screen');
+        await expect(showcase).toContainText('Camera');
+        await expect(showcase.locator('.studio-export-card')).toContainText('MP4 video');
+        await expect(showcase.locator('.studio-screenshot-card')).toHaveCount(0);
+        await expect(showcase.locator('.studio-tool-rail .studio-tool span')).toHaveText([
+          'Background',
+          'Screen',
+          'Zoom',
+          'Cut',
+          'Speed',
+          'Project',
+        ]);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+
+        const benefits = page.locator('.studio-benefits');
+        await expect(benefits.getByRole('heading', { name: /Fast when you capture/ })).toBeVisible();
+        await expect(benefits).toContainText('Flexible when you edit.');
+        await expect(benefits.locator('.studio-benefit')).toHaveCount(3);
+      });
+    }
+  }
+
+  const PLATFORMS = {
+    windows: {
+      userAgent:
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+      platform: 'Win32',
+      uaPlatform: 'Windows',
+      download: 'Download for Windows',
+      store: STORE_WINDOWS,
+      alt: 'Also on Mac',
+      altStore: STORE_MAC,
+      editorTitle: 'Edit screenshot',
+      library: 'Clips Library',
+    },
+    macos: {
+      userAgent:
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+      platform: 'MacIntel',
+      uaPlatform: 'macOS',
+      download: 'Download for Mac',
+      store: STORE_MAC,
+      alt: 'Also on Windows',
+      altStore: STORE_WINDOWS,
+      editorTitle: 'Edit Screenshot',
+      library: 'Clips Library',
+    },
+  };
+
+  for (const [os, expected] of Object.entries(PLATFORMS)) {
+    test(`hero download and mockups adapt to ${os}`, async ({ browser }) => {
+      const context = await browser.newContext({ userAgent: expected.userAgent });
+      await context.addInitScript(({ platform, uaPlatform }) => {
+        Object.defineProperty(navigator, 'platform', { get: () => platform });
+        Object.defineProperty(navigator, 'userAgentData', {
+          get: () => ({ platform: uaPlatform, mobile: false, brands: [] }),
+        });
+      }, expected);
+      const page = await context.newPage();
+      await gotoHome(page);
+
+      await expect(page.locator('html')).toHaveAttribute('data-platform', os);
+      const hero = page.locator('.hero-studio');
+      const download = hero.getByRole('link', { name: expected.download, exact: true });
+      await expect(download).toHaveAttribute('href', new RegExp(`^${expected.store.replace(/[.?/]/g, '\\$&')}`));
+      await expect(download).toHaveAttribute('target', '_blank');
+      await expect(download.locator(`.os-icon-${os}`)).toBeVisible();
+      await expect(download.locator('.os-icon').filter({ visible: true })).toHaveCount(1);
+
+      const alt = hero.getByRole('link', { name: expected.alt, exact: true });
+      await expect(alt).toHaveAttribute('href', new RegExp(`^${expected.altStore.replace(/[.?/]/g, '\\$&')}`));
+      await expect(alt).toHaveAttribute('rel', 'noopener noreferrer');
+
+      await expect(
+        page.locator('.editor-window .mock-titlebar').getByText(expected.editorTitle, { exact: true })
+      ).toBeVisible();
+      await expect(page.locator('.library-window').getByText(expected.library, { exact: true })).toBeVisible();
+      await expect(page.locator('.hl-keycaps').filter({ visible: true })).toHaveCount(1);
+      await context.close();
+    });
+  }
+
+  test('hero preview tabs support keyboard selection', async ({ page }) => {
+    await gotoHome(page);
+    const editorTab = page.getByRole('tab', { name: 'Screenshot editor' });
+    const studioTab = page.getByRole('tab', { name: /^Studio/ });
+    const editorPanel = page.getByRole('tabpanel', { name: 'Screenshot editor' });
+    const studioPanel = page.locator('#showcase-studio');
+
+    await editorTab.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(studioTab).toBeFocused();
+    await expect(studioTab).toHaveAttribute('aria-selected', 'true');
+    await expect(studioTab).toHaveAttribute('tabindex', '0');
+    await expect(editorTab).toHaveAttribute('tabindex', '-1');
+    await expect(studioPanel).toBeVisible();
+    await expect(editorPanel).toBeHidden();
+
+    await page.keyboard.press('ArrowRight');
+    await expect(editorTab).toBeFocused();
+    await expect(editorPanel).toBeVisible();
+    await page.keyboard.press('End');
+    await expect(studioTab).toBeFocused();
+    await page.keyboard.press('Home');
+    await expect(editorTab).toBeFocused();
+    await expect(editorTab).toHaveAttribute('aria-selected', 'true');
+    await page.keyboard.press('Tab');
+    await expect(editorPanel).toBeFocused();
+  });
+
+  test('hero download and both previews work without JavaScript', async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto('/index.html', { waitUntil: 'load' });
+    const hero = page.locator('.hero-studio');
+    await expect(hero.getByRole('link', { name: 'Download Tiny Clips', exact: true })).toHaveAttribute(
+      'href',
+      '#download'
+    );
+    await expect(hero.getByRole('link', { name: 'Windows and Mac downloads' })).toHaveAttribute('href', '#download');
+    await expect(page.locator('.showcase-tabs')).toBeHidden();
+    await expect(hero.getByRole('tabpanel')).toHaveCount(0);
+    await expect(page.getByRole('img', { name: /Illustrative Tiny Clips screenshot editor/ })).toBeVisible();
+    await expect(page.getByRole('img', { name: /Illustrative Tiny Clips Studio preview interface/ })).toBeVisible();
+    await context.close();
+  });
+
+  test('highlights show core workflows with labeled mockups', async ({ page }) => {
+    await gotoHome(page);
+    await expect(page.locator('#primary-nav a').first()).toHaveText('Highlights');
+    await expect(page.locator('#compare')).toHaveCount(0);
+
+    const highlights = page.locator('#highlights');
+    await expect(highlights.getByRole('heading', { level: 2 })).toHaveText('Small app. Big clarity.');
+    await expect(highlights.locator('.highlight-card')).toHaveCount(6);
+    for (const name of [
+      'Record without the setup',
+      'One shortcut, any target',
+      'GIFs, trimmed to the moment',
+      'Copy text from the screen',
+      'Scrolling capture',
+      'Find it later',
+    ]) {
+      await expect(highlights.getByRole('heading', { level: 3, name })).toBeVisible();
+    }
+    await expect(highlights.locator('.hl-mock:not([aria-hidden="true"])')).toHaveCount(0);
+    await expect(highlights).toContainText('teleprompter that never shows up in the recording');
+    await expect(highlights).toContainText('Mockups are simplified illustrations');
+    await expect(highlights.getByRole('link', { name: 'See real screens' })).toHaveAttribute('href', '#gallery');
+  });
+
   test('install tabs switch platforms and copy buttons exist', async ({ page }) => {
     await gotoHome(page);
     await page.click('.platform-tab[data-platform="windows"]');
@@ -89,6 +285,69 @@ test.describe('pages', () => {
     );
   });
 
+  for (const width of [390, 1440]) {
+    test(`Studio preview content and keyboard access at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await gotoHome(page);
+      const studio = page.getByRole('article', { name: 'Tiny Clips Studio (Preview)', exact: true });
+      await expect(studio.getByRole('heading', { level: 3 })).toBeVisible();
+      await expect(studio).toContainText('separate editable layers');
+      await expect(studio).toContainText("camera's position, size, and shape");
+      await expect(studio).toContainText('backgrounds, padding, and rounded corners');
+      await expect(studio).toContainText('Trim and export an MP4');
+      await expect(studio).toContainText('on by default unless you previously turned it off');
+      await expect(studio).toContainText('Your saved opt-out stays off');
+      await expect(studio).toContainText('Welcome Back screen appears once');
+
+      await studio.getByRole('link', { name: 'How to try the preview' }).click();
+      const summary = page.locator('#studio-preview');
+      await expect(summary).toBeFocused();
+      await page.keyboard.press('Enter');
+      const answer = summary.locator('..').locator('.faq-body');
+      await expect(answer).toBeVisible();
+      await expect(answer).toContainText('not part of the current store releases');
+      await expect(answer).toContainText('Settings → Studio');
+      await expect(answer).toContainText('on by default unless you previously turned it off');
+      await expect(answer).toContainText('Welcome Back screen appears once');
+      await expect(answer).toContainText('saved opt-outs stay off');
+      await expect(answer).toContainText('existing Video command still uses the regular recording workflow');
+      await expect(answer).toContainText('On macOS, choose Studio Recording…');
+      await expect(answer).toContainText('On Windows, choose the Studio tile');
+      await expect(answer.getByRole('link', { name: 'main branch' })).toHaveAttribute(
+        'href',
+        'https://github.com/jamesmontemagno/tiny-clips/tree/main'
+      );
+      await expect(answer.getByRole('link', { name: 'Studio preview notes' })).toHaveAttribute(
+        'href',
+        'https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md'
+      );
+
+      const graph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent())['@graph'];
+      const faq = graph.find((node) => node['@type'] === 'FAQPage').mainEntity;
+      const studioFaq = faq.find((item) => item.name === 'How do I try Tiny Clips Studio?');
+      expect((await answer.textContent()).replace(/\s+/g, ' ').trim()).toBe(studioFaq.acceptedAnswer.text);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy();
+      await page.keyboard.press('Enter');
+      await expect(answer).toBeHidden();
+    });
+  }
+
+  test('Studio showcase uses its editing controls without a floating screenshot card', async ({ page }) => {
+    await gotoHome(page);
+    await page.getByRole('tab', { name: /Studio/ }).click();
+    const showcase = page.locator('#showcase-studio');
+    await expect(showcase.locator('.studio-tool-rail .studio-tool span')).toHaveText([
+      'Background',
+      'Screen',
+      'Zoom',
+      'Cut',
+      'Speed',
+      'Project',
+    ]);
+    await expect(showcase.locator('.studio-screenshot-card')).toHaveCount(0);
+    await expect(showcase.locator('.studio-export-card')).toBeVisible();
+  });
+
   test('gallery lightbox opens and closes with Escape', async ({ page }) => {
     await gotoHome(page);
     await page.locator('.gallery-item').first().click();
@@ -97,6 +356,72 @@ test.describe('pages', () => {
     await expect(lightbox.locator('img')).toHaveAttribute('src', /assets\//);
     await page.keyboard.press('Escape');
     await expect(lightbox).toBeHidden();
+  });
+
+  for (const width of [390, 1440]) {
+    test(`Studio video opens on demand and dismisses at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 844 });
+      let videoRequests = 0;
+      await page.route('**/tiny-clips-studio-launch.mp4', async (route) => {
+        videoRequests++;
+        await route.fulfill({ path: 'site/assets/tiny-clips-promo.mp4', contentType: 'video/mp4' });
+      });
+      await gotoHome(page);
+      const link = page.getByRole('link', { name: 'Learn more — watch the video' });
+      const dialog = page.getByRole('dialog', { name: 'Meet Tiny Clips Studio' });
+      const video = page.locator('.studio-video');
+      expect(videoRequests).toBe(0);
+      await expect(video).not.toHaveAttribute('src');
+
+      await link.focus();
+      await page.keyboard.press('Enter');
+      await expect(dialog).toBeVisible();
+      await expect(dialog.getByRole('button', { name: 'Close video' })).toBeFocused();
+      await expect(video).toHaveAttribute('src', await link.getAttribute('href'));
+      await expect(video).toHaveJSProperty('controls', true);
+      await expect(video).toHaveJSProperty('autoplay', false);
+      await video.evaluate((element) => element.play());
+      await expect.poll(() => video.evaluate((element) => element.currentTime)).toBeGreaterThan(0);
+      expect(videoRequests).toBeGreaterThan(0);
+      await page.keyboard.press('Escape');
+      await expect(dialog).toBeHidden();
+      await expect(link).toBeFocused();
+      await expect(video).toHaveJSProperty('paused', true);
+      await expect(video).not.toHaveAttribute('src');
+      await expect(page.locator('body')).not.toHaveClass(/is-studio-open/);
+
+      await link.click();
+      await dialog.getByText('Read the video summary', { exact: true }).click();
+      await expect(dialog.getByText(/A quick trimmer becomes Studio/)).toBeVisible();
+      await expect(dialog.getByRole('link', { name: 'Studio preview notes' })).toHaveAttribute(
+        'href',
+        'https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md'
+      );
+      await expect(page.locator('body')).toHaveClass(/is-studio-open/);
+      const bounds = await dialog.boundingBox();
+      expect(bounds.x).toBeGreaterThanOrEqual(0);
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(width);
+      await dialog.getByRole('button', { name: 'Close video' }).click();
+      await expect(dialog).toBeHidden();
+      await expect(link).toBeFocused();
+
+      await link.click();
+      await page.mouse.click(1, 1);
+      await expect(dialog).toBeHidden();
+      await expect(link).toBeFocused();
+    });
+  }
+
+  test('Studio video link works without JavaScript', async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto('/index.html', { waitUntil: 'load' });
+    await expect(page.getByRole('link', { name: 'Learn more — watch the video' })).toHaveAttribute(
+      'href',
+      'https://github.com/jamesmontemagno/tiny-clips-marketing/raw/refs/heads/main/marketing/studio-launch/tiny-clips-studio-launch.mp4'
+    );
+    await expect(page.locator('.studio-video-dialog')).toBeHidden();
+    await context.close();
   });
 
   test('mobile navigation toggles', async ({ page }) => {
@@ -242,7 +567,7 @@ test.describe('interactive demo', () => {
     expect(errors).toEqual([]);
   });
 
-  test('macOS: menu bar → OCR reads on-screen text → Clips Manager', async ({ page }) => {
+  test('macOS: menu bar → OCR reads on-screen text → Clips Library', async ({ page }) => {
     const errors = watchErrors(page);
     await page.click('.demo-seg button[data-platform="macos"]');
     await expect(page.locator('.demo-menubar')).toBeVisible();
@@ -257,10 +582,10 @@ test.describe('interactive demo', () => {
     await expect(page.locator('.demo-toast')).toContainText('Text copied');
 
     await page.click('.demo-tray-btn');
-    await page.click('.demo-macmenu-item:has-text("Clips Manager")');
+    await page.click('.demo-macmenu-item:has-text("Clips Library")');
     const library = page.locator('.demo-library');
     await expect(library).toBeVisible();
-    await expect(library.locator('.demo-appwin-title')).toContainText('Clips Manager');
+    await expect(library.locator('.demo-appwin-title')).toContainText('Clips Library');
     await expect(library.locator('.demo-side-item:has-text("Release")')).toBeVisible();
     await expect(library.locator('.demo-appwin-title')).not.toContainText('null');
     expect(errors).toEqual([]);

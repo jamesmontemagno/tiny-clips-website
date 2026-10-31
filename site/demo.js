@@ -723,7 +723,7 @@
         item('gif', 'Record GIF', '⌃⌥⌘7', () => openPicker('gif')),
         item('text', 'Copy Text from Region', '', () => startSelection('ocr')),
         el('div', { class: 'demo-macmenu-sep' }),
-        item('library', 'Clips Manager…', '', () => {
+        item('library', 'Clips Library…', '', () => {
           cancelFlow();
           openLibrary();
         }),
@@ -2934,7 +2934,7 @@
   }
 
   /* ---------------------------------------------------------------------
-     Clips Library (Windows) / Clips Manager (macOS)
+     Clips Library
      --------------------------------------------------------------------- */
   const TAGS = [
     ['Release', '#8b5cf6'],
@@ -2947,7 +2947,7 @@
     cancelFlow();
     setMode('library');
     const lib = { filter: 'all', tag: null, query: '', selected: new Set(focusId ? [focusId] : []), selectMode: false };
-    const title = isMac() ? 'Clips Manager' : 'Clips Library';
+    const title = 'Clips Library';
 
     const main = el('div', { class: 'demo-library-main' });
     const side = el('div', { class: 'demo-library-side' });
@@ -3254,9 +3254,7 @@
     renderSide();
     renderMain();
     setStatus(
-      isMac()
-        ? '<strong>Clips Manager.</strong> Search, favorite, tag, and batch-select. Edit or trim any clip right from here.'
-        : '<strong>Clips Library.</strong> Browse every capture, reopen it in the editor or trimmer, copy, or share.'
+      '<strong>Clips Library.</strong> Browse every capture, search, organize, reopen it in the editor or trimmer, copy, or share.'
     );
   }
 

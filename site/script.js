@@ -1,5 +1,5 @@
 /* Tiny Clips site behaviour: platform detection, install tabs, copy buttons,
-   mobile nav, active nav tracking, and the gallery lightbox. */
+   mobile nav, active nav tracking, and media previews. */
 (() => {
   'use strict';
 
@@ -61,6 +61,69 @@
       link.rel = 'noopener noreferrer';
     }
   });
+
+  /* ---- Hero download: name the visitor's platform, offer the other one ---- */
+  const PLATFORM_NAMES = { windows: 'Windows', macos: 'Mac' };
+  const heroDownload = document.querySelector('[data-hero-download]');
+  if (heroDownload && detected) {
+    heroDownload.dataset.os = detected;
+    const label = heroDownload.querySelector('[data-hero-download-label]');
+    if (label) label.textContent = `Download for ${PLATFORM_NAMES[detected]}`;
+
+    const other = detected === 'windows' ? 'macos' : 'windows';
+    const altLink = document.querySelector('[data-hero-alt]');
+    if (altLink) {
+      altLink.textContent = `Also on ${PLATFORM_NAMES[other]}`;
+      altLink.href = STORE_URLS[other];
+      altLink.target = '_blank';
+      altLink.rel = 'noopener noreferrer';
+    }
+  }
+
+  /* ---- Hero product preview tabs ---- */
+  const showcase = document.querySelector('[data-showcase]');
+  if (showcase) {
+    const tablist = showcase.querySelector('[role="tablist"]');
+    const showcaseTabs = Array.from(showcase.querySelectorAll('[role="tab"]'));
+    const selectShowcase = (selected) => {
+      showcaseTabs.forEach((tab) => {
+        const isActive = tab === selected;
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.tabIndex = isActive ? 0 : -1;
+        const panel = document.getElementById(tab.getAttribute('aria-controls'));
+        if (panel) panel.hidden = !isActive;
+      });
+    };
+
+    if (tablist && showcaseTabs.length) {
+      // Tab semantics only apply once JavaScript can switch panels; without it both previews stay visible.
+      showcaseTabs.forEach((tab) => {
+        const panel = document.getElementById(tab.getAttribute('aria-controls'));
+        if (!panel) return;
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', tab.id);
+        panel.tabIndex = 0;
+      });
+      tablist.hidden = false;
+      selectShowcase(showcaseTabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || showcaseTabs[0]);
+
+      showcaseTabs.forEach((tab, index) => {
+        tab.addEventListener('click', () => selectShowcase(tab));
+        tab.addEventListener('keydown', (event) => {
+          let next = null;
+          if (event.key === 'ArrowRight') next = (index + 1) % showcaseTabs.length;
+          if (event.key === 'ArrowLeft') next = (index - 1 + showcaseTabs.length) % showcaseTabs.length;
+          if (event.key === 'Home') next = 0;
+          if (event.key === 'End') next = showcaseTabs.length - 1;
+          if (next !== null) {
+            event.preventDefault();
+            selectShowcase(showcaseTabs[next]);
+            showcaseTabs[next].focus();
+          }
+        });
+      });
+    }
+  }
 
   /* ---- Install platform tabs ---- */
   const platformTabs = Array.from(document.querySelectorAll('.platform-tab'));
@@ -181,6 +244,40 @@
       { rootMargin: '-40% 0px -55% 0px' }
     );
     sections.forEach((section) => observer.observe(section));
+  }
+
+  /* ---- Studio video preview ---- */
+  const studioVideoLink = document.querySelector('[data-studio-video]');
+  const studioDialog = document.querySelector('.studio-video-dialog');
+  const studioVideo = studioDialog?.querySelector('video');
+  if (studioVideoLink && studioVideo && typeof studioDialog.showModal === 'function') {
+    studioVideoLink.setAttribute('aria-haspopup', 'dialog');
+    studioVideoLink.addEventListener('click', (event) => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+      event.preventDefault();
+      studioVideo.src = studioVideoLink.href;
+      studioDialog.showModal();
+      document.body.classList.add('is-studio-open');
+    });
+    studioDialog.addEventListener('close', () => {
+      studioVideo.pause();
+      studioVideo.removeAttribute('src');
+      studioVideo.load();
+      document.body.classList.remove('is-studio-open');
+      studioVideoLink.focus({ preventScroll: true });
+    });
+    studioDialog.addEventListener('click', (event) => {
+      if (event.target !== studioDialog) return;
+      const bounds = studioDialog.getBoundingClientRect();
+      if (
+        event.clientX < bounds.left ||
+        event.clientX > bounds.right ||
+        event.clientY < bounds.top ||
+        event.clientY > bounds.bottom
+      ) {
+        studioDialog.close();
+      }
+    });
   }
 
   /* ---- Gallery lightbox ---- */
