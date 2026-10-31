@@ -156,7 +156,7 @@ test.describe('pages', () => {
       alt: 'Also on Windows',
       altStore: STORE_WINDOWS,
       editorTitle: 'Edit Screenshot',
-      library: 'Clips Manager',
+      library: 'Clips Library',
     },
   };
 
@@ -544,7 +544,7 @@ test.describe('interactive demo', () => {
     expect(errors).toEqual([]);
   });
 
-  test('macOS: menu bar → OCR reads on-screen text → Clips Manager', async ({ page }) => {
+  test('macOS: menu bar → OCR reads on-screen text → Clips Library', async ({ page }) => {
     const errors = watchErrors(page);
     await page.click('.demo-seg button[data-platform="macos"]');
     await expect(page.locator('.demo-menubar')).toBeVisible();
@@ -559,10 +559,10 @@ test.describe('interactive demo', () => {
     await expect(page.locator('.demo-toast')).toContainText('Text copied');
 
     await page.click('.demo-tray-btn');
-    await page.click('.demo-macmenu-item:has-text("Clips Manager")');
+    await page.click('.demo-macmenu-item:has-text("Clips Library")');
     const library = page.locator('.demo-library');
     await expect(library).toBeVisible();
-    await expect(library.locator('.demo-appwin-title')).toContainText('Clips Manager');
+    await expect(library.locator('.demo-appwin-title')).toContainText('Clips Library');
     await expect(library.locator('.demo-side-item:has-text("Release")')).toBeVisible();
     await expect(library.locator('.demo-appwin-title')).not.toContainText('null');
     expect(errors).toEqual([]);
