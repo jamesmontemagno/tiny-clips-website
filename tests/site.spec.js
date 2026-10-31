@@ -121,8 +121,15 @@ test.describe('pages', () => {
         await expect(showcase).toContainText('Screen');
         await expect(showcase).toContainText('Camera');
         await expect(showcase.locator('.studio-export-card')).toContainText('MP4 video');
-        const screenshot = showcase.locator('img[src$="windows-screenshot-editor.png"]');
-        await expect(screenshot).toHaveAttribute('src', './assets/windows-screenshot-editor.png');
+        await expect(showcase.locator('.studio-screenshot-card')).toHaveCount(0);
+        await expect(showcase.locator('.studio-tool-rail .studio-tool span')).toHaveText([
+          'Background',
+          'Screen',
+          'Zoom',
+          'Cut',
+          'Speed',
+          'Project',
+        ]);
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
 
         const benefits = page.locator('.studio-benefits');
@@ -324,6 +331,22 @@ test.describe('pages', () => {
       await expect(answer).toBeHidden();
     });
   }
+
+  test('Studio showcase uses its editing controls without a floating screenshot card', async ({ page }) => {
+    await gotoHome(page);
+    await page.getByRole('tab', { name: /Studio/ }).click();
+    const showcase = page.locator('#showcase-studio');
+    await expect(showcase.locator('.studio-tool-rail .studio-tool span')).toHaveText([
+      'Background',
+      'Screen',
+      'Zoom',
+      'Cut',
+      'Speed',
+      'Project',
+    ]);
+    await expect(showcase.locator('.studio-screenshot-card')).toHaveCount(0);
+    await expect(showcase.locator('.studio-export-card')).toBeVisible();
+  });
 
   test('gallery lightbox opens and closes with Escape', async ({ page }) => {
     await gotoHome(page);
