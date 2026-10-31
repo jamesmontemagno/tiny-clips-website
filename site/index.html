@@ -255,79 +255,167 @@
 
     <main id="main-content" tabindex="-1">
       <!-- ============================== HERO ============================== -->
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-backdrop" aria-hidden="true"></div>
-        <div class="container hero-grid">
+      <section class="hero hero-studio" aria-labelledby="hero-title">
+        <div class="container hero-grid hero-studio-grid">
           <div class="hero-content">
-            <p class="hero-kicker">
-              <span class="kicker-dot" aria-hidden="true"></span>
-              Now on the Microsoft Store and the Mac App Store
+            <p class="studio-preview-pill">
+              <span class="studio-status-dot" aria-hidden="true"></span>Tiny Clips 2.0
+              <span aria-hidden="true">·</span> Studio Preview
             </p>
-            <h1 id="hero-title">
-              <span class="nowrap">Capture it. Polish it.</span> <span class="accent-text nowrap">Share it.</span><br />
-              All from a tiny icon.
-            </h1>
-            <p class="hero-copy">
-              Tiny Clips lives in your Windows system tray or Mac menu bar. Grab any region, window, or screen as a
-              PNG, MP4, or GIF — then annotate, trim, add your webcam, and send it on its way. Free, fast, and no
-              account required.
+            <ul class="hero-capture-types">
+              <li>Screenshots</li>
+              <li>Recordings</li>
+              <li>GIFs</li>
+            </ul>
+            <h1 id="hero-title">From quick capture <span class="accent-text">to clear demo.</span></h1>
+            <p class="hero-copy studio-hero-copy">
+              Capture your screen and optional camera, shape the story in Studio, and export an MP4.
             </p>
-
-            <div class="store-ctas" data-platform-ctas>
-              <a
-                class="store-badge store-badge-windows"
-                href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-platform-cta="windows"
-              >
-                <img src="./assets/badge-microsoft-store.svg" alt="Get Tiny Clips from the Microsoft Store" width="200" height="55" />
-              </a>
-              <a
-                class="store-badge store-badge-mac"
-                href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-platform-cta="macos"
-              >
-                <img src="./assets/badge-mac-app-store.svg" alt="Download Tiny Clips on the Mac App Store" width="200" height="51" />
+            <div class="hero-actions">
+              <a class="btn hero-download" href="#download" data-store-link>Download Tiny Clips</a>
+              <a class="btn hero-workflow" href="#try">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 11 7-11 7V5Z" fill="currentColor" /></svg>
+                See the workflow
               </a>
             </div>
-            <p class="hero-trust">
-              <span>Free, every feature included</span>
-              <span class="dot" aria-hidden="true">·</span>
-              <span>Windows 11 &amp; macOS 15+</span>
-              <span class="dot" aria-hidden="true">·</span>
-              <span>No account, no telemetry</span>
-              <span class="dot" aria-hidden="true">·</span>
-              <a href="#download">Other install options</a>
+            <p class="hero-preview-note">
+              Studio is on by default in 2.0 preview builds unless previously disabled. Saved opt-outs stay off. The
+              Welcome Back screen appears once; Video remains a standard recording.
             </p>
           </div>
 
-          <figure class="hero-media capture-frame">
-            <span class="corner corner-tl" aria-hidden="true"></span>
-            <span class="corner corner-tr" aria-hidden="true"></span>
-            <span class="corner corner-bl" aria-hidden="true"></span>
-            <span class="corner corner-br" aria-hidden="true"></span>
-            <video
-              class="hero-video"
-              controls
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              poster="./assets/tinyclips-main.png"
-              width="1158"
-              height="980"
-              aria-label="Tiny Clips capturing, trimming, and saving a screen recording"
-            >
-              <source src="./assets/tiny-clips-promo.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-            <figcaption class="hero-media-caption">
-              <span class="rec-dot" aria-hidden="true"></span> Real capture flow, recorded with Tiny Clips
+          <figure class="studio-showcase" role="img" aria-labelledby="studio-showcase-description">
+            <div class="studio-window" aria-hidden="true">
+              <div class="studio-window-bar">
+                <span class="studio-window-dots"><i></i><i></i><i></i></span>
+                <img src="./assets/app-icon-128.png" alt="" width="22" height="22" decoding="async" />
+                <strong>Tiny Clips Studio</strong>
+                <span class="studio-window-preview">Preview</span>
+                <span class="studio-window-menu">•••</span>
+              </div>
+              <div class="studio-workspace">
+                <div class="studio-tool-rail">
+                  <div class="studio-tool is-current">
+                    <svg viewBox="0 0 24 24">
+                      <rect x="4" y="4" width="11" height="11" rx="2" />
+                      <rect x="9" y="9" width="11" height="11" rx="2" />
+                    </svg>
+                    <span>Layout</span>
+                  </div>
+                  <div class="studio-tool">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M4 8V4h4M16 4h4v4M20 16v4h-4M8 20H4v-4" />
+                      <rect x="7" y="7" width="10" height="10" rx="2" />
+                    </svg>
+                    <span>Frame</span>
+                  </div>
+                  <div class="studio-tool">
+                    <svg viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M5 14v5h14v-5" /></svg>
+                    <span>Export</span>
+                  </div>
+                </div>
+                <div class="studio-editor">
+                  <div class="studio-preview-canvas">
+                    <div class="studio-browser">
+                      <div class="studio-browser-bar"><i></i><i></i><i></i><span>your clear demo</span></div>
+                      <div class="studio-browser-content">
+                        <div class="studio-browser-copy"><i></i><i></i><i></i><b></b><i></i></div>
+                        <div class="studio-browser-art"><span></span><i></i></div>
+                      </div>
+                    </div>
+                    <div class="studio-camera-bubble">
+                      <span class="studio-camera-head"></span><span class="studio-camera-body"></span>
+                    </div>
+                  </div>
+                  <div class="studio-playback">
+                    <span class="studio-play-icon"></span>
+                    <span>00:04 / 00:12</span>
+                    <span class="studio-playback-track"><i></i></span>
+                  </div>
+                </div>
+              </div>
+              <div class="studio-timeline">
+                <div class="studio-timeline-ruler">
+                  <span></span><span>00:00</span><span>00:04</span><span>00:08</span><span>00:12</span>
+                </div>
+                <div class="studio-track studio-screen-track">
+                  <span class="studio-track-label">Screen</span>
+                  <span class="studio-track-clips"><i></i><i></i><i></i><i></i><i></i><b></b></span>
+                </div>
+                <div class="studio-track studio-camera-track">
+                  <span class="studio-track-label">Camera</span>
+                  <span class="studio-track-clips"><i></i><i></i><i></i><i></i><b></b></span>
+                </div>
+                <span class="studio-playhead"></span>
+              </div>
+            </div>
+            <div class="studio-screenshot-card" aria-hidden="true">
+              <span class="studio-card-label"><span></span>Screenshot</span>
+              <img
+                src="./assets/windows-screenshot-editor.png"
+                alt=""
+                width="1162"
+                height="520"
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="studio-export-card" aria-hidden="true">
+              <span class="studio-export-icon"
+                ><svg viewBox="0 0 24 24"><path d="M12 15V3m-5 5 5-5 5 5M4 14v6h16v-6" /></svg
+              ></span>
+              <span><strong>Studio export</strong><small>MP4 video</small></span>
+              <span class="studio-export-check">✓</span>
+            </div>
+            <figcaption class="visually-hidden" id="studio-showcase-description">
+              Illustrative Tiny Clips Studio preview interface with layout, frame, and export tools; a preview canvas;
+              separate screen and camera timeline tracks; a real Tiny Clips screenshot editor image; and an MP4 export
+              card. The Studio interface is a visual mockup, not an app screenshot.
             </figcaption>
           </figure>
+        </div>
+      </section>
+
+      <section class="studio-benefits" aria-labelledby="studio-benefits-title">
+        <div class="container">
+          <div class="studio-benefits-heading">
+            <p class="studio-benefits-kicker">One flow, from capture to finished demo</p>
+            <h2 id="studio-benefits-title">
+              Fast when you capture.<br /><span class="accent-text">Flexible when you edit.</span>
+            </h2>
+          </div>
+          <div class="studio-benefits-grid">
+            <article class="studio-benefit">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <rect x="4" y="5" width="24" height="17" rx="2" />
+                <path d="M11 27h10m-5-5v5" />
+              </svg>
+              <h3>Native on both desktops</h3>
+              <p>Made for Windows and macOS, with the capture tools close at hand.</p>
+            </article>
+            <article class="studio-benefit">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M16 3 27 7v8c0 7-4.5 11.5-11 14-6.5-2.5-11-7-11-14V7l11-4Z" />
+                <path d="m11 16 3.2 3.2L21 12" />
+              </svg>
+              <h3>Your files stay yours</h3>
+              <p>Captures and Studio projects stay on your device. Share only when you choose.</p>
+            </article>
+            <article class="studio-benefit">
+              <svg viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M5 8h22M5 16h22M5 24h22" />
+                <circle cx="12" cy="8" r="3" />
+                <circle cx="21" cy="16" r="3" />
+                <circle cx="15" cy="24" r="3" />
+              </svg>
+              <h3>Polish without switching apps</h3>
+              <p>Arrange screen and camera layers, refine the look, trim, and export an MP4 in Studio.</p>
+            </article>
+          </div>
+          <p class="studio-benefits-note">
+            Studio is a preview and is on by default in Tiny Clips 2.0 preview builds unless previously disabled.
+            Availability varies by platform.
+          </p>
         </div>
       </section>
 

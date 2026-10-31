@@ -73,6 +73,46 @@ test.describe('pages', () => {
     expect(await page.locator(`a[href^="${STORE_MAC}"]`).count()).toBeGreaterThanOrEqual(3);
   });
 
+  for (const theme of ['light', 'dark']) {
+    for (const width of [320, 390, 1440]) {
+      test(`Studio launch hero and benefits render in ${theme} theme at ${width}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 900 });
+        await page.addInitScript((value) => localStorage.setItem('tiny-clips-theme', value), theme);
+        await gotoHome(page);
+
+        const hero = page.locator('.hero-studio');
+        await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+        await expect(page.getByRole('heading', { name: 'From quick capture to clear demo.' })).toBeVisible();
+        await expect(hero.locator('.studio-preview-pill')).toContainText('Tiny Clips 2.0');
+        await expect(hero.locator('.hero-capture-types')).toContainText('Screenshots');
+        await expect(hero.locator('.hero-capture-types')).toContainText('Recordings');
+        await expect(hero.locator('.hero-capture-types')).toContainText('GIFs');
+
+        const download = hero.getByRole('link', { name: 'Download Tiny Clips' });
+        await expect(download).toHaveAttribute('href', /#download|apps\.microsoft\.com|apps\.apple\.com/);
+        await expect(hero.getByRole('link', { name: 'See the workflow' })).toHaveAttribute('href', '#try');
+        await expect(hero).toContainText('on by default in 2.0 preview builds unless previously disabled');
+        await expect(hero).toContainText('Saved opt-outs stay off');
+        await expect(hero).toContainText('Welcome Back screen appears once');
+        await expect(hero).toContainText('Video remains a standard recording');
+
+        const showcase = page.getByRole('img', { name: /Illustrative Tiny Clips Studio preview interface/ });
+        await expect(showcase).toContainText('not an app screenshot');
+        await expect(showcase).toContainText('Screen');
+        await expect(showcase).toContainText('Camera');
+        await expect(showcase.locator('.studio-export-card')).toContainText('MP4 video');
+        const screenshot = showcase.locator('img[src$="windows-screenshot-editor.png"]');
+        await expect(screenshot).toHaveAttribute('src', './assets/windows-screenshot-editor.png');
+
+        const benefits = page.locator('.studio-benefits');
+        await expect(benefits.getByRole('heading', { name: /Fast when you capture/ })).toBeVisible();
+        await expect(benefits).toContainText('Flexible when you edit.');
+        await expect(benefits.locator('.studio-benefit')).toHaveCount(3);
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+      });
+    }
+  }
+
   test('install tabs switch platforms and copy buttons exist', async ({ page }) => {
     await gotoHome(page);
     await page.click('.platform-tab[data-platform="windows"]');
