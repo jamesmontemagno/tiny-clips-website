@@ -75,43 +75,192 @@ test.describe('pages', () => {
 
   for (const theme of ['light', 'dark']) {
     for (const width of [320, 390, 1440]) {
-      test(`Studio launch hero and benefits render in ${theme} theme at ${width}px`, async ({ page }) => {
+      test(`launch hero, product previews, and benefits render in ${theme} theme at ${width}px`, async ({ page }) => {
         await page.setViewportSize({ width, height: 900 });
         await page.addInitScript((value) => localStorage.setItem('tiny-clips-theme', value), theme);
         await gotoHome(page);
 
         const hero = page.locator('.hero-studio');
         await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
+        await expect(hero).toHaveCSS('background-color', theme === 'dark' ? 'rgb(8, 13, 25)' : 'rgb(243, 246, 252)');
         await expect(page.getByRole('heading', { name: 'From quick capture to clear demo.' })).toBeVisible();
         await expect(hero.locator('.studio-preview-pill')).toContainText('Tiny Clips 2.0');
         await expect(hero.locator('.hero-capture-types')).toContainText('Screenshots');
         await expect(hero.locator('.hero-capture-types')).toContainText('Recordings');
         await expect(hero.locator('.hero-capture-types')).toContainText('GIFs');
+        await expect(hero.locator('.hero-trust')).toContainText('No account required');
 
-        const download = hero.getByRole('link', { name: 'Download Tiny Clips' });
+        const download = hero.getByRole('link', { name: /^Download (for Windows|for Mac|Tiny Clips)$/ });
         await expect(download).toHaveAttribute('href', /#download|apps\.microsoft\.com|apps\.apple\.com/);
         await expect(hero.getByRole('link', { name: 'See the workflow' })).toHaveAttribute('href', '#try');
+
+        const tabs = hero.getByRole('tablist', { name: 'Product preview' });
+        const editorTab = tabs.getByRole('tab', { name: 'Screenshot editor' });
+        const studioTab = tabs.getByRole('tab', { name: /^Studio/ });
+        await expect(editorTab).toHaveAttribute('aria-selected', 'true');
+
+        const editor = page.getByRole('img', { name: /Illustrative Tiny Clips screenshot editor/ });
+        await expect(editor).toBeVisible();
+        await expect(editor).toContainText('not an app screenshot');
+        await expect(editor.locator('.editor-redact-card')).toContainText('Pixelate');
+        await expect(editor.locator('.editor-frame-card')).toContainText('9:16');
+        await expect(hero).toContainText('Illustrative mockup of the screenshot editor');
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+
+        await studioTab.click();
+        await expect(studioTab).toHaveAttribute('aria-selected', 'true');
+        await expect(editor).toBeHidden();
         await expect(hero).toContainText('on by default in 2.0 preview builds unless previously disabled');
         await expect(hero).toContainText('Saved opt-outs stay off');
         await expect(hero).toContainText('Welcome Back screen appears once');
         await expect(hero).toContainText('Video remains a standard recording');
 
         const showcase = page.getByRole('img', { name: /Illustrative Tiny Clips Studio preview interface/ });
+        await expect(showcase).toBeVisible();
         await expect(showcase).toContainText('not an app screenshot');
         await expect(showcase).toContainText('Screen');
         await expect(showcase).toContainText('Camera');
         await expect(showcase.locator('.studio-export-card')).toContainText('MP4 video');
         const screenshot = showcase.locator('img[src$="windows-screenshot-editor.png"]');
         await expect(screenshot).toHaveAttribute('src', './assets/windows-screenshot-editor.png');
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
 
         const benefits = page.locator('.studio-benefits');
         await expect(benefits.getByRole('heading', { name: /Fast when you capture/ })).toBeVisible();
         await expect(benefits).toContainText('Flexible when you edit.');
         await expect(benefits.locator('.studio-benefit')).toHaveCount(3);
-        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
       });
     }
   }
+
+  const PLATFORMS = {
+    windows: {
+      userAgent:
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+      platform: 'Win32',
+      uaPlatform: 'Windows',
+      download: 'Download for Windows',
+      store: STORE_WINDOWS,
+      alt: 'Also on Mac',
+      altStore: STORE_MAC,
+      editorTitle: 'Edit screenshot',
+      library: 'Clips Library',
+    },
+    macos: {
+      userAgent:
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',
+      platform: 'MacIntel',
+      uaPlatform: 'macOS',
+      download: 'Download for Mac',
+      store: STORE_MAC,
+      alt: 'Also on Windows',
+      altStore: STORE_WINDOWS,
+      editorTitle: 'Edit Screenshot',
+      library: 'Clips Manager',
+    },
+  };
+
+  for (const [os, expected] of Object.entries(PLATFORMS)) {
+    test(`hero download and mockups adapt to ${os}`, async ({ browser }) => {
+      const context = await browser.newContext({ userAgent: expected.userAgent });
+      await context.addInitScript(({ platform, uaPlatform }) => {
+        Object.defineProperty(navigator, 'platform', { get: () => platform });
+        Object.defineProperty(navigator, 'userAgentData', {
+          get: () => ({ platform: uaPlatform, mobile: false, brands: [] }),
+        });
+      }, expected);
+      const page = await context.newPage();
+      await gotoHome(page);
+
+      await expect(page.locator('html')).toHaveAttribute('data-platform', os);
+      const hero = page.locator('.hero-studio');
+      const download = hero.getByRole('link', { name: expected.download, exact: true });
+      await expect(download).toHaveAttribute('href', new RegExp(`^${expected.store.replace(/[.?/]/g, '\\$&')}`));
+      await expect(download).toHaveAttribute('target', '_blank');
+      await expect(download.locator(`.os-icon-${os}`)).toBeVisible();
+      await expect(download.locator('.os-icon').filter({ visible: true })).toHaveCount(1);
+
+      const alt = hero.getByRole('link', { name: expected.alt, exact: true });
+      await expect(alt).toHaveAttribute('href', new RegExp(`^${expected.altStore.replace(/[.?/]/g, '\\$&')}`));
+      await expect(alt).toHaveAttribute('rel', 'noopener noreferrer');
+
+      await expect(
+        page.locator('.editor-window .mock-titlebar').getByText(expected.editorTitle, { exact: true })
+      ).toBeVisible();
+      await expect(page.locator('.library-window').getByText(expected.library, { exact: true })).toBeVisible();
+      await expect(page.locator('.hl-keycaps').filter({ visible: true })).toHaveCount(1);
+      await context.close();
+    });
+  }
+
+  test('hero preview tabs support keyboard selection', async ({ page }) => {
+    await gotoHome(page);
+    const editorTab = page.getByRole('tab', { name: 'Screenshot editor' });
+    const studioTab = page.getByRole('tab', { name: /^Studio/ });
+    const editorPanel = page.getByRole('tabpanel', { name: 'Screenshot editor' });
+    const studioPanel = page.locator('#showcase-studio');
+
+    await editorTab.focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(studioTab).toBeFocused();
+    await expect(studioTab).toHaveAttribute('aria-selected', 'true');
+    await expect(studioTab).toHaveAttribute('tabindex', '0');
+    await expect(editorTab).toHaveAttribute('tabindex', '-1');
+    await expect(studioPanel).toBeVisible();
+    await expect(editorPanel).toBeHidden();
+
+    await page.keyboard.press('ArrowRight');
+    await expect(editorTab).toBeFocused();
+    await expect(editorPanel).toBeVisible();
+    await page.keyboard.press('End');
+    await expect(studioTab).toBeFocused();
+    await page.keyboard.press('Home');
+    await expect(editorTab).toBeFocused();
+    await expect(editorTab).toHaveAttribute('aria-selected', 'true');
+    await page.keyboard.press('Tab');
+    await expect(editorPanel).toBeFocused();
+  });
+
+  test('hero download and both previews work without JavaScript', async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto('/index.html', { waitUntil: 'load' });
+    const hero = page.locator('.hero-studio');
+    await expect(hero.getByRole('link', { name: 'Download Tiny Clips', exact: true })).toHaveAttribute(
+      'href',
+      '#download'
+    );
+    await expect(hero.getByRole('link', { name: 'Windows and Mac downloads' })).toHaveAttribute('href', '#download');
+    await expect(page.locator('.showcase-tabs')).toBeHidden();
+    await expect(hero.getByRole('tabpanel')).toHaveCount(0);
+    await expect(page.getByRole('img', { name: /Illustrative Tiny Clips screenshot editor/ })).toBeVisible();
+    await expect(page.getByRole('img', { name: /Illustrative Tiny Clips Studio preview interface/ })).toBeVisible();
+    await context.close();
+  });
+
+  test('highlights show core workflows with labeled mockups', async ({ page }) => {
+    await gotoHome(page);
+    await expect(page.locator('#primary-nav a').first()).toHaveText('Highlights');
+    await expect(page.locator('#compare')).toHaveCount(0);
+
+    const highlights = page.locator('#highlights');
+    await expect(highlights.getByRole('heading', { level: 2 })).toHaveText('Small app. Big clarity.');
+    await expect(highlights.locator('.highlight-card')).toHaveCount(6);
+    for (const name of [
+      'Record without the setup',
+      'One shortcut, any target',
+      'GIFs, trimmed to the moment',
+      'Copy text from the screen',
+      'Scrolling capture',
+      'Find it later',
+    ]) {
+      await expect(highlights.getByRole('heading', { level: 3, name })).toBeVisible();
+    }
+    await expect(highlights.locator('.hl-mock:not([aria-hidden="true"])')).toHaveCount(0);
+    await expect(highlights).toContainText('teleprompter that never shows up in the recording');
+    await expect(highlights).toContainText('Mockups are simplified illustrations');
+    await expect(highlights.getByRole('link', { name: 'See real screens' })).toHaveAttribute('href', '#gallery');
+  });
 
   test('install tabs switch platforms and copy buttons exist', async ({ page }) => {
     await gotoHome(page);
@@ -142,9 +291,6 @@ test.describe('pages', () => {
       await expect(studio).toContainText('on by default unless you previously turned it off');
       await expect(studio).toContainText('Your saved opt-out stays off');
       await expect(studio).toContainText('Welcome Back screen appears once');
-
-      const studioComparison = page.getByRole('row', { name: /Tiny Clips Studio/ });
-      await expect(studioComparison).toContainText('on by default');
 
       await studio.getByRole('link', { name: 'How to try the preview' }).click();
       const summary = page.locator('#studio-preview');

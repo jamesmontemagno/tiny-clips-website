@@ -89,7 +89,7 @@ test('mobile navigation hides closed links from keyboard and accessibility tree'
   await toggle.focus();
   await page.keyboard.press('Enter');
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.getByRole('link', { name: 'Try it', exact: true })).toBeFocused();
+  await expect(page.getByRole('link', { name: 'Highlights', exact: true })).toBeFocused();
   await audit(page);
   await page.keyboard.press('Escape');
   await expect(toggle).toBeFocused();
