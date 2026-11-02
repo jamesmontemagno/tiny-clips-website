@@ -227,7 +227,7 @@ Platform and install-method tabs are the signature interaction pattern. They sho
 
 ### Product Media Frames
 
-Hero video, gallery items, and Clips Manager imagery sit inside rounded, bordered frames with restrained glow. Product imagery is mandatory on this brand surface; do not replace it with decorative abstract panels.
+Hero video, gallery items, and Clips Library imagery sit inside rounded, bordered frames with restrained glow. Product imagery is mandatory on this brand surface; do not replace it with decorative abstract panels.
 
 ### Store Badges
 

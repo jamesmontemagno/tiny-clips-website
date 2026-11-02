@@ -89,25 +89,26 @@ test('mobile navigation hides closed links from keyboard and accessibility tree'
   await toggle.focus();
   await page.keyboard.press('Enter');
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.getByRole('link', { name: 'Try it', exact: true })).toBeFocused();
+  await expect(page.getByRole('link', { name: 'Highlights', exact: true })).toBeFocused();
   await audit(page);
   await page.keyboard.press('Escape');
   await expect(toggle).toBeFocused();
   await expect(toggle).toHaveAttribute('aria-expanded', 'false');
 });
 
-test('reduced motion stops automatic video playback, including preference changes', async ({ page }) => {
+test('videos stay on demand with reduced and normal motion preferences', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  const video = page.locator('.hero-video');
+  const video = page.locator('.studio-video');
+  await expect(video).toHaveAttribute('controls');
   await expect(video).not.toHaveAttribute('autoplay');
   expect(await video.evaluate((element) => element.paused)).toBe(true);
   await expect(page.locator('html')).toHaveCSS('scroll-behavior', 'auto');
 
   await page.emulateMedia({ reducedMotion: 'no-preference' });
   await page.reload();
-  await expect(video).toHaveAttribute('autoplay');
-  await expect.poll(() => video.evaluate((element) => element.paused)).toBe(false);
+  await expect(video).not.toHaveAttribute('autoplay');
+  expect(await video.evaluate((element) => element.paused)).toBe(true);
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await expect.poll(() => video.evaluate((element) => element.paused)).toBe(true);
   await expect(video).not.toHaveAttribute('autoplay');
@@ -217,8 +218,8 @@ test('light theme and manual video controls do not require JavaScript', async ({
   const page = await context.newPage();
   await page.goto('/');
   await expect(page.locator('html')).toHaveCSS('color-scheme', 'light');
-  await expect(page.locator('.hero-video')).toHaveAttribute('controls');
-  await expect(page.locator('.hero-video')).not.toHaveAttribute('autoplay');
+  await expect(page.locator('.studio-video')).toHaveAttribute('controls');
+  await expect(page.locator('.studio-video')).not.toHaveAttribute('autoplay');
   await expect(page.getByRole('button', { name: 'Dark mode', includeHidden: true })).toBeHidden();
   await context.close();
 });
