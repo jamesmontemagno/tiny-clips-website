@@ -362,7 +362,7 @@ test.describe('pages', () => {
     test(`Studio video opens on demand and dismisses at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 844 });
       let videoRequests = 0;
-      await page.route('**/tiny-clips-studio-launch.mp4', async (route) => {
+      await page.route('**/studio-launch/assets/studio-demo.mp4', async (route) => {
         videoRequests++;
         await route.fulfill({ path: 'site/assets/tiny-clips-promo.mp4', contentType: 'video/mp4' });
       });
@@ -392,7 +392,8 @@ test.describe('pages', () => {
 
       await link.click();
       await dialog.getByText('Read the video summary', { exact: true }).click();
-      await expect(dialog.getByText(/A quick trimmer becomes Studio/)).toBeVisible();
+      await expect(dialog.getByText(/A short recording of the Windows Studio editor/)).toBeVisible();
+      await expect(dialog.locator('#studio-video-description')).toContainText('7.5 seconds · Silent Studio demo.');
       await expect(dialog.getByRole('link', { name: 'Studio preview notes' })).toHaveAttribute(
         'href',
         'https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md'
@@ -418,7 +419,7 @@ test.describe('pages', () => {
     await page.goto('/index.html', { waitUntil: 'load' });
     await expect(page.getByRole('link', { name: 'Learn more — watch the video' })).toHaveAttribute(
       'href',
-      'https://github.com/jamesmontemagno/tiny-clips-marketing/raw/refs/heads/main/marketing/studio-launch/tiny-clips-studio-launch.mp4'
+      'https://github.com/jamesmontemagno/tiny-clips-marketing/raw/refs/heads/main/marketing/studio-launch/assets/studio-demo.mp4'
     );
     await expect(page.locator('.studio-video-dialog')).toBeHidden();
     await context.close();
