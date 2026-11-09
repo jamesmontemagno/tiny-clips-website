@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scrolling capture and OCR — Tiny Clips documentation</title>
+    <meta name="description" content="Stitch a long page into one tall image with scrolling capture, or copy text from any part of your screen with OCR in Tiny Clips." />
+    <meta name="author" content="Refractored LLC" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="./theme.js"></script>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://tinyclips.app/docs-scrolling-ocr.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tinyclips.app/docs-scrolling-ocr.html" />
+    <meta property="og:title" content="Scrolling capture and OCR — Tiny Clips documentation" />
+    <meta property="og:description" content="Stitch a long page into one tall image with scrolling capture, or copy text from any part of your screen with OCR in Tiny Clips." />
+    <meta property="og:image" content="https://tinyclips.app/assets/og-image.png" />
+    <link rel="icon" type="image/png" sizes="128x128" href="./assets/app-icon-128.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="./assets/app-icon-256.png" />
+    <link rel="apple-touch-icon" href="./assets/app-icon-256.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="./index.html" aria-label="Tiny Clips home">
+          <img src="./assets/app-icon-128.png" alt="" width="32" height="32" decoding="async" />
+          <span>Tiny Clips</span>
+        </a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="./index.html#try">Try it</a></li>
+            <li><a href="./index.html#features">Features</a></li>
+            <li><a href="./index.html#gallery">Screens</a></li>
+            <li><a href="./docs.html" aria-current="true">Documentation</a></li>
+            <li><a href="./index.html#faq">FAQ</a></li>
+          </ul>
+          <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z" fill="currentColor" /><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+            <span class="theme-toggle-label">Dark mode</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="docs-layout">
+      <nav class="docs-sidebar" aria-label="Documentation pages">
+        <details class="docs-disclosure" data-docs-pages open>
+          <summary>Documentation pages</summary>
+          <p class="docs-nav-label">Start here</p>
+          <ul>
+            <li><a href="./docs.html">Overview</a></li>
+            <li><a href="./docs-capture.html">Capture basics</a></li>
+          </ul>
+          <p class="docs-nav-label">Features</p>
+          <ul>
+            <li><a href="./docs-editor.html">Screenshot editor</a></li>
+            <li><a href="./docs-recording.html">Video and GIF recording</a></li>
+            <li><a href="./docs-scrolling-ocr.html" aria-current="page">Scrolling capture and OCR</a></li>
+            <li><a href="./docs-library.html">Clips Library</a></li>
+            <li><a href="./docs-studio.html">Studio (Preview)</a></li>
+            <li><a href="./agents.html">Agent Control</a></li>
+          </ul>
+          <p class="docs-nav-label">Help</p>
+          <ul>
+            <li><a href="./docs-help.html">Permissions and troubleshooting</a></li>
+          </ul>
+        </details>
+      </nav>
+
+      <main id="main-content" class="docs-main has-toc" tabindex="-1">
+        <details class="docs-disclosure docs-toc" data-docs-toc open>
+          <summary>On this page</summary>
+          <nav aria-label="On this page">
+            <p class="docs-toc-title">On this page</p>
+            <ul>
+              <li><a href="#scrolling">Scrolling capture</a></li>
+              <li><a href="#limits">When a capture gets very long</a></li>
+              <li><a href="#ocr">Copy text from the screen</a></li>
+            </ul>
+          </nav>
+        </details>
+
+        <article class="legal-content doc-content docs-article">
+          <h1 class="legal-title">Scrolling capture and OCR</h1>
+          <p class="doc-lead">Capture more than fits on screen, and get text out of anything you can see.</p>
+
+          <h2 id="scrolling">Scrolling capture</h2>
+          <p>Stitch a long page or chat into one tall image.</p>
+          <ol class="doc-steps">
+            <li>Start a screenshot, then press <kbd>P</kbd> or choose <strong>Scroll</strong> in the capture picker.</li>
+            <li>Select the region to capture.</li>
+            <li>Scroll the page as you normally would. The floating panel shows that it's capturing.</li>
+            <li>Press <strong>Done</strong> or <kbd>Enter</kbd> to stitch the frames. To throw the capture away, press <strong>Cancel</strong> or <kbd>Esc</kbd>.</li>
+          </ol>
+          <p>The finished image follows your usual screenshot settings for saving, the editor, and the clipboard.</p>
+
+          <h2 id="limits">When a capture gets very long</h2>
+          <p>Tiny Clips stops a scrolling capture automatically if it gets too large, then saves what it has so far instead of discarding it. Check the end of a very long capture to make sure it includes everything you need.</p>
+
+          <h2 id="ocr">Copy text from the screen</h2>
+          <p>Select any part of your screen and Tiny Clips copies the text it recognizes to your clipboard.</p>
+          <ul class="legal-list">
+            <li><strong>macOS.</strong> Choose <strong>Copy Text from Region…</strong> in the menu bar menu.</li>
+            <li><strong>Windows.</strong> Choose <strong>Capture Text</strong> in the tray popup, or press <kbd>T</kbd> in the capture picker.</li>
+          </ul>
+          <p>To start it from a shortcut, assign one in Settings. See <a href="./docs-capture.html#shortcuts">Keyboard shortcuts</a>.</p>
+        </article>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <img src="./assets/app-icon-128.png" alt="" width="28" height="28" decoding="async" />
+          <div>
+            <p>© <span id="year">2026</span> Refractored LLC</p>
+            <p class="footer-tool-note">
+              Find more tiny tools like this at
+              <a href="https://www.tinytooltown.com/" target="_blank" rel="noopener noreferrer">Tiny Tool Town</a>.
+            </p>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS" target="_blank" rel="noopener noreferrer">Microsoft Store</a>
+          <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a>
+          <a href="https://github.com/jamesmontemagno/tiny-clips" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./terms.html">Terms</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

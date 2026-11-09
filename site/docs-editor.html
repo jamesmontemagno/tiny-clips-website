@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Screenshot editor — Tiny Clips documentation</title>
+    <meta name="description" content="Annotate, redact, crop, and frame screenshots in the Tiny Clips editor on Windows and macOS." />
+    <meta name="author" content="Refractored LLC" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="./theme.js"></script>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://tinyclips.app/docs-editor.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tinyclips.app/docs-editor.html" />
+    <meta property="og:title" content="Screenshot editor — Tiny Clips documentation" />
+    <meta property="og:description" content="Annotate, redact, crop, and frame screenshots in the Tiny Clips editor on Windows and macOS." />
+    <meta property="og:image" content="https://tinyclips.app/assets/og-image.png" />
+    <link rel="icon" type="image/png" sizes="128x128" href="./assets/app-icon-128.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="./assets/app-icon-256.png" />
+    <link rel="apple-touch-icon" href="./assets/app-icon-256.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="./index.html" aria-label="Tiny Clips home">
+          <img src="./assets/app-icon-128.png" alt="" width="32" height="32" decoding="async" />
+          <span>Tiny Clips</span>
+        </a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="./index.html#try">Try it</a></li>
+            <li><a href="./index.html#features">Features</a></li>
+            <li><a href="./index.html#gallery">Screens</a></li>
+            <li><a href="./docs.html" aria-current="true">Documentation</a></li>
+            <li><a href="./index.html#faq">FAQ</a></li>
+          </ul>
+          <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z" fill="currentColor" /><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+            <span class="theme-toggle-label">Dark mode</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="docs-layout">
+      <nav class="docs-sidebar" aria-label="Documentation pages">
+        <details class="docs-disclosure" data-docs-pages open>
+          <summary>Documentation pages</summary>
+          <p class="docs-nav-label">Start here</p>
+          <ul>
+            <li><a href="./docs.html">Overview</a></li>
+            <li><a href="./docs-capture.html">Capture basics</a></li>
+          </ul>
+          <p class="docs-nav-label">Features</p>
+          <ul>
+            <li><a href="./docs-editor.html" aria-current="page">Screenshot editor</a></li>
+            <li><a href="./docs-recording.html">Video and GIF recording</a></li>
+            <li><a href="./docs-scrolling-ocr.html">Scrolling capture and OCR</a></li>
+            <li><a href="./docs-library.html">Clips Library</a></li>
+            <li><a href="./docs-studio.html">Studio (Preview)</a></li>
+            <li><a href="./agents.html">Agent Control</a></li>
+          </ul>
+          <p class="docs-nav-label">Help</p>
+          <ul>
+            <li><a href="./docs-help.html">Permissions and troubleshooting</a></li>
+          </ul>
+        </details>
+      </nav>
+
+      <main id="main-content" class="docs-main has-toc" tabindex="-1">
+        <details class="docs-disclosure docs-toc" data-docs-toc open>
+          <summary>On this page</summary>
+          <nav aria-label="On this page">
+            <p class="docs-toc-title">On this page</p>
+            <ul>
+              <li><a href="#open">Open the editor</a></li>
+              <li><a href="#annotate">Annotate</a></li>
+              <li><a href="#redact">Redact sensitive content</a></li>
+              <li><a href="#sensitive-text">Find sensitive text</a></li>
+              <li><a href="#background">Add a background</a></li>
+              <li><a href="#frames">Export frames</a></li>
+            </ul>
+          </nav>
+        </details>
+
+        <article class="legal-content doc-content docs-article">
+          <h1 class="legal-title">Screenshot editor</h1>
+          <p class="doc-lead">Mark up a screenshot so it explains itself, then copy or save it.</p>
+
+          <h2 id="open">Open the editor</h2>
+          <p>The editor opens after a screenshot when it's turned on in Settings. To change this on Windows, use <strong>Open editor after capture</strong> in <strong>Settings → Screenshot</strong>. You can also reopen a screenshot from <strong>Recent Captures</strong> or the <a href="./docs-library.html">Clips Library</a>, and open PNG, JPG, and WebP files with Tiny Clips.</p>
+
+          <h2 id="annotate">Annotate</h2>
+          <p>The toolbar has move, crop, rectangle, ellipse, arrow, line, freehand draw, text, numbered badge, emoji, and redact tools.</p>
+          <ul class="legal-list">
+            <li>Arrows can be straight or curved.</li>
+            <li>Drag handles to move or resize an annotation after you place it.</li>
+            <li>Undo steps back through every change.</li>
+            <li>Zoom from 25% to 400%, and pan around while zoomed in.</li>
+          </ul>
+
+          <h2 id="redact">Redact sensitive content</h2>
+          <p>Use the Redact tool to hide part of the image. It offers blur, pixelate, and solid styles.</p>
+          <p class="doc-note"><strong>Use solid for passwords, keys, and other secrets.</strong> Blur and pixelate are built from the image itself, so large text or a light setting can stay readable.</p>
+
+          <h2 id="sensitive-text">Find sensitive text</h2>
+          <p><strong>Find sensitive text</strong> is in the Redact tool's side panel. It uses OCR on your device to suggest likely email addresses, phone numbers, and IP addresses.</p>
+          <ol class="doc-steps">
+            <li>Run <strong>Find sensitive text</strong>. This alone doesn't change your image.</li>
+            <li>Review each highlight, then approve or dismiss it.</li>
+            <li>Apply the approved suggestions as opaque black redactions. You can undo them, and they're included when you copy or save.</li>
+          </ol>
+          <p>It can miss things, so always review the whole image before you share it.</p>
+
+          <h2 id="background">Add a background</h2>
+          <p>Place your screenshot on a gradient background, then adjust the padding, rounded corners, and shadow.</p>
+          <p>On Windows, you can also use a local PNG, JPEG, or WebP image, with centered Fill or Fit placement. The image stays in the current editor only, and <strong>Remove</strong> or <strong>Reset</strong> clears it. Animated images and images above 32 megapixels aren't supported.</p>
+
+          <h2 id="frames">Export frames</h2>
+          <p>Choose a frame to fit your screenshot to a set shape: Original, 1:1, 4:3, 16:9, 3:4, or 9:16. Then align the screenshot inside the frame with the 3×3 alignment control.</p>
+        </article>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <img src="./assets/app-icon-128.png" alt="" width="28" height="28" decoding="async" />
+          <div>
+            <p>© <span id="year">2026</span> Refractored LLC</p>
+            <p class="footer-tool-note">
+              Find more tiny tools like this at
+              <a href="https://www.tinytooltown.com/" target="_blank" rel="noopener noreferrer">Tiny Tool Town</a>.
+            </p>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS" target="_blank" rel="noopener noreferrer">Microsoft Store</a>
+          <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a>
+          <a href="https://github.com/jamesmontemagno/tiny-clips" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./terms.html">Terms</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

@@ -19,7 +19,21 @@ for (const theme of ['light', 'dark']) {
         await page.addInitScript((value) => localStorage.setItem('tiny-clips-theme', value), theme);
       });
 
-      for (const path of ['/index.html', '/agents.html', '/privacy.html', '/terms.html', '/404.html']) {
+      for (const path of [
+        '/index.html',
+        '/docs.html',
+        '/docs-capture.html',
+        '/docs-editor.html',
+        '/docs-recording.html',
+        '/docs-scrolling-ocr.html',
+        '/docs-library.html',
+        '/docs-studio.html',
+        '/docs-help.html',
+        '/agents.html',
+        '/privacy.html',
+        '/terms.html',
+        '/404.html',
+      ]) {
         test(`${path} has themed surfaces and no automated WCAG violations`, async ({ page }) => {
           await page.goto(path);
           await expect(page.locator('html')).toHaveCSS('color-scheme', theme);

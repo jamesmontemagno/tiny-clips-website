@@ -102,6 +102,149 @@ test.describe('Agent Control setup page', () => {
   }
 });
 
+test.describe('documentation', () => {
+  const DOCS = [
+    ['/docs.html', 'Overview', 'Tiny Clips documentation'],
+    ['/docs-capture.html', 'Capture basics', 'Capture basics'],
+    ['/docs-editor.html', 'Screenshot editor', 'Screenshot editor'],
+    ['/docs-recording.html', 'Video and GIF recording', 'Video and GIF recording'],
+    ['/docs-scrolling-ocr.html', 'Scrolling capture and OCR', 'Scrolling capture and OCR'],
+    ['/docs-library.html', 'Clips Library', 'Clips Library'],
+    ['/docs-studio.html', 'Studio (Preview)', 'Studio (Preview)'],
+    ['/agents.html', 'Agent Control', 'Set up Agent Control'],
+    ['/docs-help.html', 'Permissions and troubleshooting', 'Permissions and troubleshooting'],
+  ];
+  const sidebar = (page) => page.getByRole('navigation', { name: 'Documentation pages' });
+
+  for (const [path, label, title] of DOCS) {
+    test(`${path} lists every docs page and marks itself current`, async ({ page }) => {
+      const errors = watchErrors(page);
+      await page.goto(path, { waitUntil: 'load' });
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(title);
+      const links = sidebar(page).locator('a');
+      await expect(links).toHaveText(DOCS.map(([, name]) => name));
+      expect(await links.evaluateAll((items) => items.map((a) => `/${a.getAttribute('href').slice(2)}`))).toEqual(
+        DOCS.map(([href]) => href)
+      );
+      await expect(sidebar(page).locator('a[aria-current="page"]')).toHaveText(label);
+      const text = (await page.locator('body').textContent()).replace(/\s+/g, ' ');
+      expect(text).not.toMatch(/agent mode|agent control|Agent control/);
+      expect(errors).toEqual([]);
+    });
+
+    test(`${path} is in the sitemap`, async ({ page }) => {
+      const response = await page.request.get('/sitemap.xml');
+      expect(await response.text()).toContain(`<loc>https://tinyclips.app${path}</loc>`);
+    });
+
+    if (path !== '/docs.html') {
+      test(`${path} section list matches its headings`, async ({ page }) => {
+        await page.setViewportSize({ width: 1440, height: 900 });
+        await page.goto(path, { waitUntil: 'load' });
+        const sections = await page.locator('article h2').evaluateAll((items) =>
+          items.map((heading) => [`#${heading.id}`, heading.textContent.trim()])
+        );
+        const toc = await page
+          .getByRole('navigation', { name: 'On this page' })
+          .locator('a')
+          .evaluateAll((items) => items.map((a) => [a.getAttribute('href'), a.textContent.trim()]));
+        expect(toc).toEqual(sections);
+      });
+    }
+
+    for (const width of [320, 390, 1024, 1440]) {
+      test(`${path} does not overflow at ${width}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto(path, { waitUntil: 'load' });
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+      });
+    }
+  }
+
+  test('home leads with top features that link to their docs', async ({ page }) => {
+    await page.goto('/docs.html', { waitUntil: 'load' });
+    await expect(page.getByRole('heading', { level: 2, name: 'Top features' })).toBeVisible();
+    const hrefs = await page.locator('.docs-feature').evaluateAll((items) => items.map((a) => a.getAttribute('href')));
+    expect(hrefs).toHaveLength(6);
+    expect(hrefs).toContain('./agents.html');
+    await expect(page.getByRole('navigation', { name: 'On this page' })).toHaveCount(0);
+  });
+
+  test('both side navs stay in view and track the section while scrolling', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    await page.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
+    const toc = page.getByRole('navigation', { name: 'On this page' });
+    const current = toc.locator('a[aria-current="location"]');
+    await expect(current).toHaveText('What agents can do');
+
+    const article = await page.locator('article').boundingBox();
+    const tocBox = await toc.boundingBox();
+    const sideBox = await sidebar(page).boundingBox();
+    expect(tocBox.x).toBeGreaterThanOrEqual(article.x + article.width);
+    expect(sideBox.x + sideBox.width).toBeLessThanOrEqual(article.x);
+
+    await page.locator('#security').evaluate((heading) => heading.scrollIntoView());
+    await expect(current).toHaveText('Security model');
+    for (const nav of [toc, sidebar(page)]) {
+      const box = await nav.boundingBox();
+      expect(box.y).toBeGreaterThanOrEqual(0);
+      expect(box.y).toBeLessThan(200);
+    }
+    await expect(toc.locator('a[href="#security"]')).toBeInViewport();
+
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expect(current).toHaveText('Troubleshooting');
+  });
+
+  test('clicking a section link jumps to it below the sticky header', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/docs-studio.html', { waitUntil: 'load' });
+    await page.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
+    await page.getByRole('navigation', { name: 'On this page' }).getByRole('link', { name: 'Captions' }).click();
+    await expect(page).toHaveURL(/#captions$/);
+    const header = await page.locator('.site-header').boundingBox();
+    const heading = await page.locator('#captions').boundingBox();
+    expect(heading.y).toBeGreaterThanOrEqual(header.y + header.height);
+    await expect(
+      page.getByRole('navigation', { name: 'On this page' }).locator('a[aria-current="location"]')
+    ).toHaveText('Captions');
+  });
+
+  test('navs collapse into menus on small screens and close after choosing a section', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    const pages = sidebar(page);
+    await expect(pages.getByRole('link', { name: 'Clips Library' })).toBeHidden();
+    await pages.getByText('Documentation pages').click();
+    await expect(pages.getByRole('link', { name: 'Clips Library' })).toBeVisible();
+
+    const toc = page.locator('[data-docs-toc]');
+    await expect(toc.getByRole('link', { name: 'Security model' })).toBeHidden();
+    await toc.locator('summary').click();
+    await toc.getByRole('link', { name: 'Security model' }).click();
+    await expect(page).toHaveURL(/#security$/);
+    await expect(toc.getByRole('link', { name: 'Security model' })).toBeHidden();
+  });
+
+  test('both navs are usable without JavaScript', async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+    const page = await context.newPage();
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    await expect(sidebar(page).getByRole('link', { name: 'Clips Library' })).toBeVisible();
+    await expect(page.locator('[data-docs-toc]').getByRole('link', { name: 'Security model' })).toBeVisible();
+    await context.close();
+  });
+
+  test('skip link goes past the page list to the content', async ({ page }) => {
+    await page.goto('/docs-editor.html', { waitUntil: 'load' });
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('main')).toBeFocused();
+    await expect(page.locator('main')).not.toContainText('Documentation pages');
+  });
+});
+
 test.describe('pages', () => {
   test('sitemap lists the Agent Control page', async ({ page }) => {
     const response = await page.request.get('/sitemap.xml');
@@ -119,15 +262,17 @@ test.describe('pages', () => {
     test(`${path} nav lists Documentation before FAQ and omits Highlights`, async ({ page }) => {
       await page.goto(path, { waitUntil: 'load' });
       await expect(page.locator('.nav-links a')).toHaveText(['Try it', 'Features', 'Screens', 'Documentation', 'FAQ']);
-      await expect(page.locator('.nav-links a', { hasText: 'Documentation' })).toHaveAttribute('href', './agents.html');
+      await expect(page.locator('.nav-links a', { hasText: 'Documentation' })).toHaveAttribute('href', './docs.html');
     });
   }
 
-  test('Documentation is marked as the current page only on the docs page', async ({ page }) => {
-    await page.goto('/agents.html', { waitUntil: 'load' });
+  test('Documentation is marked current only on docs pages', async ({ page }) => {
+    await page.goto('/docs.html', { waitUntil: 'load' });
     await expect(page.locator('.nav-links a[aria-current="page"]')).toHaveText('Documentation');
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    await expect(page.locator('.nav-links a[aria-current="true"]')).toHaveText('Documentation');
     await page.goto('/index.html', { waitUntil: 'load' });
-    await expect(page.locator('.nav-links a[aria-current="page"]')).toHaveCount(0);
+    await expect(page.locator('.nav-links a[aria-current]')).toHaveCount(0);
   });
 
   for (const path of ['/index.html', '/agents.html', '/privacy.html', '/terms.html', '/404.html']) {

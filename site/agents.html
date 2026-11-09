@@ -38,7 +38,7 @@
             <li><a href="./index.html#try">Try it</a></li>
             <li><a href="./index.html#features">Features</a></li>
             <li><a href="./index.html#gallery">Screens</a></li>
-            <li><a href="./agents.html" aria-current="page">Documentation</a></li>
+            <li><a href="./docs.html" aria-current="true">Documentation</a></li>
             <li><a href="./index.html#faq">FAQ</a></li>
           </ul>
           <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
@@ -56,14 +56,36 @@
       </div>
     </header>
 
-    <main id="main-content" tabindex="-1">
-      <section class="section">
-        <div class="container legal-content doc-content">
-          <h1 class="legal-title">Set up Agent Control</h1>
-          <p class="doc-lead">Let an AI agent on your computer take screenshots, record, and edit with Tiny Clips, with the permissions you choose.</p>
-          <p class="doc-note"><strong>Agent Control is off by default.</strong> Nothing can connect until you turn it on. <strong>Tiny Clips provides the tools, not an AI model</strong>, so bring your own agent.</p>
+    <div class="docs-layout">
+      <nav class="docs-sidebar" aria-label="Documentation pages">
+        <details class="docs-disclosure" data-docs-pages open>
+          <summary>Documentation pages</summary>
+          <p class="docs-nav-label">Start here</p>
+          <ul>
+            <li><a href="./docs.html">Overview</a></li>
+            <li><a href="./docs-capture.html">Capture basics</a></li>
+          </ul>
+          <p class="docs-nav-label">Features</p>
+          <ul>
+            <li><a href="./docs-editor.html">Screenshot editor</a></li>
+            <li><a href="./docs-recording.html">Video and GIF recording</a></li>
+            <li><a href="./docs-scrolling-ocr.html">Scrolling capture and OCR</a></li>
+            <li><a href="./docs-library.html">Clips Library</a></li>
+            <li><a href="./docs-studio.html">Studio (Preview)</a></li>
+            <li><a href="./agents.html" aria-current="page">Agent Control</a></li>
+          </ul>
+          <p class="docs-nav-label">Help</p>
+          <ul>
+            <li><a href="./docs-help.html">Permissions and troubleshooting</a></li>
+          </ul>
+        </details>
+      </nav>
 
-          <nav class="doc-toc" aria-label="On this page">
+      <main id="main-content" class="docs-main has-toc" tabindex="-1">
+        <details class="docs-disclosure docs-toc" data-docs-toc open>
+          <summary>On this page</summary>
+          <nav aria-label="On this page">
+            <p class="docs-toc-title">On this page</p>
             <ul>
               <li><a href="#what-agents-can-do">What agents can do</a></li>
               <li><a href="#requirements">Requirements</a></li>
@@ -79,6 +101,12 @@
               <li><a href="#troubleshooting">Troubleshooting</a></li>
             </ul>
           </nav>
+        </details>
+
+        <article class="legal-content doc-content docs-article">
+          <h1 class="legal-title">Set up Agent Control</h1>
+          <p class="doc-lead">Let an AI agent on your computer take screenshots, record, and edit with Tiny Clips, with the permissions you choose.</p>
+          <p class="doc-note"><strong>Agent Control is off by default.</strong> Nothing can connect until you turn it on. <strong>Tiny Clips provides the tools, not an AI model</strong>, so bring your own agent.</p>
 
           <h2 id="what-agents-can-do">What agents can do</h2>
           <p>Agents and scripts on your Mac or Windows PC reach the running app through a command-line tool or an MCP server. Once you grant permission, they can:</p>
@@ -288,10 +316,9 @@
           </div>
           <p class="doc-after-command">Change what an agent may do with <strong>Permissions</strong>, or revoke it, in <strong>Settings → Agent Control → Paired Agents</strong>. Turn Agent Control off to stop all connections. <strong>Activity → Open Audit Log</strong> shows local request history.</p>
           <p>For the full command reference, see the <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/docs/agent-integration.md" target="_blank" rel="noopener noreferrer">agent integration guide</a> and <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/docs/agent-plugin.md" target="_blank" rel="noopener noreferrer">plugin guide</a> on GitHub.</p>
-        </div>
-      </section>
-    </main>
-
+                  </article>
+                </main>
+              </div>
     <footer class="site-footer">
       <div class="container footer-content">
         <div class="footer-brand">
