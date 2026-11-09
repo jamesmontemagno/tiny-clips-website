@@ -112,7 +112,7 @@
               "Animated GIF recording",
               "Screenshot editor with annotations, redaction, backgrounds, and export frames",
               "Video and GIF trimmers",
-              "Tiny Clips Studio (Preview): editable screen and camera layers, layouts, backgrounds, trimming, and MP4 export in preview builds",
+              "Tiny Clips Studio (Preview): editable screen and camera layers, layouts, backgrounds, trimming, and MP4 export",
               "Teleprompter overlay for recordings",
               "Clips library with tags, favorites, and sharing"
             ],
@@ -201,7 +201,7 @@
                 "name": "How do I try Tiny Clips Studio?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build Tiny Clips from the main branch and check the Studio preview notes for current limitations. In that build, Studio is on by default unless you previously turned it off in Settings → Studio. The refreshed Tiny Clips 2.0 Welcome Back screen appears once. On macOS, choose Studio Recording… from the menu bar menu. On Windows, choose the Studio tile in the tray menu. Record, then arrange your layers in Studio and export an MP4. If you do not want Studio, turn off Tiny Clips Studio (Preview) in Settings → Studio; saved opt-outs stay off. The existing Video command still uses the regular recording workflow."
+                  "text": "Studio is a preview for macOS and Windows, included in Tiny Clips 2.1. It is on by default unless you previously turned it off in Settings → Studio. On macOS, choose Studio Recording… from the menu bar menu. On Windows, choose the Studio tile in the tray menu. Record, then arrange your layers in Studio and export an MP4. If you do not want Studio, turn off Tiny Clips Studio (Preview) in Settings → Studio; saved opt-outs stay off. The existing Video command still uses the regular recording workflow."
                 }
               },
               {
@@ -232,10 +232,10 @@
         </a>
         <nav class="primary-nav" id="primary-nav" aria-label="Primary">
           <ul class="nav-links">
-            <li><a href="#highlights">Highlights</a></li>
             <li><a href="#try">Try it</a></li>
             <li><a href="#features">Features</a></li>
             <li><a href="#gallery">Screens</a></li>
+            <li><a href="./agents.html">Documentation</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
           <a class="btn btn-primary btn-sm nav-cta" href="#download" data-store-link>Download free</a>
@@ -259,8 +259,8 @@
         <div class="container hero-grid hero-studio-grid">
           <div class="hero-content">
             <p class="studio-preview-pill">
-              <span class="studio-status-dot" aria-hidden="true"></span>Tiny Clips 2.0
-              <span aria-hidden="true">·</span> Studio Preview
+              <span class="studio-status-dot" aria-hidden="true"></span>
+              <span>Tiny Clips 2.1 <span aria-hidden="true">·</span> Agent Control <span aria-hidden="true">·</span> Studio Preview</span>
             </p>
             <ul class="hero-capture-types">
               <li>Screenshots</li>
@@ -326,6 +326,21 @@
                   <path d="m16 9 5-3v9l-5-3M6 20h12" />
                 </svg>
                 Studio <span class="showcase-tab-badge">Preview</span>
+              </button>
+              <button
+                class="showcase-tab"
+                type="button"
+                role="tab"
+                id="showcase-tab-agent"
+                aria-controls="showcase-agent"
+                aria-selected="false"
+                tabindex="-1"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="16" rx="2" />
+                  <path d="m7 9 3 3-3 3M13 15h4" />
+                </svg>
+                Agent Control
               </button>
             </div>
 
@@ -575,8 +590,56 @@
                 </figcaption>
               </figure>
               <p class="showcase-caption hero-preview-note">
-                Studio is on by default in 2.0 preview builds unless previously disabled. Saved opt-outs stay off. The
-                Welcome Back screen appears once; Video remains a standard recording.
+                Studio is a preview and is on by default in Tiny Clips 2.1 unless previously disabled. Saved opt-outs
+                stay off, and Video remains a standard recording.
+              </p>
+            </div>
+
+            <div class="showcase-panel" id="showcase-agent">
+              <figure class="agent-showcase" role="img" aria-labelledby="agent-showcase-description">
+                <div class="mock-window agent-window" aria-hidden="true">
+                  <div class="mock-titlebar">
+                    <span class="mock-traffic"><i></i><i></i><i></i></span>
+                    <strong>Your agent</strong>
+                    <span class="mock-caption-buttons"><i></i><i></i><i></i></span>
+                  </div>
+                  <div class="agent-body">
+                    <div class="agent-transcript">
+                      <p class="agent-prompt">Discover the Copilot window, capture it, draw an arrow toward Create PR, and add an eyes emoji. Save a new annotated copy.</p>
+                      <ul class="agent-steps">
+                        <li><span class="agent-check">✓</span><code>capture.targets kind=windows</code><span class="agent-scope">capture</span></li>
+                        <li><span class="agent-check">✓</span><code>capture.screenshot mode=window</code><span class="agent-scope">capture</span></li>
+                        <li><span class="agent-check">✓</span><code>editor.annotate</code><span class="agent-scope">edit</span></li>
+                      </ul>
+                      <p class="agent-reply">Saved a new annotated copy. The original is unchanged.</p>
+                    </div>
+                    <div class="agent-result">
+                      <div class="agent-shot">
+                        <span class="agent-shot-lines"><i></i><i></i><i></i></span>
+                        <span class="agent-shot-button">Create PR</span>
+                        <svg class="agent-shot-arrow" viewBox="0 0 80 50"><path d="M4 44C24 42 46 32 66 12" /><path d="m52 10 15 1-2 15" /></svg>
+                        <span class="agent-shot-emoji">👀</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mock-float agent-permissions-card" aria-hidden="true">
+                  <strong>Permissions you granted</strong>
+                  <span class="mock-chips"><i>read</i><i>capture</i><i>record</i><i>edit</i><i>export</i></span>
+                  <small>Delete, upload, and discard always ask.</small>
+                </div>
+                <figcaption class="visually-hidden" id="agent-showcase-description">
+                  Illustrative AI agent working through Tiny Clips Agent Control. Asked to capture the Copilot window and
+                  annotate it, the agent runs capture.targets and capture.screenshot with the capture permission, then
+                  editor.annotate with the edit permission, and reports that it saved a new copy and left the original
+                  unchanged. The result shows an arrow pointing at a Create PR button and an eyes emoji. A card lists the
+                  granted permissions and notes that delete, upload, and discard always ask. The agent interface is a
+                  visual mockup, not an app screenshot.
+                </figcaption>
+              </figure>
+              <p class="showcase-caption">
+                Illustrative mockup of an agent using Agent Control, which is off by default. Tiny Clips provides the
+                tools, not an AI model. <a href="./agents.html">Set up Agent Control</a>.
               </p>
             </div>
           </div>
@@ -620,7 +683,7 @@
             </article>
           </div>
           <p class="studio-benefits-note">
-            Studio is a preview and is on by default in Tiny Clips 2.0 preview builds unless previously disabled.
+            Studio is a preview and is on by default in Tiny Clips 2.1 unless previously disabled.
             Availability varies by platform.
           </p>
         </div>
@@ -1011,7 +1074,7 @@
               <li><strong>Make it yours</strong> with backgrounds, padding, and rounded corners</li>
               <li><strong>Trim and export an MP4</strong>, with a project you can reopen to edit again</li>
             </ul>
-            <p class="section-copy">The refreshed Tiny Clips 2.0 Welcome Back screen appears once. Your saved opt-out stays off, and the existing Video command always uses the regular recording workflow. <a href="#studio-preview">How to try the preview</a>.</p>
+            <p class="section-copy">Your saved opt-out stays off, and the existing Video command always uses the regular recording workflow. <a href="#studio-preview">How to try the preview</a>.</p>
             <a class="btn btn-secondary" href="https://github.com/jamesmontemagno/tiny-clips-marketing/raw/refs/heads/main/marketing/studio-launch/tiny-clips-studio-launch.mp4" data-studio-video>Watch the launch video</a>
           </article>
 
@@ -1021,7 +1084,7 @@
               <button class="btn btn-secondary btn-sm" type="submit" autofocus>Close video</button>
             </form>
             <video class="studio-video" controls playsinline preload="none" width="1920" height="1080" aria-label="Tiny Clips Studio launch video" aria-describedby="studio-video-description"></video>
-            <p id="studio-video-description">45 seconds · Music only, no narration. Studio is on by default in preview builds unless previously disabled.</p>
+            <p id="studio-video-description">45 seconds · Music only, no narration. Studio is on by default unless previously disabled.</p>
             <details class="studio-video-summary">
               <summary>Read the video summary</summary>
               <p>A quick trimmer becomes Studio: separate screen and camera layers, scene layouts, backgrounds, padding, and rounded corners. Illustrative compositions accompany real Windows editor controls and timeline footage. The video highlights zoom, cut, speed, MP4 export, editable projects, and enabling Studio Preview, then shows a finished composition. It closes with Tiny Clips screenshots, video, GIFs, audio recording, screenshot editing, and availability on macOS and Windows. Preview capabilities and limitations vary by platform; see the <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md" target="_blank" rel="noopener noreferrer">Studio preview notes</a>.</p>
@@ -1212,8 +1275,8 @@
             <details class="faq-item">
               <summary id="studio-preview">How do I try Tiny Clips Studio?</summary>
               <div class="faq-body">
-                <p>Studio is a work-in-progress preview for macOS and Windows, not part of the current store releases. Build Tiny Clips from the <a href="https://github.com/jamesmontemagno/tiny-clips/tree/main" target="_blank" rel="noopener noreferrer">main branch</a> and check the <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md" target="_blank" rel="noopener noreferrer">Studio preview notes</a> for current limitations.</p>
-                <p>In that build, Studio is on by default unless you previously turned it off in <strong>Settings → Studio</strong>. The refreshed Tiny Clips 2.0 Welcome Back screen appears once. On macOS, choose <strong>Studio Recording…</strong> from the menu bar menu. On Windows, choose the <strong>Studio</strong> tile in the tray menu. Record, then arrange your layers in Studio and export an MP4.</p>
+                <p>Studio is a preview for macOS and Windows, included in Tiny Clips 2.1. It is on by default unless you previously turned it off in <strong>Settings → Studio</strong>.</p>
+                <p>On macOS, choose <strong>Studio Recording…</strong> from the menu bar menu. On Windows, choose the <strong>Studio</strong> tile in the tray menu. Record, then arrange your layers in Studio and export an MP4.</p>
                 <p>If you do not want Studio, turn off <strong>Tiny Clips Studio (Preview)</strong> in Settings → Studio; saved opt-outs stay off. The existing Video command still uses the regular recording workflow.</p>
               </div>
             </details>

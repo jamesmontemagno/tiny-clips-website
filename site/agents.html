@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set up Agent Control — Tiny Clips</title>
+    <meta name="description" content="Connect your own AI agent to Tiny Clips on Windows or macOS. Agent Control is off by default, and Tiny Clips provides the tools, not an AI model." />
+    <meta name="author" content="Refractored LLC" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="./theme.js"></script>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://tinyclips.app/agents.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tinyclips.app/agents.html" />
+    <meta property="og:title" content="Set up Agent Control — Tiny Clips" />
+    <meta property="og:description" content="Connect your own AI agent to Tiny Clips on Windows or macOS. Agent Control is off by default, and Tiny Clips provides the tools, not an AI model." />
+    <meta property="og:image" content="https://tinyclips.app/assets/og-image.png" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/png" sizes="128x128" href="./assets/app-icon-128.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="./assets/app-icon-256.png" />
+    <link rel="apple-touch-icon" href="./assets/app-icon-256.png" />
+
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="./index.html" aria-label="Tiny Clips home">
+          <img src="./assets/app-icon-128.png" alt="" width="32" height="32" decoding="async" />
+          <span>Tiny Clips</span>
+        </a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="./index.html#try">Try it</a></li>
+            <li><a href="./index.html#features">Features</a></li>
+            <li><a href="./index.html#gallery">Screens</a></li>
+            <li><a href="./agents.html" aria-current="page">Documentation</a></li>
+            <li><a href="./index.html#faq">FAQ</a></li>
+          </ul>
+          <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z" fill="currentColor" /><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+            <span class="theme-toggle-label">Dark mode</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="section">
+        <div class="container legal-content doc-content">
+          <h1 class="legal-title">Set up Agent Control</h1>
+          <p class="doc-lead">Let an AI agent on your computer take screenshots, record, and edit with Tiny Clips, with the permissions you choose.</p>
+          <p class="doc-note"><strong>Agent Control is off by default.</strong> Nothing can connect until you turn it on. <strong>Tiny Clips provides the tools, not an AI model</strong>, so bring your own agent.</p>
+
+          <nav class="doc-toc" aria-label="On this page">
+            <ul>
+              <li><a href="#what-agents-can-do">What agents can do</a></li>
+              <li><a href="#requirements">Requirements</a></li>
+              <li><a href="#turn-on">Turn it on</a></li>
+              <li><a href="#plugin">Install the plugin</a></li>
+              <li><a href="#pair">Pair your agent</a></li>
+              <li><a href="#verify">Verify the connection</a></li>
+              <li><a href="#first-screenshot">Take a first screenshot</a></li>
+              <li><a href="#manual-mcp">Manual MCP setup</a></li>
+              <li><a href="#cli-only">CLI-only setup</a></li>
+              <li><a href="#prompts">Prompts to try</a></li>
+              <li><a href="#security">Security model</a></li>
+              <li><a href="#troubleshooting">Troubleshooting</a></li>
+            </ul>
+          </nav>
+
+          <h2 id="what-agents-can-do">What agents can do</h2>
+          <p>Agents and scripts on your Mac or Windows PC reach the running app through a command-line tool or an MCP server. Once you grant permission, they can:</p>
+          <ul class="legal-list">
+            <li>List displays and windows, then capture a chosen window, screen, or region without a picker</li>
+            <li>Read text from a target with OCR, without changing your clipboard</li>
+            <li>Annotate a screenshot, saving a new copy and leaving the original alone</li>
+            <li>Record video, GIFs, and Studio recordings using your saved recording settings</li>
+            <li>Trim a video or GIF, or save a single frame, as a new library item</li>
+            <li>Capture a long page as one stitched image</li>
+            <li>Edit a Studio project, including zooms, annotations, and captions, and export an MP4</li>
+            <li>List, reveal, and copy clips in your library</li>
+          </ul>
+          <p>Tiny Clips can't click, type, or scroll in other apps. An agent needs its own browser or desktop tools for that, including to scroll a page during a scrolling capture.</p>
+
+          <h2 id="requirements">Requirements</h2>
+          <ul class="legal-list">
+            <li>Tiny Clips 2.1 or later, running on the same Mac or Windows PC as your agent</li>
+            <li>The <a href="https://dotnet.microsoft.com/download/dotnet/10.0" target="_blank" rel="noopener noreferrer">.NET 10 SDK</a>, for the commands on this page</li>
+            <li>An agent with terminal access or support for a local stdio MCP server</li>
+          </ul>
+          <p>A remote or container agent can't automatically reach the app on your desktop.</p>
+
+          <h2 id="turn-on">Turn it on</h2>
+          <p>Turn on Agent Control from the macOS menu bar or Windows tray, or open <strong>Settings → Agent Control</strong> and turn on <strong>Allow agents to control Tiny Clips</strong>. If it has never been enabled, turning it on from the menu or tray opens Settings to the setup instructions. Leave the app running.</p>
+
+          <h2 id="plugin">Install the plugin</h2>
+          <p>We recommend the Agent Plugin. It bundles the MCP server and workflow Skills, so you don't need separate MCP configuration or a global CLI install. You still need the .NET 10 SDK and a one-time pairing.</p>
+          <h3>VS Code</h3>
+          <ol class="doc-steps">
+            <li>Run <strong>Chat: Install Plugin from Source</strong> from the Command Palette.</li>
+            <li>
+              Enter the repository URL:
+              <div class="command-line">
+                <code tabindex="0">https://github.com/jamesmontemagno/tiny-clips.git</code>
+                <button class="copy-command-btn" type="button" data-copy-command="https://github.com/jamesmontemagno/tiny-clips.git">Copy</button>
+              </div>
+            </li>
+            <li>Confirm <code>tinyclips</code> is enabled in <strong>Chat: Open Customizations → Plugins</strong>, then start a fresh session.</li>
+          </ol>
+          <p>VS Code downloads the plugin, so you don't need to clone the repository or register a marketplace.</p>
+          <h3>GitHub Copilot CLI</h3>
+          <div class="command-line">
+            <code tabindex="0">copilot plugin install jamesmontemagno/tiny-clips</code>
+            <button class="copy-command-btn" type="button" data-copy-command="copilot plugin install jamesmontemagno/tiny-clips">Copy</button>
+          </div>
+          <p class="doc-after-command">To update or remove it later:</p>
+          <div class="command-line">
+            <code tabindex="0">copilot plugin update tinyclips</code>
+            <button class="copy-command-btn" type="button" data-copy-command="copilot plugin update tinyclips">Copy</button>
+          </div>
+          <div class="command-line">
+            <code tabindex="0">copilot plugin uninstall tinyclips</code>
+            <button class="copy-command-btn" type="button" data-copy-command="copilot plugin uninstall tinyclips">Copy</button>
+          </div>
+          <h3>Other agents</h3>
+          <p>Other Agent Plugins-compatible clients have their own install flow. If your agent doesn't support plugins, use the <a href="#manual-mcp">manual MCP setup</a>.</p>
+
+          <h2 id="pair">Pair your agent</h2>
+          <p>Pair once, from the same OS account your agent uses:</p>
+          <div class="command-line">
+            <code tabindex="0">dnx TinyClips --yes -- pair --name "My agent"</code>
+            <button class="copy-command-btn" type="button" data-copy-command='dnx TinyClips --yes -- pair --name "My agent"'>Copy</button>
+          </div>
+          <p class="doc-after-command">Tiny Clips shows the requested permissions as checkboxes. By default the CLI asks for <code>read</code>, <code>capture</code>, <code>record</code>, <code>edit</code>, and <code>export</code>. Uncheck anything you don't want to grant, or check more, then approve. You can change them later in Settings without pairing again.</p>
+
+          <h2 id="verify">Verify the connection</h2>
+          <p>Check the connection and find a capture target in Terminal or PowerShell:</p>
+          <div class="command-line">
+            <code tabindex="0">dnx TinyClips --yes -- status</code>
+            <button class="copy-command-btn" type="button" data-copy-command="dnx TinyClips --yes -- status">Copy</button>
+          </div>
+          <div class="command-line">
+            <code tabindex="0">dnx TinyClips --yes -- capture.targets kind=windows</code>
+            <button class="copy-command-btn" type="button" data-copy-command="dnx TinyClips --yes -- capture.targets kind=windows">Copy</button>
+          </div>
+
+          <h2 id="first-screenshot">Take a first screenshot</h2>
+          <p>Start a fresh agent session and ask it to take and inspect its first screenshot, using a window ID from the list. The equivalent terminal command is:</p>
+          <div class="command-line">
+            <code tabindex="0">dnx TinyClips --yes -- capture.screenshot mode=window windowId=&lt;returned-window-id&gt;</code>
+          </div>
+          <p class="doc-after-command">Replace the angle-bracket placeholder with a real ID before running it. The result includes the saved path and image dimensions. Your saved screenshot settings determine PNG, JPEG, or WebP output.</p>
+
+          <h2 id="manual-mcp">Manual MCP setup</h2>
+          <p>Use this only if your agent doesn't support plugins, because the plugin already configures the MCP server. Install the .NET 10 SDK and pair as above, then add a local stdio server to your agent's MCP settings:</p>
+          <pre class="doc-code" id="mcp-config" tabindex="0" role="region" aria-label="MCP configuration example"><code>{
+  "mcpServers": {
+    "tinyclips": {
+      "command": "dotnet",
+      "args": ["dnx", "TinyClips", "--verbosity", "quiet", "--yes", "--", "mcp"]
+    }
+  }
+}</code></pre>
+          <p>This is an example, not a universal configuration file. The settings location and surrounding JSON vary by agent. If you installed the global tool, use <code>"command": "tinyclips"</code> and <code>"args": ["mcp"]</code> instead. Restart or reload the agent's MCP connection after adding it.</p>
+          <ul class="legal-list">
+            <li>Use <code>dotnet dnx</code> rather than the Windows <code>dnx.cmd</code> wrapper.</li>
+            <li>Keep <code>--verbosity quiet</code> so NuGet restore messages don't corrupt the MCP output stream.</li>
+            <li>Run the MCP process as the same OS account and environment you paired with.</li>
+            <li>Let your MCP client launch <code>tinyclips mcp</code> rather than leaving it running in a terminal.</li>
+          </ul>
+          <p>For workflow guidance without the plugin, copy the folders you want from <a href="https://github.com/jamesmontemagno/tiny-clips/tree/main/skills" target="_blank" rel="noopener noreferrer">the <code>skills</code> folder</a> into the directory your agent supports, such as a repository's <code>.github/skills/</code> or <code>~/.claude/skills/</code> for Claude Code. Skills supply guidance only. They don't install the CLI, configure MCP, or approve access.</p>
+
+          <h2 id="cli-only">CLI-only setup</h2>
+          <p>For scripts and terminal use, you can install the standalone CLI:</p>
+          <div class="command-line">
+            <code tabindex="0">dotnet tool install -g TinyClips</code>
+            <button class="copy-command-btn" type="button" data-copy-command="dotnet tool install -g TinyClips">Copy</button>
+          </div>
+          <p class="doc-after-command">Then use <code>tinyclips</code> in place of <code>dnx TinyClips --yes --</code>:</p>
+          <div class="command-line">
+            <code tabindex="0">tinyclips pair --name "My agent"</code>
+            <button class="copy-command-btn" type="button" data-copy-command='tinyclips pair --name "My agent"'>Copy</button>
+          </div>
+          <p class="doc-after-command">To update an existing install:</p>
+          <div class="command-line">
+            <code tabindex="0">dotnet tool update -g TinyClips</code>
+            <button class="copy-command-btn" type="button" data-copy-command="dotnet tool update -g TinyClips">Copy</button>
+          </div>
+          <p class="doc-after-command">The CLI and MCP server share the same saved pairing token. Keep it private, and never include it in prompts, screenshots, issues, or source control.</p>
+
+          <h2 id="prompts">Prompts to try</h2>
+          <p>Give these to an agent with Tiny Clips CLI or MCP access. Tell it which app or project you mean, and review the result before sharing it.</p>
+          <div class="doc-prompts">
+            <figure class="doc-prompt">
+              <figcaption>Capture and annotate</figcaption>
+              <blockquote>Use Tiny Clips to discover the Copilot window, capture it, inspect the image, draw an arrow toward Create PR, and add an eyes emoji. Save a new annotated copy without changing the original, then show me the result.</blockquote>
+              <button class="copy-command-btn" type="button" aria-label="Copy the capture and annotate prompt" data-copy-command="Use Tiny Clips to discover the Copilot window, capture it, inspect the image, draw an arrow toward Create PR, and add an eyes emoji. Save a new annotated copy without changing the original, then show me the result.">Copy</button>
+            </figure>
+            <figure class="doc-prompt">
+              <figcaption>Read text from a region</figcaption>
+              <blockquote>Use Tiny Clips to discover my displays, capture the relevant screen to locate the error message, and run OCR on that region. Return the text without changing my clipboard. Use display-local physical-pixel coordinates, not guessed desktop coordinates.</blockquote>
+              <button class="copy-command-btn" type="button" aria-label="Copy the read text prompt" data-copy-command="Use Tiny Clips to discover my displays, capture the relevant screen to locate the error message, and run OCR on that region. Return the text without changing my clipboard. Use display-local physical-pixel coordinates, not guessed desktop coordinates.">Copy</button>
+            </figure>
+            <figure class="doc-prompt">
+              <figcaption>Record a demo</figcaption>
+              <blockquote>Use Tiny Clips to record a 10-second demo of my browser window with my saved audio and camera settings. Wait for any configured countdown, stop and save it, then show me the result. Do not discard, delete, or upload anything.</blockquote>
+              <button class="copy-command-btn" type="button" aria-label="Copy the record a demo prompt" data-copy-command="Use Tiny Clips to record a 10-second demo of my browser window with my saved audio and camera settings. Wait for any configured countdown, stop and save it, then show me the result. Do not discard, delete, or upload anything.">Copy</button>
+            </figure>
+            <figure class="doc-prompt">
+              <figcaption>Capture a long page</figcaption>
+              <blockquote>Use Tiny Clips to start a scrolling screenshot of my browser window. Use your browser or desktop tools to scroll the page, check the captured-frame count, then stop and save the stitched image. Inspect the result for missing or duplicated content.</blockquote>
+              <button class="copy-command-btn" type="button" aria-label="Copy the long page prompt" data-copy-command="Use Tiny Clips to start a scrolling screenshot of my browser window. Use your browser or desktop tools to scroll the page, check the captured-frame count, then stop and save the stitched image. Inspect the result for missing or duplicated content.">Copy</button>
+            </figure>
+            <figure class="doc-prompt">
+              <figcaption>Polish a Studio project</figcaption>
+              <blockquote>Inspect my latest Tiny Clips Studio project, suggest zooms from click events, preserve manual zooms, adjust the canvas padding, and export a new MP4 into my configured video folder. Use the current revision for edits; re-read and reconcile if the project changes. Do not overwrite any file.</blockquote>
+              <button class="copy-command-btn" type="button" aria-label="Copy the Studio project prompt" data-copy-command="Inspect my latest Tiny Clips Studio project, suggest zooms from click events, preserve manual zooms, adjust the canvas padding, and export a new MP4 into my configured video folder. Use the current revision for edits; re-read and reconcile if the project changes. Do not overwrite any file.">Copy</button>
+            </figure>
+            <figure class="doc-prompt">
+              <figcaption>Find recent clips</figcaption>
+              <blockquote>List my ten most recent Tiny Clips screenshots and reveal the one I choose. Do not delete or upload anything.</blockquote>
+              <button class="copy-command-btn" type="button" aria-label="Copy the recent clips prompt" data-copy-command="List my ten most recent Tiny Clips screenshots and reveal the one I choose. Do not delete or upload anything.">Copy</button>
+            </figure>
+          </div>
+          <p>Studio must be enabled for Studio commands. OS permissions still apply, and sensitive commands still ask for approval.</p>
+
+          <h2 id="security">Security model</h2>
+          <ul class="legal-list">
+            <li><strong>Off by default.</strong> The local listener exists only while Agent Control is on. When it's off, clients can't connect.</li>
+            <li><strong>You approve each agent.</strong> Pairing shows every permission, with the requested ones checked, and you choose what to grant. Tiny Clips stores only a hash of the agent's token.</li>
+            <li><strong>Sensitive actions always ask.</strong> Deleting, uploading, and discarding show an in-app prompt every time, even when granted.</li>
+            <li><strong>No bypasses.</strong> Screen Recording, Microphone, and Camera permissions from your OS still apply. Commands return <code>permission_required</code> rather than prompting around them.</li>
+            <li><strong>You can see it and stop it.</strong> The menu bar or tray menu shows when Agent Control is on and can turn it off immediately. Every command is written to a local audit log.</li>
+          </ul>
+          <div class="shortcuts-table-wrap doc-table-wrap" role="region" aria-label="Agent permissions" tabindex="0">
+            <table>
+              <caption class="visually-hidden">Agent permissions and when each one asks for approval</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Permission</th>
+                  <th scope="col">Requested by default</th>
+                  <th scope="col">Once granted</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>read</code>, <code>capture</code>, <code>record</code>, <code>edit</code>, <code>export</code></th><td>Yes</td><td>Runs unattended</td></tr>
+                <tr><th scope="row"><code>settings</code></th><td>No</td><td>Runs unattended</td></tr>
+                <tr><th scope="row"><code>delete</code>, <code>upload</code>, <code>discard</code></th><td>No</td><td>Asks every time. No answer within 120 seconds is a denial</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="doc-after-command">The <code>discard</code> permission covers discarding or restarting a recording and discarding unsaved work.</p>
+          <p>Tiny Clips hands captures to the agent you connect, and that agent's own terms cover what happens next.</p>
+
+          <h2 id="troubleshooting">Troubleshooting</h2>
+          <div class="shortcuts-table-wrap doc-table-wrap" role="region" aria-label="Agent Control troubleshooting" tabindex="0">
+            <table>
+              <caption class="visually-hidden">Common Agent Control setup problems and how to recover</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Problem</th>
+                  <th scope="col">What to do</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><code>dotnet</code>, <code>dnx</code>, or <code>tinyclips</code> is not found</th><td>Install the .NET 10 SDK or tool, reopen the terminal or agent so it picks up PATH, and confirm the global .NET tools directory is on PATH.</td></tr>
+                <tr><th scope="row">Cannot connect</th><td>Start Tiny Clips and turn on Agent Control. Check the listening status and endpoint in Settings. Local access doesn't bridge to a remote machine or container.</td></tr>
+                <tr><th scope="row"><code>unauthorized</code> or revoked access</th><td>Pair again as the same OS account and environment the agent uses, with <code>dnx TinyClips --yes -- pair</code> or <code>tinyclips pair</code>, and approve it in Tiny Clips.</td></tr>
+                <tr><th scope="row"><code>missing_scope</code></th><td>Grant the permission in <strong>Settings → Agent Control → Paired Agents → Permissions</strong>, which applies immediately, or pair again requesting it with <code>--scopes</code>.</td></tr>
+                <tr><th scope="row"><code>permission_required</code></th><td>Grant the OS screen, audio, or camera permission. On macOS, follow System Settings → Privacy &amp; Security and restart Tiny Clips if required.</td></tr>
+                <tr><th scope="row"><code>not_supported</code></th><td>Check your app's version and feature settings, and turn on Studio for Studio commands.</td></tr>
+                <tr><th scope="row">MCP connects but calls fail</th><td>Verify the server runs locally under the same account, can find the CLI or SDK, and shares the pairing configuration. Then restart or reload the MCP connection.</td></tr>
+                <tr><th scope="row">Studio edit returns <code>conflict</code></th><td>Read the project again and reconcile changes with its latest <code>modifiedAt</code> and <code>revision</code>. Don't resend the old patch as is.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="doc-after-command">Change what an agent may do with <strong>Permissions</strong>, or revoke it, in <strong>Settings → Agent Control → Paired Agents</strong>. Turn Agent Control off to stop all connections. <strong>Activity → Open Audit Log</strong> shows local request history.</p>
+          <p>For the full command reference, see the <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/docs/agent-integration.md" target="_blank" rel="noopener noreferrer">agent integration guide</a> and <a href="https://github.com/jamesmontemagno/tiny-clips/blob/main/docs/agent-plugin.md" target="_blank" rel="noopener noreferrer">plugin guide</a> on GitHub.</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <img src="./assets/app-icon-128.png" alt="" width="28" height="28" decoding="async" />
+          <div>
+            <p>© <span id="year">2026</span> Refractored LLC</p>
+            <p class="footer-tool-note">
+              Find more tiny tools like this at
+              <a href="https://www.tinytooltown.com/" target="_blank" rel="noopener noreferrer">Tiny Tool Town</a>.
+            </p>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS" target="_blank" rel="noopener noreferrer">Microsoft Store</a>
+          <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a>
+          <a href="https://github.com/jamesmontemagno/tiny-clips" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./terms.html">Terms</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

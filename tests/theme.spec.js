@@ -15,7 +15,7 @@ test('light is the default and a keyboard-selected theme persists across every p
   expect(await page.evaluate(() => localStorage.getItem('tiny-clips-theme'))).toBe('dark');
   await page.reload();
 
-  for (const path of ['/', '/privacy.html', '/terms.html', '/404.html']) {
+  for (const path of ['/', '/agents.html', '/privacy.html', '/terms.html', '/404.html']) {
     await page.goto(path);
     await expect(page.locator('html')).toHaveCSS('color-scheme', 'dark');
     await expect(toggle(page)).toHaveAttribute('aria-pressed', 'true');
