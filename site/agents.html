@@ -109,6 +109,18 @@
           <p class="doc-note"><strong>Agent Control is off by default.</strong> Nothing can connect until you turn it on. <strong>Tiny Clips provides the tools, not an AI model</strong>, so bring your own agent.</p>
 
           <h2 id="what-agents-can-do">What agents can do</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 150" role="img" aria-labelledby="fig-agent-flow">
+              <title id="fig-agent-flow">Illustration of how Agent Control connects. Your agent talks to the CLI or MCP server, which reaches Tiny Clips over a local connection. Tiny Clips checks the permissions you chose, then runs the command. All of these run on the same computer.</title>
+              <rect class="fg-sel" x="10" y="12" width="540" height="126" rx="12" stroke-dasharray="7 5" /><text class="fg-t-muted" x="26" y="32">On your computer</text>
+              <g transform="translate(26 46)"><rect class="fg-win" width="96" height="70" rx="9" /><text class="fg-t-title" x="48" y="33" text-anchor="middle">Your</text><text class="fg-t-title" x="48" y="50" text-anchor="middle">agent</text></g>
+              <g transform="translate(158 46)"><rect class="fg-win" width="96" height="70" rx="9" /><text class="fg-t-title" x="48" y="33" text-anchor="middle">CLI or</text><text class="fg-t-title" x="48" y="50" text-anchor="middle">MCP</text></g>
+              <g transform="translate(290 46)"><rect class="fg-win" width="108" height="70" rx="9" /><text class="fg-t-title" x="54" y="33" text-anchor="middle">Permissions</text><text class="fg-t-muted" x="54" y="50" text-anchor="middle">you chose</text></g>
+              <g transform="translate(434 46)"><rect class="fg-primary" width="100" height="70" rx="9" /><text class="fg-t-on" x="50" y="33" text-anchor="middle">Tiny Clips</text><text class="fg-t-on" x="50" y="50" text-anchor="middle" font-size="11">tools</text></g>
+              <path class="fg-accent" d="M126 81h28m-7-7 7 7-7 7M258 81h28m-7-7 7 7-7 7M402 81h28m-7-7 7 7-7 7" />
+            </svg>
+            <figcaption>Illustration: your agent brings the AI model. Tiny Clips brings the capture tools and checks every request.</figcaption>
+          </figure>
           <p>Agents and scripts on your Mac or Windows PC reach the running app through a command-line tool or an MCP server. Once you grant permission, they can:</p>
           <ul class="legal-list">
             <li>List displays and windows, then capture a chosen window, screen, or region without a picker</li>
@@ -166,6 +178,19 @@
           <p>Other Agent Plugins-compatible clients have their own install flow. If your agent doesn't support plugins, use the <a href="#manual-mcp">manual MCP setup</a>.</p>
 
           <h2 id="pair">Pair your agent</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 220" role="img" aria-labelledby="fig-pair">
+              <title id="fig-pair">Illustration of the pairing prompt. Read, capture, record, edit, and export are checked. Settings, delete, upload, and discard are not. An approve button finishes pairing.</title>
+              <rect class="fg-win" x="70" y="12" width="420" height="196" rx="14" /><text class="fg-t-title" x="92" y="40">Pair "My agent"?</text><text class="fg-t-muted" x="92" y="58">Choose what this agent may do.</text>
+              <g class="fg-primary"><rect x="92" y="74" width="16" height="16" rx="4" /><rect x="92" y="100" width="16" height="16" rx="4" /><rect x="92" y="126" width="16" height="16" rx="4" /><rect x="222" y="74" width="16" height="16" rx="4" /><rect x="222" y="100" width="16" height="16" rx="4" /></g>
+              <path d="m96 82 3 3 5-6M96 108l3 3 5-6M96 134l3 3 5-6M226 82l3 3 5-6M226 108l3 3 5-6" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <text x="116" y="87">read</text><text x="116" y="113">capture</text><text x="116" y="139">record</text><text x="246" y="87">edit</text><text x="246" y="113">export</text>
+              <g class="fg-panel"><rect x="222" y="126" width="16" height="16" rx="4" /><rect x="352" y="74" width="16" height="16" rx="4" /><rect x="352" y="100" width="16" height="16" rx="4" /><rect x="352" y="126" width="16" height="16" rx="4" /></g>
+              <text x="246" y="139">settings</text><text x="376" y="87">delete</text><text x="376" y="113">upload</text><text x="376" y="139">discard</text>
+              <rect class="fg-primary" x="384" y="162" width="84" height="30" rx="8" /><text class="fg-t-on" x="426" y="182" text-anchor="middle">Approve</text>
+            </svg>
+            <figcaption>Illustration of the prompt with the default requests checked, not an app screenshot.</figcaption>
+          </figure>
           <p>Pair once, from the same OS account your agent uses:</p>
           <div class="command-line">
             <code tabindex="0">dnx TinyClips --yes -- pair --name "My agent"</code>

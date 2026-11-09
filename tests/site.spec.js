@@ -137,6 +137,33 @@ test.describe('documentation', () => {
       expect(await response.text()).toContain(`<loc>https://tinyclips.app${path}</loc>`);
     });
 
+    test(`${path} has labeled illustrations that follow the theme`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(path, { waitUntil: 'load' });
+      const figures = page.locator('.doc-figure');
+      expect(await figures.count()).toBeGreaterThan(0);
+      for (const figure of await figures.all()) {
+        await expect(figure.getByRole('img')).toHaveAccessibleName(/^Illustration/);
+        await expect(figure.locator('figcaption')).toContainText('Illustration');
+        const box = await figure.locator('svg').boundingBox();
+        expect(box.x + box.width).toBeLessThanOrEqual(390);
+        const spilled = await figure.locator('svg').evaluate((svg) => {
+          const edge = svg.getBoundingClientRect();
+          return Array.from(svg.querySelectorAll('text'))
+            .filter((text) => {
+              const label = text.getBoundingClientRect();
+              return label.left < edge.left || label.right > edge.right;
+            })
+            .map((text) => text.textContent);
+        });
+        expect(spilled).toEqual([]);
+      }
+      const surface = () => page.locator('.doc-figure .fg-win').first().evaluate((el) => getComputedStyle(el).fill);
+      const light = await surface();
+      await page.getByRole('button', { name: 'Dark mode', exact: true }).click();
+      expect(await surface()).not.toBe(light);
+    });
+
     if (path !== '/docs.html') {
       test(`${path} section list matches its headings`, async ({ page }) => {
         await page.setViewportSize({ width: 1440, height: 900 });

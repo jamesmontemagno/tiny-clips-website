@@ -101,6 +101,16 @@
           <p class="doc-note"><strong>Studio is a preview.</strong> It's on by default unless you turned it off, and your choice is kept. Change it with <strong>Tiny Clips Studio (Preview)</strong> in <strong>Settings → Studio</strong>. Your projects are kept either way.</p>
 
           <h2 id="start">Start a Studio recording</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 200" role="img" aria-labelledby="fig-layers">
+              <title id="fig-layers">Illustration of Studio's core idea. A screen layer and a camera layer stay separate and combine into a finished video that you can keep changing.</title>
+              <g transform="translate(24 20)"><rect class="fg-win" width="170" height="74" rx="6" /><rect class="fg-sk" x="14" y="16" width="120" height="7" rx="3" /><rect class="fg-sk" x="14" y="32" width="90" height="7" rx="3" /><text class="fg-t-muted" x="14" y="62">Screen layer</text></g>
+              <g transform="translate(24 108)"><rect class="fg-win" width="170" height="74" rx="6" /><circle class="fg-primary" cx="34" cy="30" r="18" /><text class="fg-t-muted" x="62" y="62">Camera layer</text></g>
+              <path class="fg-accent" d="M208 57c26 0 30 40 52 43M208 145c26 0 30-40 52-43m-9-9 9 9-9 9" />
+              <g transform="translate(272 22)"><rect class="fg-sel" width="264" height="156" rx="10" /><rect class="fg-win" x="22" y="18" width="220" height="120" rx="8" /><rect class="fg-sk" x="40" y="38" width="150" height="8" rx="4" /><rect class="fg-sk" x="40" y="56" width="120" height="8" rx="4" /><circle class="fg-primary" cx="204" cy="106" r="22" /></g>
+            </svg>
+            <figcaption>Illustration: layers stay separate, so you can change the look after recording.</figcaption>
+          </figure>
           <ul class="legal-list">
             <li><strong>macOS.</strong> Choose <strong>Studio Recording…</strong> in the menu bar menu.</li>
             <li><strong>Windows.</strong> Choose the <strong>Studio</strong> tile in the tray popup.</li>
@@ -108,6 +118,16 @@
           <p>When you stop recording, the Studio editor opens. Record Video and its shortcut always make a standard recording.</p>
 
           <h2 id="look">Set the look</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 130" role="img" aria-labelledby="fig-layouts">
+              <title id="fig-layouts">Illustration of the four Studio layouts: screen only, camera bubble, side by side, and camera only.</title>
+              <g transform="translate(14 14)"><rect class="fg-win" width="122" height="76" rx="6" /><rect class="fg-sk" x="12" y="12" width="98" height="52" rx="4" /><text x="61" y="100" text-anchor="middle">Screen only</text></g>
+              <g transform="translate(150 14)"><rect class="fg-win" width="122" height="76" rx="6" /><rect class="fg-sk" x="12" y="12" width="98" height="52" rx="4" /><circle class="fg-primary" cx="94" cy="52" r="15" /><text x="61" y="100" text-anchor="middle">Camera bubble</text></g>
+              <g transform="translate(286 14)"><rect class="fg-win" width="122" height="76" rx="6" /><rect class="fg-sk" x="10" y="18" width="64" height="40" rx="4" /><rect class="fg-primary" x="80" y="18" width="32" height="40" rx="4" /><text x="61" y="100" text-anchor="middle">Side by side</text></g>
+              <g transform="translate(422 14)"><rect class="fg-win" width="122" height="76" rx="6" /><rect class="fg-primary" x="12" y="12" width="98" height="52" rx="4" /><text x="61" y="100" text-anchor="middle">Camera only</text></g>
+            </svg>
+            <figcaption>Illustration: each scene can use a different layout.</figcaption>
+          </figure>
           <ul class="legal-list">
             <li>Pick a background, with solid colors or gradients, then adjust the padding and round the corners of the screen.</li>
             <li>Choose one of four layouts: screen only, camera bubble, side by side, or camera only.</li>
@@ -116,6 +136,19 @@
           </ul>
 
           <h2 id="timeline">Zooms, scenes, cuts, and speed</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 196" role="img" aria-labelledby="fig-timeline">
+              <title id="fig-timeline">Illustration of the Studio timeline, with separate lanes for scenes, zooms, cuts, and speed changes above the trim bar, and a playhead running through them.</title>
+              <rect class="fg-win" x="14" y="12" width="532" height="172" rx="12" />
+              <text class="fg-t-muted" x="30" y="44">Scenes</text><rect class="fg-panel" x="92" y="30" width="170" height="20" rx="5" /><rect class="fg-pill" x="266" y="30" width="262" height="20" rx="5" /><text class="fg-t-muted" x="104" y="44">Bubble</text><text class="fg-t-muted" x="278" y="44">Side by side</text>
+              <text class="fg-t-muted" x="30" y="72">Zoom</text><rect class="fg-primary" x="150" y="58" width="96" height="20" rx="5" /><text class="fg-t-on" x="198" y="73" text-anchor="middle" font-size="11">Z</text>
+              <text class="fg-t-muted" x="30" y="100">Cut</text><rect class="fg-rec" x="330" y="86" width="44" height="20" rx="5" /><text class="fg-t-on" x="352" y="101" text-anchor="middle" font-size="11">X</text>
+              <text class="fg-t-muted" x="30" y="128">Speed</text><rect class="fg-pill" x="404" y="114" width="88" height="20" rx="5" /><text x="448" y="129" text-anchor="middle" font-size="11">2×</text>
+              <text class="fg-t-muted" x="30" y="160">Video</text><rect class="fg-sk" x="92" y="146" width="238" height="22" rx="4" /><rect class="fg-sk" x="374" y="146" width="154" height="22" rx="4" />
+              <path class="fg-accent" d="M250 22v154" />
+            </svg>
+            <figcaption>Illustration: each kind of edit has its own lane, and a cut leaves a gap in the video.</figcaption>
+          </figure>
           <p>Press a key to add an edit at the playhead. Then drag it on the timeline, or set its details in the panel.</p>
           <div class="shortcuts-table-wrap doc-table-wrap" role="region" aria-label="Studio timeline keys" tabindex="0">
             <table>

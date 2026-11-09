@@ -4951,6 +4951,156 @@ tbody td {
   color: var(--text-2);
 }
 
+/* Docs illustrations: inline SVG that follows the site theme through the mock tokens */
+.doc-figure {
+  margin: 1rem 0 1.5rem;
+}
+
+.doc-figure svg {
+  display: block;
+  width: 100%;
+  max-width: 40rem;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--mock-stage);
+}
+
+.doc-figure figcaption {
+  margin-top: 0.45rem;
+  color: var(--text-3);
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.fg text {
+  fill: var(--mock-text);
+  font-family: var(--font);
+  font-size: 13px;
+}
+
+.fg .fg-t-title {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.fg .fg-t-muted {
+  fill: var(--mock-muted);
+  font-size: 11.5px;
+}
+
+.fg .fg-t-mono {
+  font-family: var(--mono);
+  font-size: 11.5px;
+}
+
+.fg .fg-t-on {
+  fill: #fff;
+  font-weight: 700;
+}
+
+.fg .fg-t-ok {
+  fill: var(--mock-ok-text);
+  font-weight: 700;
+}
+
+.fg .fg-t-rec {
+  fill: var(--rec);
+  font-weight: 700;
+}
+
+.fg-win {
+  fill: var(--mock-surface);
+  stroke: var(--mock-border);
+}
+
+.fg-bar {
+  fill: var(--mock-raised);
+}
+
+.fg-panel {
+  fill: var(--mock-panel);
+  stroke: var(--mock-line);
+}
+
+.fg-sk {
+  fill: var(--mock-track);
+}
+
+.fg-rule {
+  fill: none;
+  stroke: var(--mock-line);
+}
+
+.fg-primary {
+  fill: var(--mock-primary);
+}
+
+.fg-sel {
+  fill: var(--mock-select);
+  stroke: var(--mock-accent);
+  stroke-width: 2;
+}
+
+.fg-accent {
+  fill: none;
+  stroke: var(--mock-accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.5;
+}
+
+.fg-ink {
+  fill: none;
+  stroke: var(--mock-text);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+}
+
+.fg-rec {
+  fill: var(--rec);
+}
+
+.fg-rec-line {
+  fill: none;
+  stroke: var(--rec);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.fg-ok {
+  fill: var(--mock-ok-bg);
+}
+
+.fg-pill {
+  fill: var(--mock-pill-bg);
+  stroke: var(--mock-pill-border);
+}
+
+.fg-solid {
+  fill: var(--mock-text);
+}
+
+.docs-feature > svg {
+  width: 100%;
+  height: 10.5rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--mock-stage);
+}
+
+@media (max-width: 600px) {
+  .fg text,
+  .fg .fg-t-title {
+    font-size: 15px;
+  }
+
+  .fg .fg-t-muted {
+    font-size: 13.5px;
+  }
+}
+
 /* Docs shell: page list on the left, sections on the right */
 .docs-home {
   max-width: 62rem;
