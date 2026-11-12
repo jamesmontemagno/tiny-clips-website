@@ -19,7 +19,21 @@ for (const theme of ['light', 'dark']) {
         await page.addInitScript((value) => localStorage.setItem('tiny-clips-theme', value), theme);
       });
 
-      for (const path of ['/index.html', '/privacy.html', '/terms.html', '/404.html']) {
+      for (const path of [
+        '/index.html',
+        '/docs.html',
+        '/docs-capture.html',
+        '/docs-editor.html',
+        '/docs-recording.html',
+        '/docs-scrolling-ocr.html',
+        '/docs-library.html',
+        '/docs-studio.html',
+        '/docs-help.html',
+        '/agents.html',
+        '/privacy.html',
+        '/terms.html',
+        '/404.html',
+      ]) {
         test(`${path} has themed surfaces and no automated WCAG violations`, async ({ page }) => {
           await page.goto(path);
           await expect(page.locator('html')).toHaveCSS('color-scheme', theme);
@@ -34,6 +48,13 @@ for (const theme of ['light', 'dark']) {
           await audit(page);
         });
       }
+
+      test('Agent Control hero tab remains accessible', async ({ page }) => {
+        await page.goto('/');
+        await page.getByRole('tab', { name: 'Agent Control' }).click();
+        await expect(page.locator('#showcase-agent')).toBeVisible();
+        await audit(page);
+      });
 
       test('alternate install tab, expanded FAQ, and lightbox remain accessible', async ({ page }) => {
         await page.goto('/');
@@ -89,7 +110,7 @@ test('mobile navigation hides closed links from keyboard and accessibility tree'
   await toggle.focus();
   await page.keyboard.press('Enter');
   await expect(toggle).toHaveAttribute('aria-expanded', 'true');
-  await expect(page.getByRole('link', { name: 'Highlights', exact: true })).toBeFocused();
+  await expect(page.getByRole('link', { name: 'Try it', exact: true })).toBeFocused();
   await audit(page);
   await page.keyboard.press('Escape');
   await expect(toggle).toBeFocused();

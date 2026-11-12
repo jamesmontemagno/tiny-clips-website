@@ -228,6 +228,64 @@
     });
   }
 
+  /* ---- Docs: collapsible navigation and current-section tracking ---- */
+  const syncDisclosure = (details, query) => {
+    const media = window.matchMedia(query);
+    const sync = () => {
+      details.open = media.matches;
+    };
+    sync();
+    media.addEventListener('change', sync);
+    return media;
+  };
+
+  const docsPages = document.querySelector('[data-docs-pages]');
+  if (docsPages) syncDisclosure(docsPages, '(min-width: 901px)');
+
+  const docsToc = document.querySelector('[data-docs-toc]');
+  if (docsToc) {
+    const tocIsPinned = syncDisclosure(docsToc, '(min-width: 1181px)');
+    const tocLinks = Array.from(docsToc.querySelectorAll('a[href^="#"]'));
+    const tocHeadings = tocLinks.map((link) => document.getElementById(link.hash.slice(1)));
+
+    const markCurrentSection = () => {
+      const root = document.documentElement;
+      const atBottom = window.innerHeight + window.scrollY >= root.scrollHeight - 2;
+      let current = 0;
+      tocHeadings.forEach((heading, index) => {
+        if (heading && heading.getBoundingClientRect().top <= 140) current = index;
+      });
+      if (atBottom) current = tocLinks.length - 1;
+      tocLinks.forEach((link, index) => {
+        if (index === current) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+      if (tocIsPinned.matches && docsToc.scrollHeight > docsToc.clientHeight) {
+        const box = docsToc.getBoundingClientRect();
+        const link = tocLinks[current].getBoundingClientRect();
+        if (link.top < box.top) docsToc.scrollTop -= box.top - link.top;
+        if (link.bottom > box.bottom) docsToc.scrollTop += link.bottom - box.bottom;
+      }
+    };
+
+    let tocFrame = 0;
+    const scheduleMark = () => {
+      if (tocFrame) return;
+      tocFrame = window.requestAnimationFrame(() => {
+        tocFrame = 0;
+        markCurrentSection();
+      });
+    };
+    window.addEventListener('scroll', scheduleMark, { passive: true });
+    window.addEventListener('resize', scheduleMark);
+    tocLinks.forEach((link) =>
+      link.addEventListener('click', () => {
+        if (!tocIsPinned.matches) docsToc.open = false;
+      })
+    );
+    markCurrentSection();
+  }
+
   /* ---- Active section highlighting ---- */
   const navLinks = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
   const sections = navLinks.map((link) => document.querySelector(link.getAttribute('href'))).filter(Boolean);

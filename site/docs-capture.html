@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Capture basics — Tiny Clips documentation</title>
+    <meta name="description" content="Start a capture in Tiny Clips, use the capture picker and keyboard shortcuts, and find where your screenshots, videos, and GIFs are saved." />
+    <meta name="author" content="Refractored LLC" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="./theme.js"></script>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://tinyclips.app/docs-capture.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tinyclips.app/docs-capture.html" />
+    <meta property="og:title" content="Capture basics — Tiny Clips documentation" />
+    <meta property="og:description" content="Start a capture in Tiny Clips, use the capture picker and keyboard shortcuts, and find where your screenshots, videos, and GIFs are saved." />
+    <meta property="og:image" content="https://tinyclips.app/assets/og-image.png" />
+    <link rel="icon" type="image/png" sizes="128x128" href="./assets/app-icon-128.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="./assets/app-icon-256.png" />
+    <link rel="apple-touch-icon" href="./assets/app-icon-256.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="./index.html" aria-label="Tiny Clips home">
+          <img src="./assets/app-icon-128.png" alt="" width="32" height="32" decoding="async" />
+          <span>Tiny Clips</span>
+        </a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="./index.html#try">Try it</a></li>
+            <li><a href="./index.html#features">Features</a></li>
+            <li><a href="./index.html#gallery">Screens</a></li>
+            <li><a href="./docs.html" aria-current="true">Documentation</a></li>
+            <li><a href="./index.html#faq">FAQ</a></li>
+          </ul>
+          <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z" fill="currentColor" /><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+            <span class="theme-toggle-label">Dark mode</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="docs-layout">
+      <nav class="docs-sidebar" aria-label="Documentation pages">
+        <details class="docs-disclosure" data-docs-pages open>
+          <summary>Documentation pages</summary>
+          <p class="docs-nav-label">Start here</p>
+          <ul>
+            <li><a href="./docs.html">Overview</a></li>
+            <li><a href="./docs-capture.html" aria-current="page">Capture basics</a></li>
+          </ul>
+          <p class="docs-nav-label">Features</p>
+          <ul>
+            <li><a href="./docs-editor.html">Screenshot editor</a></li>
+            <li><a href="./docs-recording.html">Video and GIF recording</a></li>
+            <li><a href="./docs-scrolling-ocr.html">Scrolling capture and OCR</a></li>
+            <li><a href="./docs-library.html">Clips Library</a></li>
+            <li><a href="./docs-studio.html">Studio (Preview)</a></li>
+            <li><a href="./agents.html">Agent Control</a></li>
+          </ul>
+          <p class="docs-nav-label">Help</p>
+          <ul>
+            <li><a href="./docs-help.html">Permissions and troubleshooting</a></li>
+          </ul>
+        </details>
+      </nav>
+
+      <main id="main-content" class="docs-main has-toc" tabindex="-1">
+        <details class="docs-disclosure docs-toc" data-docs-toc open>
+          <summary>On this page</summary>
+          <nav aria-label="On this page">
+            <p class="docs-toc-title">On this page</p>
+            <ul>
+              <li><a href="#start">Start a capture</a></li>
+              <li><a href="#picker">Choose what to capture</a></li>
+              <li><a href="#shortcuts">Keyboard shortcuts</a></li>
+              <li><a href="#saving">Where captures go</a></li>
+            </ul>
+          </nav>
+        </details>
+
+        <article class="legal-content doc-content docs-article">
+          <h1 class="legal-title">Capture basics</h1>
+          <p class="doc-lead">Tiny Clips lives in your menu bar or system tray, one click or shortcut away.</p>
+
+          <h2 id="start">Start a capture</h2>
+          <ol class="doc-steps">
+            <li>Click the Tiny Clips icon in the macOS menu bar or Windows system tray.</li>
+            <li>Choose a screenshot, a video, or a GIF.</li>
+            <li>Choose a region, screen, or window in the capture picker. You can also set an optional countdown.</li>
+            <li>For recordings, confirm your audio and other options, then record. Stop from the floating controls or with the stop shortcut.</li>
+          </ol>
+          <p>On Windows, the tray popup shows a tile for each capture type with its current shortcut, plus <strong>Capture Text</strong>. On macOS, the same actions are in the menu bar menu.</p>
+
+          <h2 id="picker">Choose what to capture</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 270" role="img" aria-labelledby="fig-picker">
+              <title id="fig-picker">Illustration of the capture picker. A dashed region is selected on a desktop, and a floating bar offers Region, Screen, Window, and Scroll with the keys R, S, W, and P.</title>
+              <rect class="fg-win" x="40" y="18" width="300" height="150" rx="8" /><rect class="fg-bar" x="41" y="19" width="298" height="24" rx="7" /><rect class="fg-sk" x="60" y="60" width="200" height="8" rx="4" /><rect class="fg-sk" x="60" y="80" width="240" height="8" rx="4" /><rect class="fg-sk" x="60" y="100" width="160" height="8" rx="4" /><rect class="fg-win" x="380" y="44" width="150" height="100" rx="8" /><rect class="fg-sk" x="396" y="66" width="110" height="7" rx="3" /><rect class="fg-sk" x="396" y="84" width="80" height="7" rx="3" />
+              <rect class="fg-sel" x="84" y="50" width="240" height="96" rx="2" stroke-dasharray="7 5" />
+              <path class="fg-accent" d="M84 62V50h12M312 50h12v12M324 134v12h-12M96 146H84v-12" />
+              <g transform="translate(58 186)"><rect class="fg-win" width="444" height="66" rx="14" /><rect class="fg-primary" x="12" y="10" width="96" height="46" rx="10" /><text class="fg-t-on" x="60" y="30" text-anchor="middle">Region</text><text class="fg-t-on" x="60" y="47" text-anchor="middle">R</text><text class="fg-t-title" x="168" y="30" text-anchor="middle">Screen</text><text class="fg-t-muted" x="168" y="47" text-anchor="middle">S</text><text class="fg-t-title" x="276" y="30" text-anchor="middle">Window</text><text class="fg-t-muted" x="276" y="47" text-anchor="middle">W</text><text class="fg-t-title" x="384" y="30" text-anchor="middle">Scroll</text><text class="fg-t-muted" x="384" y="47" text-anchor="middle">P</text></g>
+            </svg>
+            <figcaption>Illustration of the picker, not an app screenshot.</figcaption>
+          </figure>
+          <div class="shortcuts-table-wrap doc-table-wrap" role="region" aria-label="Capture picker keys" tabindex="0">
+            <table>
+              <caption class="visually-hidden">Keys you can press in the capture picker</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Key</th>
+                  <th scope="col">What it does</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>R</kbd></th><td>Region: draw a rectangle around any area</td></tr>
+                <tr><th scope="row"><kbd>S</kbd></th><td>Screen: capture an entire display</td></tr>
+                <tr><th scope="row"><kbd>W</kbd></th><td>Window: capture a specific app window</td></tr>
+                <tr><th scope="row"><kbd>P</kbd></th><td>Scroll, for screenshots only: see <a href="./docs-scrolling-ocr.html">Scrolling capture</a></td></tr>
+                <tr><th scope="row"><kbd>Esc</kbd></th><td>Cancel</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="doc-after-command">When you pick a window, the window under the pointer is highlighted with its app, title, and size. Click to capture it, or press <kbd>Tab</kbd> and <kbd>Shift</kbd>+<kbd>Tab</kbd> to move between windows and <kbd>Enter</kbd> to select. <kbd>Esc</kbd> or a right-click cancels.</p>
+
+          <h2 id="shortcuts">Keyboard shortcuts</h2>
+          <p>These are the defaults. You can change them in <strong>Settings → Shortcuts</strong> on macOS and <strong>Settings → Keyboard shortcuts</strong> on Windows.</p>
+          <div class="shortcuts-table-wrap doc-table-wrap" role="region" aria-label="Default keyboard shortcuts" tabindex="0">
+            <table>
+              <caption class="visually-hidden">Default keyboard shortcuts on Windows and macOS</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Action</th>
+                  <th scope="col">Windows</th>
+                  <th scope="col">macOS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">Screenshot</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>5</kbd></td><td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd><kbd>5</kbd></td></tr>
+                <tr><th scope="row">Record video</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>6</kbd></td><td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd><kbd>6</kbd></td></tr>
+                <tr><th scope="row">Record GIF</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>7</kbd></td><td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd><kbd>7</kbd></td></tr>
+                <tr><th scope="row">Stop recording</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>S</kbd></td><td><kbd>⌘</kbd><kbd>.</kbd></td></tr>
+                <tr><th scope="row">Screenshot a region, window, or screen without the picker</th><td>Set your own in Settings</td><td>Set your own in Settings</td></tr>
+                <tr><th scope="row">Copy text from a region</th><td>Set your own in Settings</td><td>Set your own in Settings</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2 id="saving">Where captures go</h2>
+          <ul class="legal-list">
+            <li><strong>Save folder.</strong> Captures save to folders you choose in Settings, and each capture type can have its own folder.</li>
+            <li><strong>After a capture.</strong> Tiny Clips can open the editor or trimmer, or save straight away. Settings also lets you copy each capture to the clipboard and reveal it in Finder or File Explorer.</li>
+            <li><strong>Formats.</strong> Video saves as MP4. Choose the screenshot format in Settings: PNG or JPEG, plus WebP on macOS.</li>
+            <li><strong>Finding it again.</strong> Reopen a recent capture from <strong>Recent Captures</strong> in the menu bar menu or tray popup, or open the <a href="./docs-library.html">Clips Library</a>.</li>
+          </ul>
+        </article>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <img src="./assets/app-icon-128.png" alt="" width="28" height="28" decoding="async" />
+          <div>
+            <p>© <span id="year">2026</span> Refractored LLC</p>
+            <p class="footer-tool-note">
+              Find more tiny tools like this at
+              <a href="https://www.tinytooltown.com/" target="_blank" rel="noopener noreferrer">Tiny Tool Town</a>.
+            </p>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS" target="_blank" rel="noopener noreferrer">Microsoft Store</a>
+          <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a>
+          <a href="https://github.com/jamesmontemagno/tiny-clips" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./terms.html">Terms</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

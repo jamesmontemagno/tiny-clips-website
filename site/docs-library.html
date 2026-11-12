@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clips Library — Tiny Clips documentation</title>
+    <meta name="description" content="Browse, search, organize, reopen, and share your screenshots, videos, and GIFs with the Clips Library in Tiny Clips." />
+    <meta name="author" content="Refractored LLC" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="./theme.js"></script>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://tinyclips.app/docs-library.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tinyclips.app/docs-library.html" />
+    <meta property="og:title" content="Clips Library — Tiny Clips documentation" />
+    <meta property="og:description" content="Browse, search, organize, reopen, and share your screenshots, videos, and GIFs with the Clips Library in Tiny Clips." />
+    <meta property="og:image" content="https://tinyclips.app/assets/og-image.png" />
+    <link rel="icon" type="image/png" sizes="128x128" href="./assets/app-icon-128.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="./assets/app-icon-256.png" />
+    <link rel="apple-touch-icon" href="./assets/app-icon-256.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="./index.html" aria-label="Tiny Clips home">
+          <img src="./assets/app-icon-128.png" alt="" width="32" height="32" decoding="async" />
+          <span>Tiny Clips</span>
+        </a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="./index.html#try">Try it</a></li>
+            <li><a href="./index.html#features">Features</a></li>
+            <li><a href="./index.html#gallery">Screens</a></li>
+            <li><a href="./docs.html" aria-current="true">Documentation</a></li>
+            <li><a href="./index.html#faq">FAQ</a></li>
+          </ul>
+          <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z" fill="currentColor" /><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+            <span class="theme-toggle-label">Dark mode</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="docs-layout">
+      <nav class="docs-sidebar" aria-label="Documentation pages">
+        <details class="docs-disclosure" data-docs-pages open>
+          <summary>Documentation pages</summary>
+          <p class="docs-nav-label">Start here</p>
+          <ul>
+            <li><a href="./docs.html">Overview</a></li>
+            <li><a href="./docs-capture.html">Capture basics</a></li>
+          </ul>
+          <p class="docs-nav-label">Features</p>
+          <ul>
+            <li><a href="./docs-editor.html">Screenshot editor</a></li>
+            <li><a href="./docs-recording.html">Video and GIF recording</a></li>
+            <li><a href="./docs-scrolling-ocr.html">Scrolling capture and OCR</a></li>
+            <li><a href="./docs-library.html" aria-current="page">Clips Library</a></li>
+            <li><a href="./docs-studio.html">Studio (Preview)</a></li>
+            <li><a href="./agents.html">Agent Control</a></li>
+          </ul>
+          <p class="docs-nav-label">Help</p>
+          <ul>
+            <li><a href="./docs-help.html">Permissions and troubleshooting</a></li>
+          </ul>
+        </details>
+      </nav>
+
+      <main id="main-content" class="docs-main has-toc" tabindex="-1">
+        <details class="docs-disclosure docs-toc" data-docs-toc open>
+          <summary>On this page</summary>
+          <nav aria-label="On this page">
+            <p class="docs-toc-title">On this page</p>
+            <ul>
+              <li><a href="#open">Open the library</a></li>
+              <li><a href="#find">Find a capture</a></li>
+              <li><a href="#organize">Organize</a></li>
+              <li><a href="#use">Reopen and share</a></li>
+              <li><a href="#uploads">Uploadcare uploads</a></li>
+            </ul>
+          </nav>
+        </details>
+
+        <article class="legal-content doc-content docs-article">
+          <h1 class="legal-title">Clips Library</h1>
+          <p class="doc-lead">Find what you captured last week without digging through folders.</p>
+
+          <h2 id="open">Open the library</h2>
+          <p>Choose <strong>Clips Library…</strong> in the macOS menu bar menu, or <strong>Clips Library</strong> in the Windows tray popup. For your newest captures, <strong>Recent Captures</strong> in the same menu is faster.</p>
+
+          <h2 id="find">Find a capture</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 290" role="img" aria-labelledby="fig-library">
+              <title id="fig-library">Illustration of the Clips Library. A sidebar lists all clips, favorites, screenshots, videos, GIFs, and a tag. Beside it are a search box and a grid of starred and labeled captures.</title>
+              <rect class="fg-win" x="16" y="14" width="528" height="262" rx="12" /><rect class="fg-bar" x="17" y="15" width="526" height="32" rx="11" /><text class="fg-t-title" x="32" y="36">Clips Library</text>
+              <path class="fg-rule" d="M146 47v228" /><rect class="fg-sel" x="26" y="58" width="110" height="26" rx="6" /><text class="fg-t-title" x="38" y="76">All clips</text><text x="38" y="106">Favorites</text><text x="38" y="134">Screenshots</text><text x="38" y="162">Videos</text><text x="38" y="190">GIFs</text><text class="fg-t-muted" x="38" y="222"># release</text>
+              <rect class="fg-panel" x="160" y="58" width="370" height="28" rx="8" /><text class="fg-t-muted" x="176" y="77">Search clips</text>
+              <g class="fg-panel"><rect x="160" y="98" width="116" height="78" rx="7" /><rect x="287" y="98" width="116" height="78" rx="7" /><rect x="414" y="98" width="116" height="78" rx="7" /><rect x="160" y="186" width="116" height="78" rx="7" /><rect x="287" y="186" width="116" height="78" rx="7" /><rect x="414" y="186" width="116" height="78" rx="7" /></g>
+              <text class="fg-t-title" x="172" y="166">PNG</text><text class="fg-t-title" x="299" y="166">MP4</text><text class="fg-t-title" x="426" y="166">GIF</text><text class="fg-t-title" x="172" y="254">PNG</text><text class="fg-t-title" x="299" y="254">MP4</text><text class="fg-t-title" x="426" y="254">PNG</text>
+              <g class="fg-sk"><rect x="172" y="112" width="70" height="7" rx="3" /><rect x="172" y="128" width="64" height="7" rx="3" /><rect x="299" y="112" width="70" height="7" rx="3" /><rect x="426" y="112" width="70" height="7" rx="3" /><rect x="172" y="200" width="60" height="7" rx="3" /><rect x="299" y="200" width="92" height="7" rx="3" /><rect x="426" y="200" width="72" height="7" rx="3" /><rect x="426" y="216" width="50" height="7" rx="3" /></g>
+              <text class="fg-t-rec" x="258" y="118">★</text><text class="fg-t-rec" x="512" y="118">★</text>
+            </svg>
+            <figcaption>Illustration of the library, not an app screenshot.</figcaption>
+          </figure>
+          <ul class="legal-list">
+            <li>Search across your screenshots, videos, and GIFs.</li>
+            <li>Filter by capture type.</li>
+            <li>On Windows, filter by date (Today, This week, This month) with the <strong>Sort &amp; filter</strong> flyout in the toolbar.</li>
+          </ul>
+
+          <h2 id="organize">Organize</h2>
+          <p>Star your favorites, and group captures with tags and collections.</p>
+
+          <h2 id="use">Reopen and share</h2>
+          <ul class="legal-list">
+            <li>Open a capture, or reopen it in the editor or trimmer.</li>
+            <li>Copy it, or reveal it in Finder or File Explorer.</li>
+            <li>Open a Studio recording again with <strong>Open in Studio…</strong>.</li>
+            <li>Delete a capture you don't need. This can't be undone on macOS, which warns you first.</li>
+          </ul>
+
+          <h2 id="uploads">Uploadcare uploads</h2>
+          <p>You can upload clips and get shareable links through your own <a href="https://uploadcare.com" target="_blank" rel="noopener noreferrer">Uploadcare</a> account. This is off until you set it up. Tiny Clips doesn't include Uploadcare credentials or manage your account.</p>
+          <p>Your API keys are stored on your device, in the macOS Keychain or Windows Credential Locker, and are never sent to Refractored LLC. Clips you upload go to your Uploadcare project under Uploadcare's terms.</p>
+        </article>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <img src="./assets/app-icon-128.png" alt="" width="28" height="28" decoding="async" />
+          <div>
+            <p>© <span id="year">2026</span> Refractored LLC</p>
+            <p class="footer-tool-note">
+              Find more tiny tools like this at
+              <a href="https://www.tinytooltown.com/" target="_blank" rel="noopener noreferrer">Tiny Tool Town</a>.
+            </p>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS" target="_blank" rel="noopener noreferrer">Microsoft Store</a>
+          <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a>
+          <a href="https://github.com/jamesmontemagno/tiny-clips" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./terms.html">Terms</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>
