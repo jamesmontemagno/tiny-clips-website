@@ -90,7 +90,7 @@
             "screenshot": [
               "https://tinyclips.app/assets/windows-screenshot-editor.png",
               "https://tinyclips.app/assets/app-store-artwork-1.png",
-              "https://tinyclips.app/assets/clips-manager.jpg"
+              "https://tinyclips.app/assets/app-store-artwork-3.png"
             ],
             "description": "Tiny Clips is a free, lightweight screen capture app for Windows 11 and macOS. Capture any region, window, or screen as a PNG screenshot, MP4 recording, or animated GIF, then annotate, trim, and share.",
             "applicationCategory": "MultimediaApplication",
@@ -169,7 +169,7 @@
                 "name": "How do I install Tiny Clips on macOS?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "The recommended way is the Mac App Store, which includes automatic updates and Clips Library. You can also install with Homebrew (brew tap jamesmontemagno/tiny-clips https://github.com/jamesmontemagno/tiny-clips, then brew install --cask tiny-clips), join the TestFlight beta, or download a signed build from GitHub Releases."
+                  "text": "The recommended way is the Mac App Store for automatic updates. Clips Library is included in the Mac app for every build, including Mac App Store, Homebrew, TestFlight, and direct GitHub builds. Homebrew users can use brew tap jamesmontemagno/tiny-clips https://github.com/jamesmontemagno/tiny-clips, then brew install --cask tiny-clips."
                 }
               },
               {
@@ -193,7 +193,7 @@
                 "name": "What formats does Tiny Clips capture?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "PNG (and JPEG on Windows) screenshots, hardware-accelerated H.264 MP4 video at 24, 30, or 60 fps with optional microphone and system audio, and animated GIFs with configurable frame rate and width."
+                  "text": "PNG, JPEG, and WebP screenshots on macOS; PNG and JPEG screenshots on Windows. Hardware-accelerated H.264 MP4 video at 24, 30, or 60 fps with optional microphone and system audio, and animated GIFs with configurable frame rate and width."
                 }
               },
               {
@@ -430,7 +430,7 @@
                             <span class="shot-label">Email</span>
                             <span class="shot-field shot-redacted"><i></i><i></i><i></i></span>
                             <span class="shot-label">Plan</span>
-                            <span class="shot-field">Pro · Monthly</span>
+                            <span class="shot-field">Monthly Supporter</span>
                             <span class="shot-button">Save changes</span>
                           </div>
                           <div class="shot-card"><i></i><i></i><i></i></div>
@@ -915,8 +915,8 @@
                 <p class="install-label">Recommended</p>
                 <h3>Download on the Mac App Store</h3>
                 <p>
-                  Notarized, sandboxed, and updated by the App Store. Includes Clips Library — tags, collections,
-                  notes, favorites, and batch actions for every capture — at no cost.
+                  Notarized, sandboxed, and updated by the App Store. The Mac app includes Clips Library — tags,
+                  collections, notes, favorites, and batch actions for every capture — at no cost.
                 </p>
                 <div class="install-actions">
                   <a class="store-badge" href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">
@@ -1128,9 +1128,9 @@
                 <tr><th scope="row">Screenshot</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>5</kbd></td><td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd><kbd>5</kbd></td></tr>
                 <tr><th scope="row">Record video</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>6</kbd></td><td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd><kbd>6</kbd></td></tr>
                 <tr><th scope="row">Record GIF</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>7</kbd></td><td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd><kbd>7</kbd></td></tr>
-                <tr><th scope="row">Copy text (OCR)</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>T</kbd></td><td>Picker → Recognize Text</td></tr>
-                <tr><th scope="row">Screenshot region / window</th><td>Optional, set in Settings</td><td><kbd>⌃</kbd><kbd>⌥</kbd><kbd>⌘</kbd><kbd>1</kbd> / <kbd>2</kbd></td></tr>
-                <tr><th scope="row">Picker: region / screen / window / scroll</th><td><kbd>R</kbd> <kbd>S</kbd> <kbd>W</kbd> <kbd>P</kbd></td><td><kbd>R</kbd> <kbd>S</kbd> <kbd>W</kbd></td></tr>
+                <tr><th scope="row">Copy text (OCR)</th><td>Optional, set in Settings</td><td>Optional, set in Settings</td></tr>
+                <tr><th scope="row">Screenshot region / window / screen without the picker</th><td>Optional, set in Settings</td><td>Optional, set in Settings</td></tr>
+                <tr><th scope="row">Picker: region / screen / window / scroll</th><td><kbd>R</kbd> <kbd>S</kbd> <kbd>W</kbd> <kbd>P</kbd></td><td><kbd>R</kbd> <kbd>S</kbd> <kbd>W</kbd> <kbd>P</kbd></td></tr>
                 <tr><th scope="row">Stop recording</th><td><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>S</kbd></td><td><kbd>⌘</kbd><kbd>.</kbd></td></tr>
               </tbody>
             </table>
@@ -1161,10 +1161,6 @@
             <figure class="gallery-item" data-platform-badge="macOS">
               <img src="./assets/app-store-artwork-1.png" alt="Tiny Clips for Mac menu bar menu with Screenshot, Record Video, and Record GIF and their keyboard shortcuts" width="1440" height="900" loading="lazy" decoding="async" />
               <figcaption>Menu bar access with global shortcuts</figcaption>
-            </figure>
-            <figure class="gallery-item" data-platform-badge="macOS">
-              <img src="./assets/clips-manager.jpg" alt="Existing Mac App Store screenshot of the Clips Library; its window title still reads Clips Manager" width="1960" height="1080" loading="lazy" decoding="async" />
-              <figcaption>Clips Library on Mac · existing screenshot still shows its previous title</figcaption>
             </figure>
             <figure class="gallery-item" data-platform-badge="macOS">
               <img src="./assets/app-store-artwork-3.png" alt="Tiny Clips for Mac video trimmer preparing a short recording for export" width="1440" height="900" loading="lazy" decoding="async" />
@@ -1245,7 +1241,7 @@
             <details class="faq-item">
               <summary>How do I install Tiny Clips on macOS?</summary>
               <div class="faq-body">
-                <p>Use the <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a> for automatic updates and Clips Library. Homebrew users can tap <code>jamesmontemagno/tiny-clips</code> and <code>brew install --cask tiny-clips</code>. TestFlight and direct GitHub downloads are available too.</p>
+                <p>Use the <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a> for automatic updates. Clips Library is included in the Mac app for every build, including the Store, Homebrew, TestFlight, and direct GitHub builds. Homebrew users can tap <code>jamesmontemagno/tiny-clips</code> and <code>brew install --cask tiny-clips</code>.</p>
               </div>
             </details>
             <details class="faq-item">
@@ -1269,7 +1265,7 @@
             <details class="faq-item">
               <summary>Which formats and quality settings are available?</summary>
               <div class="faq-body">
-                <p>Screenshots save as PNG (JPEG and scale options on Windows). Video is hardware-accelerated H.264 MP4 at 24, 30, or 60 fps with optional microphone and system audio. GIFs support 5–30 fps and a configurable maximum width.</p>
+                <p>Mac screenshots can save as PNG, JPEG, or WebP. Windows screenshots can save as PNG or JPEG. Video is hardware-accelerated H.264 MP4 at 24, 30, or 60 fps with optional microphone and system audio. GIFs support 5–30 fps and a configurable maximum width.</p>
               </div>
             </details>
             <details class="faq-item">

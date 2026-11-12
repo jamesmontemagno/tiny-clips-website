@@ -60,7 +60,10 @@ test.describe('Agent Control setup page', () => {
     );
     for (const expected of [
       'https://github.com/jamesmontemagno/tiny-clips.git',
-      'copilot plugin install jamesmontemagno/tiny-clips',
+      'copilot plugin marketplace add jamesmontemagno/tiny-clips',
+      'copilot plugin install tinyclips@tinyclips',
+      'copilot plugin update tinyclips',
+      'copilot plugin uninstall tinyclips',
       'dnx TinyClips --yes -- pair --name "My agent"',
       'dnx TinyClips --yes -- status',
       'dnx TinyClips --yes -- capture.targets kind=windows',
@@ -74,6 +77,12 @@ test.describe('Agent Control setup page', () => {
     expect(commands.filter((command) => command.copy === null)).toEqual([
       { code: 'dnx TinyClips --yes -- capture.screenshot mode=window windowId=<returned-window-id>', copy: null },
     ]);
+  });
+
+  test('does not offer deprecated direct CLI plugin installs', async ({ page }) => {
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    const text = await body(page);
+    expect(text).not.toContain('copilot plugin install jamesmontemagno/tiny-clips');
   });
 
   test('MCP example is valid JSON using the documented command', async ({ page }) => {
@@ -625,6 +634,21 @@ test.describe('pages', () => {
     await expect(page.locator('#platform-panel-macos .command-line code').first()).toContainText(
       'brew tap jamesmontemagno/tiny-clips'
     );
+  });
+
+  test('homepage shortcut, format, and screenshot claims match current app behavior', async ({ page }) => {
+    await gotoHome(page);
+    const shortcuts = page.locator('.shortcuts-table');
+    await expect(shortcuts).not.toContainText('⌃⌥⌘1');
+    await expect(shortcuts).not.toContainText('⌃⌥⌘2');
+    await expect(shortcuts).not.toContainText('Ctrl+Shift+T');
+    await expect(shortcuts).toContainText('Optional, set in Settings');
+    await expect(shortcuts).toContainText('R S W P');
+
+    await expect(page.locator('#faq')).toContainText('PNG, JPEG, or WebP');
+    await expect(page.locator('#faq')).toContainText('Mac app for every build');
+    await expect(page.locator('main')).not.toContainText('Clips Manager');
+    await expect(page.locator('main')).not.toContainText('Pro · Monthly');
   });
 
   for (const width of [390, 1440]) {

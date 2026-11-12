@@ -136,7 +136,7 @@
 
           <h2 id="requirements">Requirements</h2>
           <ul class="legal-list">
-            <li>Tiny Clips 2.1 or later, running on the same Mac or Windows PC as your agent</li>
+            <li>A Tiny Clips release that includes Agent Control, running on the same Mac or Windows PC as your agent</li>
             <li>The <a href="https://dotnet.microsoft.com/download/dotnet/10.0" target="_blank" rel="noopener noreferrer">.NET 10 SDK</a>, for the commands on this page</li>
             <li>An agent with terminal access or support for a local stdio MCP server</li>
           </ul>
@@ -162,8 +162,12 @@
           <p>VS Code downloads the plugin, so you don't need to clone the repository or register a marketplace.</p>
           <h3>GitHub Copilot CLI</h3>
           <div class="command-line">
-            <code tabindex="0">copilot plugin install jamesmontemagno/tiny-clips</code>
-            <button class="copy-command-btn" type="button" data-copy-command="copilot plugin install jamesmontemagno/tiny-clips">Copy</button>
+            <code tabindex="0">copilot plugin marketplace add jamesmontemagno/tiny-clips</code>
+            <button class="copy-command-btn" type="button" data-copy-command="copilot plugin marketplace add jamesmontemagno/tiny-clips">Copy</button>
+          </div>
+          <div class="command-line">
+            <code tabindex="0">copilot plugin install tinyclips@tinyclips</code>
+            <button class="copy-command-btn" type="button" data-copy-command="copilot plugin install tinyclips@tinyclips">Copy</button>
           </div>
           <p class="doc-after-command">To update or remove it later:</p>
           <div class="command-line">

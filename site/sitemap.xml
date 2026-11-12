@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://tinyclips.app/</loc>
-    <lastmod>2026-11-08</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -14,13 +14,13 @@
       <image:title>Tiny Clips for Windows screenshot editor</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://tinyclips.app/assets/clips-manager.jpg</image:loc>
-      <image:title>Clips Library in Tiny Clips for Mac</image:title>
+      <image:loc>https://tinyclips.app/assets/app-store-artwork-3.png</image:loc>
+      <image:title>Video trimmer in Tiny Clips for Mac</image:title>
     </image:image>
   </url>
   <url>
     <loc>https://tinyclips.app/docs.html</loc>
-    <lastmod>2026-11-08</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -68,7 +68,7 @@
   </url>
   <url>
     <loc>https://tinyclips.app/agents.html</loc>
-    <lastmod>2026-11-08</lastmod>
+    <lastmod>2026-11-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
