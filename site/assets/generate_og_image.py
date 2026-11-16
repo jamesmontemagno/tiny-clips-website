@@ -154,7 +154,7 @@ def build() -> Image.Image:
 
     # --- Right column: two real screenshots, layered ---
     win_shot = framed_screenshot(ASSETS / "windows-screenshot-editor.png", 540)
-    mac_shot = framed_screenshot(ASSETS / "clips-manager.jpg", 330)
+    mac_shot = framed_screenshot(ASSETS / "app-store-artwork-1.png", 330)
 
     shadow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     sd = ImageDraw.Draw(shadow)

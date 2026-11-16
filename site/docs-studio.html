@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Studio (Preview) — Tiny Clips documentation</title>
+    <meta name="description" content="Record screen and camera as separate layers in Tiny Clips Studio, then add zooms, cuts, annotations, and captions, and export an MP4." />
+    <meta name="author" content="Refractored LLC" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="./theme.js"></script>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://tinyclips.app/docs-studio.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tinyclips.app/docs-studio.html" />
+    <meta property="og:title" content="Studio (Preview) — Tiny Clips documentation" />
+    <meta property="og:description" content="Record screen and camera as separate layers in Tiny Clips Studio, then add zooms, cuts, annotations, and captions, and export an MP4." />
+    <meta property="og:image" content="https://tinyclips.app/assets/og-image.png" />
+    <link rel="icon" type="image/png" sizes="128x128" href="./assets/app-icon-128.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="./assets/app-icon-256.png" />
+    <link rel="apple-touch-icon" href="./assets/app-icon-256.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="./index.html" aria-label="Tiny Clips home">
+          <img src="./assets/app-icon-128.png" alt="" width="32" height="32" decoding="async" />
+          <span>Tiny Clips</span>
+        </a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="./index.html#try">Try it</a></li>
+            <li><a href="./index.html#features">Features</a></li>
+            <li><a href="./index.html#gallery">Screens</a></li>
+            <li><a href="./docs.html" aria-current="true">Documentation</a></li>
+            <li><a href="./index.html#faq">FAQ</a></li>
+          </ul>
+          <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z" fill="currentColor" /><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+            <span class="theme-toggle-label">Dark mode</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="docs-layout">
+      <nav class="docs-sidebar" aria-label="Documentation pages">
+        <details class="docs-disclosure" data-docs-pages open>
+          <summary>Documentation pages</summary>
+          <p class="docs-nav-label">Start here</p>
+          <ul>
+            <li><a href="./docs.html">Overview</a></li>
+            <li><a href="./docs-capture.html">Capture basics</a></li>
+          </ul>
+          <p class="docs-nav-label">Features</p>
+          <ul>
+            <li><a href="./docs-editor.html">Screenshot editor</a></li>
+            <li><a href="./docs-recording.html">Video and GIF recording</a></li>
+            <li><a href="./docs-scrolling-ocr.html">Scrolling capture and OCR</a></li>
+            <li><a href="./docs-library.html">Clips Library</a></li>
+            <li><a href="./docs-studio.html" aria-current="page">Studio (Preview)</a></li>
+            <li><a href="./agents.html">Agent Control</a></li>
+          </ul>
+          <p class="docs-nav-label">Help</p>
+          <ul>
+            <li><a href="./docs-help.html">Permissions and troubleshooting</a></li>
+          </ul>
+        </details>
+      </nav>
+
+      <main id="main-content" class="docs-main has-toc" tabindex="-1">
+        <details class="docs-disclosure docs-toc" data-docs-toc open>
+          <summary>On this page</summary>
+          <nav aria-label="On this page">
+            <p class="docs-toc-title">On this page</p>
+            <ul>
+              <li><a href="#start">Start a Studio recording</a></li>
+              <li><a href="#look">Set the look</a></li>
+              <li><a href="#timeline">Zooms, scenes, cuts, and speed</a></li>
+              <li><a href="#annotate">Annotations</a></li>
+              <li><a href="#captions">Captions</a></li>
+              <li><a href="#export">Export a video</a></li>
+              <li><a href="#projects">Save and reopen projects</a></li>
+            </ul>
+          </nav>
+        </details>
+
+        <article class="legal-content doc-content docs-article">
+          <h1 class="legal-title">Studio (Preview)</h1>
+          <p class="doc-lead">Record now and choose the look afterward. Studio keeps your screen and camera as separate layers you can keep editing.</p>
+          <p class="doc-note"><strong>Studio is a preview.</strong> It's on by default unless you turned it off, and your choice is kept. Change it with <strong>Tiny Clips Studio (Preview)</strong> in <strong>Settings → Studio</strong>. Your projects are kept either way.</p>
+
+          <h2 id="start">Start a Studio recording</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 200" role="img" aria-labelledby="fig-layers">
+              <title id="fig-layers">Illustration of Studio's core idea. A screen layer and a camera layer stay separate and combine into a finished video that you can keep changing.</title>
+              <g transform="translate(24 20)"><rect class="fg-win" width="170" height="74" rx="6" /><rect class="fg-sk" x="14" y="16" width="120" height="7" rx="3" /><rect class="fg-sk" x="14" y="32" width="90" height="7" rx="3" /><text class="fg-t-muted" x="14" y="62">Screen layer</text></g>
+              <g transform="translate(24 108)"><rect class="fg-win" width="170" height="74" rx="6" /><circle class="fg-primary" cx="34" cy="30" r="18" /><text class="fg-t-muted" x="62" y="62">Camera layer</text></g>
+              <path class="fg-accent" d="M208 57c26 0 30 40 52 43M208 145c26 0 30-40 52-43m-9-9 9 9-9 9" />
+              <g transform="translate(272 22)"><rect class="fg-sel" width="264" height="156" rx="10" /><rect class="fg-win" x="22" y="18" width="220" height="120" rx="8" /><rect class="fg-sk" x="40" y="38" width="150" height="8" rx="4" /><rect class="fg-sk" x="40" y="56" width="120" height="8" rx="4" /><circle class="fg-primary" cx="204" cy="106" r="22" /></g>
+            </svg>
+            <figcaption>Illustration: layers stay separate, so you can change the look after recording.</figcaption>
+          </figure>
+          <ul class="legal-list">
+            <li><strong>macOS.</strong> Choose <strong>Studio Recording…</strong> in the menu bar menu.</li>
+            <li><strong>Windows.</strong> Choose the <strong>Studio</strong> tile in the tray popup.</li>
+          </ul>
+          <p>When you stop recording, the Studio editor opens. Record Video and its shortcut always make a standard recording.</p>
+
+          <h2 id="look">Set the look</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 130" role="img" aria-labelledby="fig-layouts">
+              <title id="fig-layouts">Illustration of the four Studio layouts: screen only, camera bubble, side by side, and camera only.</title>
+              <g transform="translate(14 14)"><rect class="fg-win" width="122" height="76" rx="6" /><rect class="fg-sk" x="12" y="12" width="98" height="52" rx="4" /><text x="61" y="100" text-anchor="middle">Screen only</text></g>
+              <g transform="translate(150 14)"><rect class="fg-win" width="122" height="76" rx="6" /><rect class="fg-sk" x="12" y="12" width="98" height="52" rx="4" /><circle class="fg-primary" cx="94" cy="52" r="15" /><text x="61" y="100" text-anchor="middle">Camera bubble</text></g>
+              <g transform="translate(286 14)"><rect class="fg-win" width="122" height="76" rx="6" /><rect class="fg-sk" x="10" y="18" width="64" height="40" rx="4" /><rect class="fg-primary" x="80" y="18" width="32" height="40" rx="4" /><text x="61" y="100" text-anchor="middle">Side by side</text></g>
+              <g transform="translate(422 14)"><rect class="fg-win" width="122" height="76" rx="6" /><rect class="fg-primary" x="12" y="12" width="98" height="52" rx="4" /><text x="61" y="100" text-anchor="middle">Camera only</text></g>
+            </svg>
+            <figcaption>Illustration: each scene can use a different layout.</figcaption>
+          </figure>
+          <ul class="legal-list">
+            <li>Pick a background, with solid colors or gradients, then adjust the padding and round the corners of the screen.</li>
+            <li>Choose one of four layouts: screen only, camera bubble, side by side, or camera only.</li>
+            <li>Choose a camera shape, and drag the camera bubble where you want it.</li>
+            <li>Crop the edges of the screen or camera from each one's panel.</li>
+          </ul>
+
+          <h2 id="timeline">Zooms, scenes, cuts, and speed</h2>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 196" role="img" aria-labelledby="fig-timeline">
+              <title id="fig-timeline">Illustration of the Studio timeline, with separate lanes for scenes, zooms, cuts, and speed changes above the trim bar, and a playhead running through them.</title>
+              <rect class="fg-win" x="14" y="12" width="532" height="172" rx="12" />
+              <text class="fg-t-muted" x="30" y="44">Scenes</text><rect class="fg-panel" x="92" y="30" width="170" height="20" rx="5" /><rect class="fg-pill" x="266" y="30" width="262" height="20" rx="5" /><text class="fg-t-muted" x="104" y="44">Bubble</text><text class="fg-t-muted" x="278" y="44">Side by side</text>
+              <text class="fg-t-muted" x="30" y="72">Zoom</text><rect class="fg-primary" x="150" y="58" width="96" height="20" rx="5" /><text class="fg-t-on" x="198" y="73" text-anchor="middle" font-size="11">Z</text>
+              <text class="fg-t-muted" x="30" y="100">Cut</text><rect class="fg-rec" x="330" y="86" width="44" height="20" rx="5" /><text class="fg-t-on" x="352" y="101" text-anchor="middle" font-size="11">X</text>
+              <text class="fg-t-muted" x="30" y="128">Speed</text><rect class="fg-pill" x="404" y="114" width="88" height="20" rx="5" /><text x="448" y="129" text-anchor="middle" font-size="11">2×</text>
+              <text class="fg-t-muted" x="30" y="160">Video</text><rect class="fg-sk" x="92" y="146" width="238" height="22" rx="4" /><rect class="fg-sk" x="374" y="146" width="154" height="22" rx="4" />
+              <path class="fg-accent" d="M250 22v154" />
+            </svg>
+            <figcaption>Illustration: each kind of edit has its own lane, and a cut leaves a gap in the video.</figcaption>
+          </figure>
+          <p>Press a key to add an edit at the playhead. Then drag it on the timeline, or set its details in the panel.</p>
+          <div class="shortcuts-table-wrap doc-table-wrap" role="region" aria-label="Studio timeline keys" tabindex="0">
+            <table>
+              <caption class="visually-hidden">Keys that add edits to the Studio timeline</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Key</th>
+                  <th scope="col">Edit</th>
+                  <th scope="col">What it does</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row"><kbd>Z</kbd></th><td>Zoom</td><td>Zooms in on a fixed point or follows the pointer. <strong>Suggest Zooms</strong> proposes zooms from your clicks.</td></tr>
+                <tr><th scope="row"><kbd>S</kbd></th><td>Split</td><td>Starts a new scene with its own layout, which can change instantly or animate into place.</td></tr>
+                <tr><th scope="row"><kbd>X</kbd></th><td>Cut</td><td>Takes a second out of the video. Drag its ends to change how much.</td></tr>
+                <tr><th scope="row"><kbd>R</kbd></th><td>Speed</td><td>Plays two seconds faster. Rates run from 0.25× to 8×, and changed stretches play without sound.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="doc-after-command">Press <kbd>Delete</kbd> to remove the selected zoom, cut, or speed change. <kbd>Shift</kbd>+<kbd>Left</kbd> and <kbd>Shift</kbd>+<kbd>Right</kbd> move the playhead a second, and <kbd>Home</kbd> and <kbd>End</kbd> go to the start and end.</p>
+
+          <h2 id="annotate">Annotations</h2>
+          <p>Add these from the Annotate panel or with a key:</p>
+          <ul class="legal-list">
+            <li><kbd>A</kbd> arrow, <kbd>C</kbd> callout, and <kbd>T</kbd> text</li>
+            <li><kbd>H</kbd> rectangle and <kbd>E</kbd> ellipse</li>
+            <li><kbd>B</kbd> redaction, which hides an area with blur, pixelation, or a solid color</li>
+            <li><kbd>M</kbd> emoji</li>
+          </ul>
+          <p>Drag an annotation in the preview to move it, and use its handles to resize or rotate it. Attach it to the recording to keep it on what it covers through zooms, or to the frame to keep it in place. To duplicate one, press <kbd>Ctrl</kbd>+<kbd>D</kbd> on Windows or <kbd>⌘</kbd>+<kbd>D</kbd> on macOS.</p>
+
+          <h2 id="captions">Captions</h2>
+          <p>Use the Captions panel to add and fix captions:</p>
+          <ul class="legal-list">
+            <li><strong>Generate.</strong> Make captions from the recording's sound, on your computer. On a Mac, this needs macOS 26 or later and hardware that supports it. On Windows, you choose a speech model, which downloads the first time you use it.</li>
+            <li><strong>Import and export.</strong> Use SRT or WebVTT files.</li>
+            <li><strong>Edit and fix.</strong> Correct, split, merge, or delete captions. <strong>Auto Fix</strong> repairs captions that are too short or too fast to read where it can.</li>
+            <li><strong>Draw on the video.</strong> Off by default. Choose from four looks and three sizes, at the top or bottom. Viewers can't turn these off, so export a caption file as well if that matters.</li>
+          </ul>
+
+          <h2 id="export">Export a video</h2>
+          <p>Choose <strong>Export</strong> to save an MP4. Pick a resolution (Source, 4K, 1440p, 1080p, 720p, or 480p) and a quality (Best, High, Standard, or Small File). You'll see the pixel size and estimated file size first. It starts at 1080p and High, then offers your last choice. A video keeps its canvas's shape and is never scaled up.</p>
+
+          <h2 id="projects">Save and reopen projects</h2>
+          <ul class="legal-list">
+            <li><strong>Save Project…</strong> saves a copy as a folder you choose, with the recordings and a <code>.tinyclips</code> file that opens them in Studio on this computer or another.</li>
+            <li>Reopen a project from <strong>Open in Studio…</strong> in the <a href="./docs-library.html">Clips Library</a>, from <strong>Recent Captures</strong>, or from the drafts list in <strong>Settings → Studio</strong>.</li>
+            <li>When you close a recording you haven't saved as a project, Studio asks whether to keep it as a draft or delete it.</li>
+            <li><strong>Settings → Studio</strong> also sets how long projects are kept and how much disk space they can use.</li>
+          </ul>
+        </article>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <img src="./assets/app-icon-128.png" alt="" width="28" height="28" decoding="async" />
+          <div>
+            <p>© <span id="year">2026</span> Refractored LLC</p>
+            <p class="footer-tool-note">
+              Find more tiny tools like this at
+              <a href="https://www.tinytooltown.com/" target="_blank" rel="noopener noreferrer">Tiny Tool Town</a>.
+            </p>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS" target="_blank" rel="noopener noreferrer">Microsoft Store</a>
+          <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a>
+          <a href="https://github.com/jamesmontemagno/tiny-clips" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./terms.html">Terms</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

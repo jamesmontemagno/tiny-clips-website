@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation — Tiny Clips</title>
+    <meta name="description" content="Learn Tiny Clips on Windows and macOS: capture basics, the screenshot editor, recording, scrolling capture, OCR, Clips Library, Studio, and Agent Control." />
+    <meta name="author" content="Refractored LLC" />
+    <meta name="theme-color" content="#f8fafc" />
+    <meta name="color-scheme" content="light dark" />
+    <script src="./theme.js"></script>
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://tinyclips.app/docs.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tinyclips.app/docs.html" />
+    <meta property="og:title" content="Documentation — Tiny Clips" />
+    <meta property="og:description" content="Learn Tiny Clips on Windows and macOS: capture basics, the screenshot editor, recording, scrolling capture, OCR, Clips Library, Studio, and Agent Control." />
+    <meta property="og:image" content="https://tinyclips.app/assets/og-image.png" />
+    <link rel="icon" type="image/png" sizes="128x128" href="./assets/app-icon-128.png" />
+    <link rel="icon" type="image/png" sizes="256x256" href="./assets/app-icon-256.png" />
+    <link rel="apple-touch-icon" href="./assets/app-icon-256.png" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="container header-content">
+        <a class="brand" href="./index.html" aria-label="Tiny Clips home">
+          <img src="./assets/app-icon-128.png" alt="" width="32" height="32" decoding="async" />
+          <span>Tiny Clips</span>
+        </a>
+        <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+          <ul class="nav-links">
+            <li><a href="./index.html#try">Try it</a></li>
+            <li><a href="./index.html#features">Features</a></li>
+            <li><a href="./index.html#gallery">Screens</a></li>
+            <li><a href="./docs.html" aria-current="page">Documentation</a></li>
+            <li><a href="./index.html#faq">FAQ</a></li>
+          </ul>
+          <a class="btn btn-primary btn-sm nav-cta" href="./index.html#download" data-store-link>Download free</a>
+        </nav>
+        <div class="header-actions">
+          <button class="theme-toggle" type="button" data-theme-toggle aria-label="Dark mode" aria-pressed="false" hidden>
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18V3Z" fill="currentColor" /><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" /></svg>
+            <span class="theme-toggle-label">Dark mode</span>
+          </button>
+          <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div class="docs-layout">
+      <nav class="docs-sidebar" aria-label="Documentation pages">
+        <details class="docs-disclosure" data-docs-pages open>
+          <summary>Documentation pages</summary>
+          <p class="docs-nav-label">Start here</p>
+          <ul>
+            <li><a href="./docs.html" aria-current="page">Overview</a></li>
+            <li><a href="./docs-capture.html">Capture basics</a></li>
+          </ul>
+          <p class="docs-nav-label">Features</p>
+          <ul>
+            <li><a href="./docs-editor.html">Screenshot editor</a></li>
+            <li><a href="./docs-recording.html">Video and GIF recording</a></li>
+            <li><a href="./docs-scrolling-ocr.html">Scrolling capture and OCR</a></li>
+            <li><a href="./docs-library.html">Clips Library</a></li>
+            <li><a href="./docs-studio.html">Studio (Preview)</a></li>
+            <li><a href="./agents.html">Agent Control</a></li>
+          </ul>
+          <p class="docs-nav-label">Help</p>
+          <ul>
+            <li><a href="./docs-help.html">Permissions and troubleshooting</a></li>
+          </ul>
+        </details>
+      </nav>
+
+      <main id="main-content" class="docs-main" tabindex="-1">
+        <article class="legal-content doc-content docs-article docs-home">
+          <h1 class="legal-title">Tiny Clips documentation</h1>
+          <p class="doc-lead">Capture, polish, and share from your menu bar or system tray, on Windows and macOS.</p>
+          <figure class="doc-figure">
+            <svg class="fg" viewBox="0 0 560 150" role="img" aria-labelledby="fig-loop">
+              <title id="fig-loop">Illustration of the Tiny Clips loop: capture, record, polish, then organize and share.</title>
+              <g transform="translate(14 22)"><rect class="fg-win" width="116" height="106" rx="12" /><path class="fg-ink" transform="translate(40 14) scale(1.5)" d="M4 9V5a1 1 0 0 1 1-1h4M15 4h4a1 1 0 0 1 1 1v4M20 15v4a1 1 0 0 1-1 1h-4M9 20H5a1 1 0 0 1-1-1v-4" /><circle class="fg-primary" cx="58" cy="32" r="5" /><text class="fg-t-title" x="58" y="80" text-anchor="middle">Capture</text></g>
+              <g transform="translate(152 22)"><rect class="fg-win" width="116" height="106" rx="12" /><path class="fg-ink" transform="translate(40 14) scale(1.5)" d="M5 6h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2ZM16 10l5-3v10l-5-3" /><circle class="fg-rec" cx="52" cy="32" r="4" /><text class="fg-t-title" x="58" y="80" text-anchor="middle">Record</text></g>
+              <g transform="translate(290 22)"><rect class="fg-win" width="116" height="106" rx="12" /><path class="fg-ink" transform="translate(40 14) scale(1.5)" d="m4 20 4-1L19.5 7.5a2.1 2.1 0 0 0-3-3L5 16l-1 4ZM14 6l4 4" /><text class="fg-t-title" x="58" y="80" text-anchor="middle">Polish</text></g>
+              <g transform="translate(428 22)"><rect class="fg-win" width="118" height="106" rx="12" /><path class="fg-ink" transform="translate(41 14) scale(1.5)" d="M4 6h16v12H4zM4 10h16M9 6v12" /><text class="fg-t-title" x="59" y="76" text-anchor="middle">Organize</text><text class="fg-t-title" x="59" y="92" text-anchor="middle">and share</text></g>
+              <path class="fg-accent" d="M134 75h14m-5-5 5 5-5 5M272 75h14m-5-5 5 5-5 5M410 75h14m-5-5 5 5-5 5" />
+            </svg>
+            <figcaption>Illustration: each capture moves through the same simple loop.</figcaption>
+          </figure>
+
+          <h2 id="top-features">Top features</h2>
+          <div class="docs-features">
+            <a class="docs-feature" href="./docs-editor.html">
+              <img src="./assets/windows-screenshot-editor.png" alt="" width="1708" height="993" loading="lazy" decoding="async" />
+              <strong>Screenshot editor</strong>
+              <span>Annotate, redact, crop, add a background, and export to a set frame.</span>
+            </a>
+            <a class="docs-feature" href="./docs-recording.html">
+              <img src="./assets/windows-video-trimmer.png" alt="" width="883" height="752" loading="lazy" decoding="async" />
+              <strong>Video and GIF recording</strong>
+              <span>Record with audio, a webcam overlay, and a teleprompter, then trim the result.</span>
+            </a>
+            <a class="docs-feature" href="./docs-library.html">
+              <svg class="fg" viewBox="0 0 320 168" aria-hidden="true"><rect class="fg-win" x="20" y="14" width="280" height="96" rx="8" /><rect class="fg-bar" x="20" y="14" width="280" height="22" rx="8" /><text class="fg-t-title" x="32" y="29" font-size="9">Clips Library</text><rect class="fg-panel" x="32" y="44" width="70" height="54" rx="5" /><rect class="fg-panel" x="112" y="44" width="84" height="54" rx="5" /><rect class="fg-panel" x="206" y="44" width="82" height="54" rx="5" /><rect class="fg-sk" x="42" y="56" width="50" height="6" rx="3" /><rect class="fg-sk" x="122" y="56" width="64" height="6" rx="3" /><rect class="fg-sk" x="216" y="56" width="62" height="6" rx="3" /><text class="fg-t-muted" x="32" y="128">Search, organize, and reopen captures.</text></svg>
+              <strong>Clips Library</strong>
+              <span>Search, organize, reopen, and share everything you've captured.</span>
+            </a>
+            <a class="docs-feature" href="./docs-studio.html">
+              <svg class="fg" viewBox="0 0 320 168" aria-hidden="true"><rect class="fg-win" x="20" y="14" width="280" height="96" rx="8" /><rect class="fg-panel" x="34" y="24" width="252" height="76" rx="6" /><rect class="fg-sk" x="48" y="38" width="120" height="8" rx="4" /><rect class="fg-sk" x="48" y="54" width="150" height="8" rx="4" /><rect class="fg-sk" x="48" y="70" width="90" height="8" rx="4" /><circle class="fg-primary" cx="256" cy="74" r="18" /><rect class="fg-win" x="20" y="120" width="280" height="16" rx="5" /><rect class="fg-primary" x="26" y="124" width="150" height="8" rx="4" /><rect class="fg-win" x="20" y="142" width="280" height="16" rx="5" /><rect class="fg-pill" x="26" y="146" width="210" height="8" rx="4" /><path class="fg-rec-line" d="M120 116v46" /></svg>
+              <strong>Studio (Preview)</strong>
+              <span>Keep screen and camera as separate layers, then add zooms, cuts, annotations, and captions.</span>
+            </a>
+            <a class="docs-feature" href="./docs-scrolling-ocr.html">
+              <svg class="fg" viewBox="0 0 320 168" aria-hidden="true"><rect class="fg-win" x="28" y="18" width="84" height="40" rx="5" /><rect class="fg-sk" x="38" y="30" width="60" height="6" rx="3" /><rect class="fg-sk" x="38" y="42" width="44" height="6" rx="3" /><rect class="fg-win" x="28" y="64" width="84" height="40" rx="5" /><rect class="fg-sk" x="38" y="76" width="64" height="6" rx="3" /><rect class="fg-sk" x="38" y="88" width="36" height="6" rx="3" /><rect class="fg-win" x="28" y="110" width="84" height="40" rx="5" /><rect class="fg-sk" x="38" y="122" width="52" height="6" rx="3" /><rect class="fg-sk" x="38" y="134" width="60" height="6" rx="3" /><path class="fg-accent" d="M128 84h34m-7-7 7 7-7 7" /><rect class="fg-win" x="180" y="12" width="104" height="144" rx="6" /><rect class="fg-sk" x="192" y="26" width="76" height="6" rx="3" /><rect class="fg-sk" x="192" y="40" width="58" height="6" rx="3" /><rect class="fg-sk" x="192" y="60" width="80" height="6" rx="3" /><rect class="fg-sk" x="192" y="74" width="46" height="6" rx="3" /><rect class="fg-sk" x="192" y="94" width="66" height="6" rx="3" /><rect class="fg-sk" x="192" y="108" width="76" height="6" rx="3" /><rect class="fg-sk" x="192" y="128" width="50" height="6" rx="3" /></svg>
+              <strong>Scrolling capture and OCR</strong>
+              <span>Stitch a long page into one image, or copy text straight off the screen.</span>
+            </a>
+            <a class="docs-feature" href="./agents.html">
+              <svg class="fg" viewBox="0 0 320 168" aria-hidden="true"><rect class="fg-win" x="24" y="16" width="272" height="136" rx="10" /><rect class="fg-bar" x="40" y="30" width="180" height="24" rx="8" /><rect class="fg-sk" x="52" y="39" width="140" height="6" rx="3" /><circle class="fg-ok" cx="50" cy="74" r="8" /><path class="fg-ink" d="m46 74 3 3 5-6" /><rect class="fg-sk" x="66" y="71" width="130" height="6" rx="3" /><circle class="fg-ok" cx="50" cy="98" r="8" /><path class="fg-ink" d="m46 98 3 3 5-6" /><rect class="fg-sk" x="66" y="95" width="150" height="6" rx="3" /><circle class="fg-ok" cx="50" cy="122" r="8" /><path class="fg-ink" d="m46 122 3 3 5-6" /><rect class="fg-sk" x="66" y="119" width="100" height="6" rx="3" /><path class="fg-rec-line" d="M232 112c14-2 28-12 36-28m-13 1 13-2 3 13" /></svg>
+              <strong>Agent Control</strong>
+              <span>Let your own AI agent use Tiny Clips, with the permissions you choose. Off by default.</span>
+            </a>
+          </div>
+
+          <h2 id="new-here">New to Tiny Clips?</h2>
+          <p>Start with <a href="./docs-capture.html">Capture basics</a>. It covers the capture picker, shortcuts, and where your files go. If something isn't working, see <a href="./docs-help.html">Permissions and troubleshooting</a>.</p>
+          <p>Don't have the app yet? <a href="./index.html#download">Download Tiny Clips</a> for free, or <a href="./index.html#try">try it in your browser</a> first.</p>
+        </article>
+      </main>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <div class="footer-brand">
+          <img src="./assets/app-icon-128.png" alt="" width="28" height="28" decoding="async" />
+          <div>
+            <p>© <span id="year">2026</span> Refractored LLC</p>
+            <p class="footer-tool-note">
+              Find more tiny tools like this at
+              <a href="https://www.tinytooltown.com/" target="_blank" rel="noopener noreferrer">Tiny Tool Town</a>.
+            </p>
+          </div>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://apps.microsoft.com/detail/9ndt5p7lcjwg?cid=DevShareMCLPCS" target="_blank" rel="noopener noreferrer">Microsoft Store</a>
+          <a href="https://apps.apple.com/us/app/tiny-clips/id6759208660?mt=12" target="_blank" rel="noopener noreferrer">Mac App Store</a>
+          <a href="https://github.com/jamesmontemagno/tiny-clips" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="./privacy.html">Privacy</a>
+          <a href="./terms.html">Terms</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script src="./script.js" defer></script>
+  </body>
+</html>

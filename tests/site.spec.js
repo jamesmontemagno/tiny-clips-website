@@ -20,8 +20,298 @@ const gotoHome = async (page) => {
   await page.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
 };
 
+test.describe('Agent Control setup page', () => {
+  const body = async (page) => (await page.locator('body').textContent()).replace(/\s+/g, ' ');
+
+  test('states it is off by default and that Tiny Clips is not an AI model', async ({ page }) => {
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Set up Agent Control');
+    const note = page.locator('.doc-note');
+    await expect(note).toContainText('Agent Control is off by default.');
+    await expect(note).toContainText('Tiny Clips provides the tools, not an AI model');
+  });
+
+  test('covers every setup section in order', async ({ page }) => {
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    await expect(page.getByRole('heading', { level: 2 })).toHaveText([
+      'What agents can do',
+      'Requirements',
+      'Turn it on',
+      'Install the plugin',
+      'Pair your agent',
+      'Verify the connection',
+      'Take a first screenshot',
+      'Manual MCP setup',
+      'CLI-only setup',
+      'Prompts to try',
+      'Security model',
+      'Troubleshooting',
+    ]);
+  });
+
+  test('copy buttons copy the displayed command, except the placeholder command', async ({ page }) => {
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    const lines = page.locator('.command-line');
+    const commands = await lines.evaluateAll((items) =>
+      items.map((item) => ({
+        code: item.querySelector('code').textContent,
+        copy: item.querySelector('button')?.dataset.copyCommand ?? null,
+      }))
+    );
+    for (const expected of [
+      'https://github.com/jamesmontemagno/tiny-clips.git',
+      'copilot plugin marketplace add jamesmontemagno/tiny-clips',
+      'copilot plugin install tinyclips@tinyclips',
+      'copilot plugin update tinyclips',
+      'copilot plugin uninstall tinyclips',
+      'dnx TinyClips --yes -- pair --name "My agent"',
+      'dnx TinyClips --yes -- status',
+      'dnx TinyClips --yes -- capture.targets kind=windows',
+      'dotnet tool install -g TinyClips',
+    ]) {
+      expect(commands.map((command) => command.code)).toContain(expected);
+    }
+    for (const { code, copy } of commands) {
+      expect(copy).toBe(code.includes('<') ? null : code);
+    }
+    expect(commands.filter((command) => command.copy === null)).toEqual([
+      { code: 'dnx TinyClips --yes -- capture.screenshot mode=window windowId=<returned-window-id>', copy: null },
+    ]);
+  });
+
+  test('does not offer deprecated direct CLI plugin installs', async ({ page }) => {
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    const text = await body(page);
+    expect(text).not.toContain('copilot plugin install jamesmontemagno/tiny-clips');
+  });
+
+  test('MCP example is valid JSON using the documented command', async ({ page }) => {
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    const config = JSON.parse(await page.locator('#mcp-config').textContent());
+    expect(config.mcpServers.tinyclips).toEqual({
+      command: 'dotnet',
+      args: ['dnx', 'TinyClips', '--verbosity', 'quiet', '--yes', '--', 'mcp'],
+    });
+  });
+
+  test('uses the feature name consistently and does not mention Pro', async ({ page }) => {
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    const text = await body(page);
+    expect(text).not.toMatch(/agent mode/i);
+    expect(text).not.toMatch(/agent control|Agent control/);
+    expect(text).not.toMatch(/\bPro\b|pro_required/);
+  });
+
+  for (const width of [320, 390, 1440]) {
+    test(`does not overflow the page at ${width}px`, async ({ page }) => {
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto('/agents.html', { waitUntil: 'load' });
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+    });
+  }
+});
+
+test.describe('documentation', () => {
+  const DOCS = [
+    ['/docs.html', 'Overview', 'Tiny Clips documentation'],
+    ['/docs-capture.html', 'Capture basics', 'Capture basics'],
+    ['/docs-editor.html', 'Screenshot editor', 'Screenshot editor'],
+    ['/docs-recording.html', 'Video and GIF recording', 'Video and GIF recording'],
+    ['/docs-scrolling-ocr.html', 'Scrolling capture and OCR', 'Scrolling capture and OCR'],
+    ['/docs-library.html', 'Clips Library', 'Clips Library'],
+    ['/docs-studio.html', 'Studio (Preview)', 'Studio (Preview)'],
+    ['/agents.html', 'Agent Control', 'Set up Agent Control'],
+    ['/docs-help.html', 'Permissions and troubleshooting', 'Permissions and troubleshooting'],
+  ];
+  const sidebar = (page) => page.getByRole('navigation', { name: 'Documentation pages' });
+
+  for (const [path, label, title] of DOCS) {
+    test(`${path} lists every docs page and marks itself current`, async ({ page }) => {
+      const errors = watchErrors(page);
+      await page.goto(path, { waitUntil: 'load' });
+      await expect(page.getByRole('heading', { level: 1 })).toHaveText(title);
+      const links = sidebar(page).locator('a');
+      await expect(links).toHaveText(DOCS.map(([, name]) => name));
+      expect(await links.evaluateAll((items) => items.map((a) => `/${a.getAttribute('href').slice(2)}`))).toEqual(
+        DOCS.map(([href]) => href)
+      );
+      await expect(sidebar(page).locator('a[aria-current="page"]')).toHaveText(label);
+      const text = (await page.locator('body').textContent()).replace(/\s+/g, ' ');
+      expect(text).not.toMatch(/agent mode|agent control|Agent control/);
+      expect(errors).toEqual([]);
+    });
+
+    test(`${path} is in the sitemap`, async ({ page }) => {
+      const response = await page.request.get('/sitemap.xml');
+      expect(await response.text()).toContain(`<loc>https://tinyclips.app${path}</loc>`);
+    });
+
+    test(`${path} has labeled illustrations that follow the theme`, async ({ page }) => {
+      await page.setViewportSize({ width: 390, height: 844 });
+      await page.goto(path, { waitUntil: 'load' });
+      const figures = page.locator('.doc-figure');
+      expect(await figures.count()).toBeGreaterThan(0);
+      for (const figure of await figures.all()) {
+        await expect(figure.getByRole('img')).toHaveAccessibleName(/^Illustration/);
+        await expect(figure.locator('figcaption')).toContainText('Illustration');
+        const box = await figure.locator('svg').boundingBox();
+        expect(box.x + box.width).toBeLessThanOrEqual(390);
+        const spilled = await figure.locator('svg').evaluate((svg) => {
+          const edge = svg.getBoundingClientRect();
+          return Array.from(svg.querySelectorAll('text'))
+            .filter((text) => {
+              const label = text.getBoundingClientRect();
+              return label.left < edge.left || label.right > edge.right;
+            })
+            .map((text) => text.textContent);
+        });
+        expect(spilled).toEqual([]);
+      }
+      const surface = () => page.locator('.doc-figure .fg-win').first().evaluate((el) => getComputedStyle(el).fill);
+      const light = await surface();
+      await page.getByRole('button', { name: 'Dark mode', exact: true }).click();
+      expect(await surface()).not.toBe(light);
+    });
+
+    if (path !== '/docs.html') {
+      test(`${path} section list matches its headings`, async ({ page }) => {
+        await page.setViewportSize({ width: 1440, height: 900 });
+        await page.goto(path, { waitUntil: 'load' });
+        const sections = await page.locator('article h2').evaluateAll((items) =>
+          items.map((heading) => [`#${heading.id}`, heading.textContent.trim()])
+        );
+        const toc = await page
+          .getByRole('navigation', { name: 'On this page' })
+          .locator('a')
+          .evaluateAll((items) => items.map((a) => [a.getAttribute('href'), a.textContent.trim()]));
+        expect(toc).toEqual(sections);
+      });
+    }
+
+    for (const width of [320, 390, 1024, 1440]) {
+      test(`${path} does not overflow at ${width}px`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 900 });
+        await page.goto(path, { waitUntil: 'load' });
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+      });
+    }
+  }
+
+  test('home leads with top features that link to their docs', async ({ page }) => {
+    await page.goto('/docs.html', { waitUntil: 'load' });
+    await expect(page.getByRole('heading', { level: 2, name: 'Top features' })).toBeVisible();
+    const hrefs = await page.locator('.docs-feature').evaluateAll((items) => items.map((a) => a.getAttribute('href')));
+    expect(hrefs).toHaveLength(6);
+    expect(hrefs).toContain('./agents.html');
+    await expect(page.getByRole('navigation', { name: 'On this page' })).toHaveCount(0);
+  });
+
+  test('both side navs stay in view and track the section while scrolling', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    await page.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
+    const toc = page.getByRole('navigation', { name: 'On this page' });
+    const current = toc.locator('a[aria-current="location"]');
+    await expect(current).toHaveText('What agents can do');
+
+    const article = await page.locator('article').boundingBox();
+    const tocBox = await toc.boundingBox();
+    const sideBox = await sidebar(page).boundingBox();
+    expect(tocBox.x).toBeGreaterThanOrEqual(article.x + article.width);
+    expect(sideBox.x + sideBox.width).toBeLessThanOrEqual(article.x);
+
+    await page.locator('#security').evaluate((heading) => heading.scrollIntoView());
+    await expect(current).toHaveText('Security model');
+    for (const nav of [toc, sidebar(page)]) {
+      const box = await nav.boundingBox();
+      expect(box.y).toBeGreaterThanOrEqual(0);
+      expect(box.y).toBeLessThan(200);
+    }
+    await expect(toc.locator('a[href="#security"]')).toBeInViewport();
+
+    await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
+    await expect(current).toHaveText('Troubleshooting');
+  });
+
+  test('clicking a section link jumps to it below the sticky header', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto('/docs-studio.html', { waitUntil: 'load' });
+    await page.addStyleTag({ content: 'html{scroll-behavior:auto!important}' });
+    await page.getByRole('navigation', { name: 'On this page' }).getByRole('link', { name: 'Captions' }).click();
+    await expect(page).toHaveURL(/#captions$/);
+    const header = await page.locator('.site-header').boundingBox();
+    const heading = await page.locator('#captions').boundingBox();
+    expect(heading.y).toBeGreaterThanOrEqual(header.y + header.height);
+    await expect(
+      page.getByRole('navigation', { name: 'On this page' }).locator('a[aria-current="location"]')
+    ).toHaveText('Captions');
+  });
+
+  test('navs collapse into menus on small screens and close after choosing a section', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    const pages = sidebar(page);
+    await expect(pages.getByRole('link', { name: 'Clips Library' })).toBeHidden();
+    await pages.getByText('Documentation pages').click();
+    await expect(pages.getByRole('link', { name: 'Clips Library' })).toBeVisible();
+
+    const toc = page.locator('[data-docs-toc]');
+    await expect(toc.getByRole('link', { name: 'Security model' })).toBeHidden();
+    await toc.locator('summary').click();
+    await toc.getByRole('link', { name: 'Security model' }).click();
+    await expect(page).toHaveURL(/#security$/);
+    await expect(toc.getByRole('link', { name: 'Security model' })).toBeHidden();
+  });
+
+  test('both navs are usable without JavaScript', async ({ browser }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 390, height: 844 } });
+    const page = await context.newPage();
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    await expect(sidebar(page).getByRole('link', { name: 'Clips Library' })).toBeVisible();
+    await expect(page.locator('[data-docs-toc]').getByRole('link', { name: 'Security model' })).toBeVisible();
+    await context.close();
+  });
+
+  test('skip link goes past the page list to the content', async ({ page }) => {
+    await page.goto('/docs-editor.html', { waitUntil: 'load' });
+    await page.keyboard.press('Tab');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('main')).toBeFocused();
+    await expect(page.locator('main')).not.toContainText('Documentation pages');
+  });
+});
+
 test.describe('pages', () => {
-  for (const path of ['/index.html', '/privacy.html', '/terms.html', '/404.html']) {
+  test('sitemap lists the Agent Control page', async ({ page }) => {
+    const response = await page.request.get('/sitemap.xml');
+    expect(await response.text()).toContain('<loc>https://tinyclips.app/agents.html</loc>');
+  });
+
+  test('homepage uses the Agent Control name', async ({ page }) => {
+    await gotoHome(page);
+    const text = (await page.locator('body').textContent()).replace(/\s+/g, ' ');
+    expect(text).not.toMatch(/agent mode/i);
+    expect(text).not.toMatch(/agent control|Agent control/);
+  });
+
+  for (const path of ['/index.html', '/agents.html', '/privacy.html', '/terms.html']) {
+    test(`${path} nav lists Documentation before FAQ and omits Highlights`, async ({ page }) => {
+      await page.goto(path, { waitUntil: 'load' });
+      await expect(page.locator('.nav-links a')).toHaveText(['Try it', 'Features', 'Screens', 'Documentation', 'FAQ']);
+      await expect(page.locator('.nav-links a', { hasText: 'Documentation' })).toHaveAttribute('href', './docs.html');
+    });
+  }
+
+  test('Documentation is marked current only on docs pages', async ({ page }) => {
+    await page.goto('/docs.html', { waitUntil: 'load' });
+    await expect(page.locator('.nav-links a[aria-current="page"]')).toHaveText('Documentation');
+    await page.goto('/agents.html', { waitUntil: 'load' });
+    await expect(page.locator('.nav-links a[aria-current="true"]')).toHaveText('Documentation');
+    await page.goto('/index.html', { waitUntil: 'load' });
+    await expect(page.locator('.nav-links a[aria-current]')).toHaveCount(0);
+  });
+
+  for (const path of ['/index.html', '/agents.html', '/privacy.html', '/terms.html', '/404.html']) {
     test(`${path} loads without errors`, async ({ page }) => {
       const errors = watchErrors(page);
       const response = await page.goto(path, { waitUntil: 'load' });
@@ -84,7 +374,7 @@ test.describe('pages', () => {
         await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
         await expect(hero).toHaveCSS('background-color', theme === 'dark' ? 'rgb(8, 13, 25)' : 'rgb(243, 246, 252)');
         await expect(page.getByRole('heading', { name: 'From quick capture to clear demo.' })).toBeVisible();
-        await expect(hero.locator('.studio-preview-pill')).toContainText('Tiny Clips 2.0');
+        await expect(hero.locator('.studio-preview-pill')).toHaveText(/^\s*Tiny Clips 2\.1 · Agent Control · Studio Preview\s*$/);
         await expect(hero.locator('.hero-capture-types')).toContainText('Screenshots');
         await expect(hero.locator('.hero-capture-types')).toContainText('Recordings');
         await expect(hero.locator('.hero-capture-types')).toContainText('GIFs');
@@ -110,9 +400,8 @@ test.describe('pages', () => {
         await studioTab.click();
         await expect(studioTab).toHaveAttribute('aria-selected', 'true');
         await expect(editor).toBeHidden();
-        await expect(hero).toContainText('on by default in 2.0 preview builds unless previously disabled');
+        await expect(hero).toContainText('on by default in Tiny Clips 2.1 unless previously disabled');
         await expect(hero).toContainText('Saved opt-outs stay off');
-        await expect(hero).toContainText('Welcome Back screen appears once');
         await expect(hero).toContainText('Video remains a standard recording');
 
         const showcase = page.getByRole('img', { name: /Illustrative Tiny Clips Studio preview interface/ });
@@ -131,6 +420,56 @@ test.describe('pages', () => {
           'Project',
         ]);
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+
+        const agentTab = tabs.getByRole('tab', { name: 'Agent Control' });
+        await agentTab.click();
+        await expect(agentTab).toHaveAttribute('aria-selected', 'true');
+        await expect(showcase).toBeHidden();
+        const agent = page.getByRole('img', { name: /Illustrative AI agent working through Tiny Clips Agent Control/ });
+        await expect(agent).toBeVisible();
+        await expect(agent).toContainText('not an app screenshot');
+        await expect(agent.locator('.agent-steps li')).toHaveCount(3);
+        await expect(agent.locator('.agent-scope')).toHaveText(['capture', 'capture', 'edit']);
+        await expect(hero).toContainText('off by default');
+        await expect(hero).toContainText('Tiny Clips provides the tools, not an AI model');
+        await expect(hero.getByRole('link', { name: 'Set up Agent Control' })).toHaveAttribute('href', './agents.html');
+        expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
+        const tabBar = await tabs.boundingBox();
+        expect(tabBar.x).toBeGreaterThanOrEqual(0);
+        expect(tabBar.x + tabBar.width).toBeLessThanOrEqual(width);
+        const layoutProblems = await hero.evaluate((root) => {
+          const rect = (el) => el.getBoundingClientRect();
+          const problems = [];
+          const tabEls = Array.from(root.querySelectorAll('.showcase-tab'));
+          tabEls.forEach((tab, index) => {
+            const box = rect(tab);
+            if (box.height < 44) problems.push(`tab ${index} is under 44px`);
+            const range = document.createRange();
+            range.selectNodeContents(tab);
+            const content = range.getBoundingClientRect();
+            if (content.left < box.left - 0.5 || content.right > box.right + 0.5) {
+              problems.push(`tab ${index} content overflows`);
+            }
+            if (index && box.left < rect(tabEls[index - 1]).right - 0.5 && box.top < rect(tabEls[index - 1]).bottom - 0.5) {
+              problems.push(`tab ${index} overlaps the previous tab`);
+            }
+          });
+          const edge = document.documentElement.clientWidth;
+          for (const selector of ['.studio-preview-pill', '.agent-window', '.agent-permissions-card', '.agent-steps li']) {
+            for (const el of root.querySelectorAll(selector)) {
+              if (rect(el).left < 0 || rect(el).right > edge) problems.push(`${selector} leaves the viewport`);
+            }
+          }
+          for (const li of root.querySelectorAll('.agent-steps li')) {
+            for (const child of li.children) {
+              if (rect(child).right > rect(li).right + 0.5) problems.push('agent step content overflows its row');
+            }
+          }
+          const windowEl = root.querySelector('.agent-window');
+          if (windowEl.scrollWidth > windowEl.clientWidth) problems.push('agent window content is clipped');
+          return problems;
+        });
+        expect(layoutProblems).toEqual([]);
 
         const benefits = page.locator('.studio-benefits');
         await expect(benefits.getByRole('heading', { name: /Fast when you capture/ })).toBeVisible();
@@ -206,6 +545,8 @@ test.describe('pages', () => {
     const studioTab = page.getByRole('tab', { name: /^Studio/ });
     const editorPanel = page.getByRole('tabpanel', { name: 'Screenshot editor' });
     const studioPanel = page.locator('#showcase-studio');
+    const agentTab = page.getByRole('tab', { name: 'Agent Control' });
+    const agentPanel = page.locator('#showcase-agent');
 
     await editorTab.focus();
     await page.keyboard.press('ArrowRight');
@@ -217,10 +558,19 @@ test.describe('pages', () => {
     await expect(editorPanel).toBeHidden();
 
     await page.keyboard.press('ArrowRight');
+    await expect(agentTab).toBeFocused();
+    await expect(agentPanel).toBeVisible();
+    await expect(studioPanel).toBeHidden();
+
+    await page.keyboard.press('ArrowRight');
     await expect(editorTab).toBeFocused();
     await expect(editorPanel).toBeVisible();
+    await page.keyboard.press('ArrowLeft');
+    await expect(agentTab).toBeFocused();
+    await page.keyboard.press('Home');
+    await expect(editorTab).toBeFocused();
     await page.keyboard.press('End');
-    await expect(studioTab).toBeFocused();
+    await expect(agentTab).toBeFocused();
     await page.keyboard.press('Home');
     await expect(editorTab).toBeFocused();
     await expect(editorTab).toHaveAttribute('aria-selected', 'true');
@@ -228,7 +578,7 @@ test.describe('pages', () => {
     await expect(editorPanel).toBeFocused();
   });
 
-  test('hero download and both previews work without JavaScript', async ({ browser }) => {
+  test('hero download and all previews work without JavaScript', async ({ browser }) => {
     const context = await browser.newContext({ javaScriptEnabled: false });
     const page = await context.newPage();
     await page.goto('/index.html', { waitUntil: 'load' });
@@ -242,12 +592,13 @@ test.describe('pages', () => {
     await expect(hero.getByRole('tabpanel')).toHaveCount(0);
     await expect(page.getByRole('img', { name: /Illustrative Tiny Clips screenshot editor/ })).toBeVisible();
     await expect(page.getByRole('img', { name: /Illustrative Tiny Clips Studio preview interface/ })).toBeVisible();
+    await expect(page.getByRole('img', { name: /Illustrative AI agent working through Tiny Clips Agent Control/ })).toBeVisible();
     await context.close();
   });
 
   test('highlights show core workflows with labeled mockups', async ({ page }) => {
     await gotoHome(page);
-    await expect(page.locator('#primary-nav a').first()).toHaveText('Highlights');
+    await expect(page.locator('#primary-nav a').first()).toHaveText('Try it');
     await expect(page.locator('#compare')).toHaveCount(0);
 
     const highlights = page.locator('#highlights');
@@ -285,6 +636,21 @@ test.describe('pages', () => {
     );
   });
 
+  test('homepage shortcut, format, and screenshot claims match current app behavior', async ({ page }) => {
+    await gotoHome(page);
+    const shortcuts = page.locator('.shortcuts-table');
+    await expect(shortcuts).not.toContainText('⌃⌥⌘1');
+    await expect(shortcuts).not.toContainText('⌃⌥⌘2');
+    await expect(shortcuts).not.toContainText('Ctrl+Shift+T');
+    await expect(shortcuts).toContainText('Optional, set in Settings');
+    await expect(shortcuts).toContainText('R S W P');
+
+    await expect(page.locator('#faq')).toContainText('PNG, JPEG, or WebP');
+    await expect(page.locator('#faq')).toContainText('Mac app for every build');
+    await expect(page.locator('main')).not.toContainText('Clips Manager');
+    await expect(page.locator('main')).not.toContainText('Pro · Monthly');
+  });
+
   for (const width of [390, 1440]) {
     test(`Studio preview content and keyboard access at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
@@ -297,7 +663,6 @@ test.describe('pages', () => {
       await expect(studio).toContainText('Trim and export an MP4');
       await expect(studio).toContainText('on by default unless you previously turned it off');
       await expect(studio).toContainText('Your saved opt-out stays off');
-      await expect(studio).toContainText('Welcome Back screen appears once');
 
       await studio.getByRole('link', { name: 'How to try the preview' }).click();
       const summary = page.locator('#studio-preview');
@@ -305,22 +670,17 @@ test.describe('pages', () => {
       await page.keyboard.press('Enter');
       const answer = summary.locator('..').locator('.faq-body');
       await expect(answer).toBeVisible();
-      await expect(answer).toContainText('not part of the current store releases');
+      await expect(answer).toContainText('included in Tiny Clips 2.1');
       await expect(answer).toContainText('Settings → Studio');
       await expect(answer).toContainText('on by default unless you previously turned it off');
-      await expect(answer).toContainText('Welcome Back screen appears once');
       await expect(answer).toContainText('saved opt-outs stay off');
       await expect(answer).toContainText('existing Video command still uses the regular recording workflow');
       await expect(answer).toContainText('On macOS, choose Studio Recording…');
       await expect(answer).toContainText('On Windows, choose the Studio tile');
-      await expect(answer.getByRole('link', { name: 'main branch' })).toHaveAttribute(
-        'href',
-        'https://github.com/jamesmontemagno/tiny-clips/tree/main'
-      );
-      await expect(answer.getByRole('link', { name: 'Studio preview notes' })).toHaveAttribute(
-        'href',
-        'https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md'
-      );
+      await expect(answer).not.toContainText('main branch');
+      for (const stale of ['not part of the current store releases', 'Welcome Back', 'preview builds']) {
+        await expect(page.locator('main')).not.toContainText(stale);
+      }
 
       const graph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent())['@graph'];
       const faq = graph.find((node) => node['@type'] === 'FAQPage').mainEntity;
