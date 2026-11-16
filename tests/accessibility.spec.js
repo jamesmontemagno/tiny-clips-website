@@ -49,8 +49,11 @@ for (const theme of ['light', 'dark']) {
         });
       }
 
-      test('Agent Control hero tab remains accessible', async ({ page }) => {
+      test('Studio and Agent Control hero tabs remain accessible', async ({ page }) => {
         await page.goto('/');
+        await page.getByRole('tab', { name: /^Studio/ }).click();
+        await expect(page.locator('#showcase-studio')).toBeVisible();
+        await audit(page);
         await page.getByRole('tab', { name: 'Agent Control' }).click();
         await expect(page.locator('#showcase-agent')).toBeVisible();
         await audit(page);

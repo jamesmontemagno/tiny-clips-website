@@ -75,6 +75,10 @@ On small screens the interactive desktop scrolls sideways at native size so cont
 remain readable and touch-sized. Reduced motion stops hero autoplay; the video's
 manual controls remain available. See `DESIGN.md` for palette and accessibility rules.
 
+The hero's Studio tab is a noninteractive illustration: the Annotate tool, canvas arrow,
+highlight, and emoji correspond to timed blocks in an Annotations lane alongside Screen
+and Camera. Its accessible description includes the illustrated annotation timing.
+
 ## Keeping the site in sync with the app
 
 When a new Tiny Clips release ships, check:

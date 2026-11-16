@@ -511,7 +511,7 @@
                   </div>
                   <div class="studio-workspace">
                     <div class="studio-tool-rail">
-                      <div class="studio-tool is-current">
+                      <div class="studio-tool">
                         <svg viewBox="0 0 24 24">
                           <path d="M12 3v18M3 12h18M5.6 5.6l12.8 12.8M18.4 5.6 5.6 18.4" />
                         </svg>
@@ -527,6 +527,10 @@
                       <div class="studio-tool">
                         <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="m15.5 15.5 5 5M10.5 7v7m-3.5-3.5h7" /></svg>
                         <span>Zoom</span>
+                      </div>
+                      <div class="studio-tool is-current">
+                        <svg viewBox="0 0 24 24"><path d="m5 15 11-11 4 4L9 19l-6 2 2-6Zm8-8 4 4M5 15l4 4" /></svg>
+                        <span>Annotate</span>
                       </div>
                       <div class="studio-tool">
                         <svg viewBox="0 0 24 24"><path d="M4 5v14m16-14v14M4 12h16M8 9l-3 3 3 3m8-6 3 3-3 3" /></svg>
@@ -546,8 +550,12 @@
                         <div class="studio-browser">
                           <div class="studio-browser-bar"><i></i><i></i><i></i><span>your clear demo</span></div>
                           <div class="studio-browser-content">
-                            <div class="studio-browser-copy"><i></i><i></i><i></i><b></b><i></i></div>
+                            <div class="studio-browser-copy"><i></i><i></i><i></i><b>Try it</b><i></i></div>
                             <div class="studio-browser-art"><span></span><i></i></div>
+                            <svg class="studio-canvas-arrow" viewBox="0 0 300 150" preserveAspectRatio="none" focusable="false">
+                              <path d="M213 33C166 17 106 38 86 83M84 67l2 16 15-7" />
+                            </svg>
+                            <span class="studio-canvas-emoji">👀</span>
                           </div>
                         </div>
                         <div class="studio-camera-bubble">
@@ -573,6 +581,16 @@
                       <span class="studio-track-label">Camera</span>
                       <span class="studio-track-clips"><i></i><i></i><i></i><i></i><b></b></span>
                     </div>
+                    <div class="studio-track studio-annotations-track">
+                      <span class="studio-track-label">Annotations</span>
+                      <span class="studio-annotation-clips">
+                        <span class="studio-annotation-clip is-current">
+                          <svg viewBox="0 0 24 24" focusable="false"><path d="M4 19C6 10 11 6 19 6M13 3l6 3-3 6" /></svg>
+                          <span>👀</span><span class="studio-annotation-name">Arrow + emoji</span>
+                        </span>
+                        <span class="studio-annotation-clip">Callout</span>
+                      </span>
+                    </div>
                     <span class="studio-playhead"></span>
                   </div>
                 </div>
@@ -584,9 +602,11 @@
                   <span class="studio-export-check">✓</span>
                 </div>
                 <figcaption class="visually-hidden" id="studio-showcase-description">
-                  Illustrative Tiny Clips Studio preview interface with background, screen, zoom, cut, speed, and
-                  project controls; a preview canvas; separate screen and camera timeline tracks; and an MP4 export
-                  card. The Studio interface is a visual mockup, not an app screenshot.
+                  Illustrative Tiny Clips Studio preview interface with background, screen, zoom, annotate, cut, speed,
+                  and project tools. A curved arrow points to a highlighted Try it button beside an eyes emoji on the
+                  demo canvas. Separate Screen, Camera, and Annotations timeline lanes show timed clips: an arrow and
+                  emoji from 00:01 to 00:07, then a callout from 00:08 to 00:12. The playhead is at 00:04, with an MP4
+                  export card below. The Studio interface is a noninteractive visual mockup, not an app screenshot.
                 </figcaption>
               </figure>
               <p class="showcase-caption hero-preview-note">

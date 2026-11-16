@@ -415,10 +415,42 @@ test.describe('pages', () => {
           'Background',
           'Screen',
           'Zoom',
+          'Annotate',
           'Cut',
           'Speed',
           'Project',
         ]);
+        await expect(showcase.locator('.studio-tool.is-current')).toHaveText('Annotate');
+        await expect(showcase.locator('.studio-window-preview')).toHaveText('Preview');
+        await expect(showcase.locator('.studio-canvas-arrow')).toBeVisible();
+        await expect(showcase.locator('.studio-canvas-emoji')).toHaveText('👀');
+        await expect(showcase.locator('.studio-track-label')).toHaveText(['Screen', 'Camera', 'Annotations']);
+        await expect(showcase.locator('.studio-annotation-clip')).toHaveCount(2);
+        await expect(showcase).toHaveAccessibleName(/curved arrow.*highlighted Try it button.*eyes emoji/);
+        await expect(showcase).toHaveAccessibleName(/00:01 to 00:07.*00:08 to 00:12/);
+        await expect(showcase.locator('button, a, input, [tabindex]')).toHaveCount(0);
+        const annotationLayout = await showcase.evaluate((root) => {
+          const box = (selector) => root.querySelector(selector).getBoundingClientRect();
+          const lane = box('.studio-annotations-track');
+          const playhead = box('.studio-playhead');
+          const activeClip = box('.studio-annotation-clip.is-current');
+          const exportCard = box('.studio-export-card');
+          const labelsFit = Array.from(root.querySelectorAll('.studio-track-label, .studio-annotation-clip')).every(
+            (el) => el.scrollWidth <= el.clientWidth
+          );
+          return {
+            labelsFit,
+            playheadWithinActiveClip: playhead.left >= activeClip.left && playhead.right <= activeClip.right,
+            playheadSpansLane: playhead.top < lane.top && playhead.bottom > lane.bottom,
+            exportBelowLane: exportCard.top >= lane.bottom,
+          };
+        });
+        expect(annotationLayout).toEqual({
+          labelsFit: true,
+          playheadWithinActiveClip: true,
+          playheadSpansLane: true,
+          exportBelowLane: true,
+        });
         expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(width);
 
         const agentTab = tabs.getByRole('tab', { name: 'Agent Control' });
@@ -700,6 +732,7 @@ test.describe('pages', () => {
       'Background',
       'Screen',
       'Zoom',
+      'Annotate',
       'Cut',
       'Speed',
       'Project',
