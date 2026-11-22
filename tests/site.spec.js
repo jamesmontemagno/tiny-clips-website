@@ -119,7 +119,7 @@ test.describe('documentation', () => {
     ['/docs-recording.html', 'Video and GIF recording', 'Video and GIF recording'],
     ['/docs-scrolling-ocr.html', 'Scrolling capture and OCR', 'Scrolling capture and OCR'],
     ['/docs-library.html', 'Clips Library', 'Clips Library'],
-    ['/docs-studio.html', 'Studio (Preview)', 'Studio (Preview)'],
+    ['/docs-studio.html', 'Studio', 'Studio'],
     ['/agents.html', 'Agent Control', 'Set up Agent Control'],
     ['/docs-help.html', 'Permissions and troubleshooting', 'Permissions and troubleshooting'],
   ];
@@ -374,7 +374,7 @@ test.describe('pages', () => {
         await expect(page.locator('html')).toHaveAttribute('data-theme', theme);
         await expect(hero).toHaveCSS('background-color', theme === 'dark' ? 'rgb(8, 13, 25)' : 'rgb(243, 246, 252)');
         await expect(page.getByRole('heading', { name: 'From quick capture to clear demo.' })).toBeVisible();
-        await expect(hero.locator('.studio-preview-pill')).toHaveText(/^\s*Tiny Clips 2\.1 · Agent Control · Studio Preview\s*$/);
+        await expect(hero.locator('.studio-version-pill')).toHaveText(/^\s*Tiny Clips 2\.3\.0 · Agent Control · Studio\s*$/);
         await expect(hero.locator('.hero-capture-types')).toContainText('Screenshots');
         await expect(hero.locator('.hero-capture-types')).toContainText('Recordings');
         await expect(hero.locator('.hero-capture-types')).toContainText('GIFs');
@@ -400,7 +400,7 @@ test.describe('pages', () => {
         await studioTab.click();
         await expect(studioTab).toHaveAttribute('aria-selected', 'true');
         await expect(editor).toBeHidden();
-        await expect(hero).toContainText('on by default in Tiny Clips 2.1 unless previously disabled');
+        await expect(hero).toContainText('included in Tiny Clips 2.3.0 and is on by default unless previously disabled');
         await expect(hero).toContainText('Saved opt-outs stay off');
         await expect(hero).toContainText('Video remains a standard recording');
 
@@ -421,7 +421,6 @@ test.describe('pages', () => {
           'Project',
         ]);
         await expect(showcase.locator('.studio-tool.is-current')).toHaveText('Annotate');
-        await expect(showcase.locator('.studio-window-preview')).toHaveText('Preview');
         await expect(showcase.locator('.studio-canvas-arrow')).toBeVisible();
         await expect(showcase.locator('.studio-canvas-emoji')).toHaveText('👀');
         await expect(showcase.locator('.studio-track-label')).toHaveText(['Screen', 'Camera', 'Annotations']);
@@ -487,7 +486,7 @@ test.describe('pages', () => {
             }
           });
           const edge = document.documentElement.clientWidth;
-          for (const selector of ['.studio-preview-pill', '.agent-window', '.agent-permissions-card', '.agent-steps li']) {
+          for (const selector of ['.studio-version-pill', '.agent-window', '.agent-permissions-card', '.agent-steps li']) {
             for (const el of root.querySelectorAll(selector)) {
               if (rect(el).left < 0 || rect(el).right > edge) problems.push(`${selector} leaves the viewport`);
             }
@@ -684,10 +683,10 @@ test.describe('pages', () => {
   });
 
   for (const width of [390, 1440]) {
-    test(`Studio preview content and keyboard access at ${width}px`, async ({ page }) => {
+    test(`Studio feature content and keyboard access at ${width}px`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       await gotoHome(page);
-      const studio = page.getByRole('article', { name: 'Tiny Clips Studio (Preview)', exact: true });
+      const studio = page.getByRole('article', { name: 'Tiny Clips Studio', exact: true });
       await expect(studio.getByRole('heading', { level: 3 })).toBeVisible();
       await expect(studio).toContainText('separate editable layers');
       await expect(studio).toContainText("camera's position, size, and shape");
@@ -696,13 +695,13 @@ test.describe('pages', () => {
       await expect(studio).toContainText('on by default unless you previously turned it off');
       await expect(studio).toContainText('Your saved opt-out stays off');
 
-      await studio.getByRole('link', { name: 'How to try the preview' }).click();
-      const summary = page.locator('#studio-preview');
+      await studio.getByRole('link', { name: 'How to use Studio' }).click();
+      const summary = page.locator('#studio-guide');
       await expect(summary).toBeFocused();
       await page.keyboard.press('Enter');
       const answer = summary.locator('..').locator('.faq-body');
       await expect(answer).toBeVisible();
-      await expect(answer).toContainText('included in Tiny Clips 2.1');
+      await expect(answer).toContainText('included in Tiny Clips 2.3.0');
       await expect(answer).toContainText('Settings → Studio');
       await expect(answer).toContainText('on by default unless you previously turned it off');
       await expect(answer).toContainText('saved opt-outs stay off');
@@ -716,7 +715,7 @@ test.describe('pages', () => {
 
       const graph = JSON.parse(await page.locator('script[type="application/ld+json"]').textContent())['@graph'];
       const faq = graph.find((node) => node['@type'] === 'FAQPage').mainEntity;
-      const studioFaq = faq.find((item) => item.name === 'How do I try Tiny Clips Studio?');
+      const studioFaq = faq.find((item) => item.name === 'How do I use Tiny Clips Studio?');
       expect((await answer.textContent()).replace(/\s+/g, ' ').trim()).toBe(studioFaq.acceptedAnswer.text);
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBeTruthy();
       await page.keyboard.press('Enter');
@@ -786,9 +785,9 @@ test.describe('pages', () => {
       await link.click();
       await dialog.getByText('Read the video summary', { exact: true }).click();
       await expect(dialog.getByText(/A quick trimmer becomes Studio/)).toBeVisible();
-      await expect(dialog.getByRole('link', { name: 'Studio preview notes' })).toHaveAttribute(
+      await expect(dialog.getByRole('link', { name: 'Studio guide' })).toHaveAttribute(
         'href',
-        'https://github.com/jamesmontemagno/tiny-clips/blob/main/plans/video-studio-plan.md'
+        './docs-studio.html'
       );
       await expect(page.locator('body')).toHaveClass(/is-studio-open/);
       const bounds = await dialog.boundingBox();
